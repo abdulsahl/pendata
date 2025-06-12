@@ -1,0 +1,1084 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Decision Tree &#8212; Penambangan Data</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'DecissionTree';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Diskritisasi" href="Diskritisasi.html" />
+    <link rel="prev" title="K-Mean Clustering" href="K_means.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Penambangan Data - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="Penambangan Data - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    INTRODUCTION
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Data.html">Apa itu Data Mining?</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="CRISP-DM.html">Metodologi CRISP-DM</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Data_understanding.html"><strong>Data Understanding</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="Deteksi%20Outlier.html"><strong>Deteksi outlier pada data iris</strong></a></li>
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="naive_bayes.html"><strong>Naive Bayes</strong></a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="crisshosis.html"><strong>Cirrhosis</strong></a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="K_means.html"><strong>K-Mean Clustering</strong></a></li>
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Decision Tree</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Diskritisasi.html"><strong>Diskritisasi</strong></a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/abdulsahl/pendata/blob/main/_sources/DecissionTree.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/abdulsahl/pendata" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/abdulsahl/pendata/issues/new?title=Issue%20on%20page%20%2FDecissionTree.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/DecissionTree.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Decision Tree</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cara-kerja-decision-tree">1. <strong>Cara Kerja Decision Tree</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-perhitungan-manual">2. <strong>Contoh Perhitungan Manual</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1-hitung-entropy-total"><strong>Langkah 1: Hitung Entropy Total</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-uji-threshold-dan-hitung-information-gain-untuk-fitur-kecepatan"><strong>Langkah 2: Uji Threshold dan Hitung Information Gain untuk Fitur ‘Kecepatan’</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-untuk-threshold-kecepatan-7-5">**Perhitungan untuk Threshold: <strong>Kecepatan ≤ 7.5</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-uji-threshold-dan-hitung-information-gain-untuk-fitur-waktu"><strong>Langkah 3: Uji Threshold dan Hitung Information Gain untuk Fitur ‘Waktu’</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-perhitungan-threshold-waktu-33-5">Contoh Perhitungan Threshold: <strong>Waktu ≤ 33.5</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-untuk-threshold-lain-di-waktu">Perhitungan untuk Threshold Lain di ‘Waktu’</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-4-bangun-pohon-keputusan"><strong>Langkah 4: Bangun Pohon Keputusan</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-akar-waktu-29">Node Akar: Waktu ≤ 29?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#split-di-node-true-waktu-33-5-menggunakan-kecepatan">Split di Node True (Waktu ≤ 33.5) menggunakan Kecepatan</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perbandingan-dengan-library-scikit-learn">3. <strong>Perbandingan dengan Library Scikit-learn</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perbandingan-hasil"><strong>Perbandingan Hasil</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pengujian-dengan-data-baru">4. <strong>Pengujian dengan Data Baru</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pengujian-manual-menggunakan-rules"><strong>Pengujian Manual (Menggunakan Rules)</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pengujian-dengan-model-scikit-learn"><strong>Pengujian dengan Model Scikit-learn</strong></a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="decision-tree">
+<h1><strong>Decision Tree</strong><a class="headerlink" href="#decision-tree" title="Link to this heading">#</a></h1>
+<p><strong>Decision Tree</strong> atau <strong>Pohon Keputusan</strong> adalah salah satu algoritma <em>supervised learning</em> yang paling populer dalam machine learning. Algoritma ini bekerja dengan cara membangun model prediksi dalam bentuk struktur pohon. Setiap simpul (node) pada pohon merepresentasikan sebuah “tes” pada suatu atribut (fitur), setiap cabang merepresentasikan hasil dari tes tersebut, dan setiap daun (leaf node) merepresentasikan label kelas atau nilai target.</p>
+<p><strong>Tujuan utama</strong> dari Decision Tree adalah untuk membuat serangkaian aturan keputusan (rules) yang dapat digunakan untuk memprediksi kelas atau nilai dari data baru. Karena strukturnya yang mirip diagram alir, model ini sangat mudah diinterpretasikan dan dipahami oleh manusia.</p>
+<hr class="docutils" />
+<section id="cara-kerja-decision-tree">
+<h2>1. <strong>Cara Kerja Decision Tree</strong><a class="headerlink" href="#cara-kerja-decision-tree" title="Link to this heading">#</a></h2>
+<p>Decision Tree bekerja dengan cara mempartisi atau membagi dataset secara rekursif menjadi subset-subset yang lebih kecil dan lebih homogen berdasarkan fitur-fitur yang ada. Proses pembagian ini dilakukan dengan memilih fitur dan <em>threshold</em> (nilai ambang) terbaik yang dapat memisahkan data ke dalam kelas-kelas seakurat mungkin.</p>
+<p>Kualitas pemisahan diukur menggunakan metrik seperti <strong>Entropy</strong> dan <strong>Information Gain</strong>.</p>
+<ul class="simple">
+<li><p><strong>Entropy</strong>: Mengukur tingkat ketidakpastian atau “keacakan” dalam sebuah set data. Nilai entropy adalah 0 jika semua data dalam satu set termasuk dalam kelas yang sama (murni), dan bernilai maksimum jika data terdistribusi secara merata di semua kelas.
+Formula Entropy:
+$<span class="math notranslate nohighlight">\(E(S) = \sum_{i=1}^{c} -p_i \log_2(p_i)\)</span><span class="math notranslate nohighlight">\(
+di mana \)</span>p_i$ adalah probabilitas dari kelas ke-i.</p></li>
+<li><p><strong>Information Gain</strong>: Mengukur seberapa besar penurunan entropy yang terjadi setelah data dibagi berdasarkan suatu fitur. Fitur dengan Information Gain tertinggi akan dipilih sebagai pemecah (splitter) pada node tersebut.
+Formula Information Gain:
+$<span class="math notranslate nohighlight">\(IG(S, A) = E(S) - \sum_{v \in Values(A)} \frac{|S_v|}{|S|} E(S_v)\)</span><span class="math notranslate nohighlight">\(
+di mana \)</span>E(S)$ adalah entropy total, dan bagian kedua adalah bobot entropy dari setiap subset setelah pemisahan.</p></li>
+</ul>
+<p>Proses ini terus berlanjut hingga kondisi berhenti tercapai, misalnya:</p>
+<ul class="simple">
+<li><p>Semua data pada sebuah node sudah termasuk dalam kelas yang sama.</p></li>
+<li><p>Tidak ada fitur lagi yang bisa digunakan untuk membagi data.</p></li>
+<li><p>Kedalaman maksimum pohon telah tercapai.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="contoh-perhitungan-manual">
+<h2>2. <strong>Contoh Perhitungan Manual</strong><a class="headerlink" href="#contoh-perhitungan-manual" title="Link to this heading">#</a></h2>
+<p><strong>Dataset</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>ID</p></th>
+<th class="head"><p>Kecepatan (km/j)</p></th>
+<th class="head"><p>Waktu (menit)</p></th>
+<th class="head"><p>Kelas</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>3</p></td>
+<td><p>40</p></td>
+<td><p>jalan</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>4</p></td>
+<td><p>45</p></td>
+<td><p>jalan</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>5</p></td>
+<td><p>35</p></td>
+<td><p>jalan</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>6</p></td>
+<td><p>30</p></td>
+<td><p>jogging</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>7</p></td>
+<td><p>25</p></td>
+<td><p>jogging</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>6</p></td>
+<td><p>28</p></td>
+<td><p>jogging</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>8</p></td>
+<td><p>20</p></td>
+<td><p>sprint</p></td>
+</tr>
+<tr class="row-odd"><td><p>8</p></td>
+<td><p>9</p></td>
+<td><p>15</p></td>
+<td><p>sprint</p></td>
+</tr>
+<tr class="row-even"><td><p>9</p></td>
+<td><p>8</p></td>
+<td><p>18</p></td>
+<td><p>sprint</p></td>
+</tr>
+<tr class="row-odd"><td><p>10</p></td>
+<td><p>5</p></td>
+<td><p>38</p></td>
+<td><p>jalan</p></td>
+</tr>
+<tr class="row-even"><td><p>11</p></td>
+<td><p>6</p></td>
+<td><p>32</p></td>
+<td><p>jogging</p></td>
+</tr>
+<tr class="row-odd"><td><p>12</p></td>
+<td><p>4</p></td>
+<td><p>50</p></td>
+<td><p>jalan</p></td>
+</tr>
+<tr class="row-even"><td><p>13</p></td>
+<td><p>9</p></td>
+<td><p>14</p></td>
+<td><p>sprint</p></td>
+</tr>
+<tr class="row-odd"><td><p>14</p></td>
+<td><p>7</p></td>
+<td><p>22</p></td>
+<td><p>jogging</p></td>
+</tr>
+<tr class="row-even"><td><p>15</p></td>
+<td><p>5</p></td>
+<td><p>42</p></td>
+<td><p>jalan</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="langkah-1-hitung-entropy-total">
+<h3><strong>Langkah 1: Hitung Entropy Total</strong><a class="headerlink" href="#langkah-1-hitung-entropy-total" title="Link to this heading">#</a></h3>
+<p>Distribusi kelas:</p>
+<ul class="simple">
+<li><p>jalan = 6</p></li>
+<li><p>jogging = 5</p></li>
+<li><p>sprint = 4</p></li>
+<li><p>total = 15</p></li>
+</ul>
+<p>Probabilitas:</p>
+<div class="math notranslate nohighlight">
+\[
+P(jalan) = \frac{6}{15} = 0.4,\quad P(jogging) = \frac{5}{15} = 0.333,\quad P(sprint) = \frac{4}{15} = 0.267
+\]</div>
+<p>Entropy total:</p>
+<div class="math notranslate nohighlight">
+\[
+E_{total} = - \sum p_i \log_2 p_i = -(0.4 \log_2 0.4 + 0.333 \log_2 0.333 + 0.267 \log_2 0.267) \approx 1.566
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="langkah-2-uji-threshold-dan-hitung-information-gain-untuk-fitur-kecepatan">
+<h3><strong>Langkah 2: Uji Threshold dan Hitung Information Gain untuk Fitur ‘Kecepatan’</strong><a class="headerlink" href="#langkah-2-uji-threshold-dan-hitung-information-gain-untuk-fitur-kecepatan" title="Link to this heading">#</a></h3>
+<p>Nilai unik kecepatan (terurut):</p>
+<div class="math notranslate nohighlight">
+\[
+3, 4, 5, 6, 7, 8, 9
+\]</div>
+<p>Threshold potensial (rata-rata antar nilai berurutan):</p>
+<div class="math notranslate nohighlight">
+\[
+3.5, 4.5, 5.5, 6.5, 7.5, 8.5
+\]</div>
+<section id="perhitungan-untuk-threshold-kecepatan-7-5">
+<h4>**Perhitungan untuk Threshold: <strong>Kecepatan ≤ 7.5</strong><a class="headerlink" href="#perhitungan-untuk-threshold-kecepatan-7-5" title="Link to this heading">#</a></h4>
+<p><strong>Split Data:</strong></p>
+<ul>
+<li><p>Kiri (Kecepatan ≤ 7.5):</p>
+<p>11 data:
+Kelas: jalan=6, jogging=5, sprint=0</p>
+<p>Probabilitas:</p>
+<div class="math notranslate nohighlight">
+\[
+  P(jalan) = \frac{6}{11} = 0.545, \quad P(jogging) = \frac{5}{11} = 0.455, \quad P(sprint) = 0
+  \]</div>
+<p>Entropy kiri:</p>
+<div class="math notranslate nohighlight">
+\[
+  E_{kiri} = -(0.545 \log_2 0.545 + 0.455 \log_2 0.455) \approx 0.994
+  \]</div>
+</li>
+<li><p>Kanan (Kecepatan &gt; 7.5):</p>
+<p>4 data:
+Kelas: sprint=4</p>
+<p>Entropy kanan:</p>
+<div class="math notranslate nohighlight">
+\[
+  E_{kanan} = 0 \quad \text{(murni)}
+  \]</div>
+</li>
+</ul>
+<p><strong>Bobot Entropy Gabungan:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+E_{split} = \frac{11}{15} \times 0.994 + \frac{4}{15} \times 0 = 0.729
+\]</div>
+<p><strong>Information Gain:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+IG = E_{total} - E_{split} = 1.566 - 0.729 = 0.837
+\]</div>
+<p><strong>Perhitungan untuk Threshold Lain di ‘Kecepatan’</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Threshold</p></th>
+<th class="head"><p>Entropy Kiri</p></th>
+<th class="head"><p>Entropy Kanan</p></th>
+<th class="head"><p>Weighted Entropy</p></th>
+<th class="head"><p>Information Gain</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>≤5.5</p></td>
+<td><p>0.979</p></td>
+<td><p>0.918</p></td>
+<td><p>0.917</p></td>
+<td><p>0.649</p></td>
+</tr>
+<tr class="row-odd"><td><p>≤6.5</p></td>
+<td><p>0.982</p></td>
+<td><p>0.721</p></td>
+<td><p>0.809</p></td>
+<td><p>0.757</p></td>
+</tr>
+<tr class="row-even"><td><p>≤7.5</p></td>
+<td><p>0.994</p></td>
+<td><p>0</p></td>
+<td><p>0.729</p></td>
+<td><p><strong>0.837</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>≤8.5</p></td>
+<td><p>0.918</p></td>
+<td><p>0</p></td>
+<td><p>0.671</p></td>
+<td><p><strong>0.895</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="langkah-3-uji-threshold-dan-hitung-information-gain-untuk-fitur-waktu">
+<h3><strong>Langkah 3: Uji Threshold dan Hitung Information Gain untuk Fitur ‘Waktu’</strong><a class="headerlink" href="#langkah-3-uji-threshold-dan-hitung-information-gain-untuk-fitur-waktu" title="Link to this heading">#</a></h3>
+<p>Nilai unik waktu (terurut):</p>
+<div class="math notranslate nohighlight">
+\[
+14, 15, 18, 20, 22, 25, 28, 30, 32, 35, 38, 40, 42, 45, 50
+\]</div>
+<p>Threshold potensial (rata-rata antar nilai berurutan):</p>
+<div class="math notranslate nohighlight">
+\[
+14.5, 16.5, 19, 21, 23.5, 26.5, 29, 31, 33.5, 36.5, 39, 41, 43.5, 47.5
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="contoh-perhitungan-threshold-waktu-33-5">
+<h3>Contoh Perhitungan Threshold: <strong>Waktu ≤ 33.5</strong><a class="headerlink" href="#contoh-perhitungan-threshold-waktu-33-5" title="Link to this heading">#</a></h3>
+<p><strong>Split Data:</strong></p>
+<ul>
+<li><p>Kiri (Waktu ≤ 33.5): 9 data
+Kelas: jogging=5, sprint=4, jalan=0</p>
+<p>Probabilitas:</p>
+<div class="math notranslate nohighlight">
+\[
+  P(jogging) = \frac{5}{9} = 0.556, \quad P(sprint) = \frac{4}{9} = 0.444
+  \]</div>
+<p>Entropy kiri:</p>
+<div class="math notranslate nohighlight">
+\[
+  E_{kiri} = -(0.556 \log_2 0.556 + 0.444 \log_2 0.444) \approx 0.991
+  \]</div>
+</li>
+<li><p>Kanan (Waktu &gt; 33.5): 6 data
+Kelas: jalan=6 (murni)</p>
+<p>Entropy kanan:</p>
+<div class="math notranslate nohighlight">
+\[
+  E_{kanan} = 0
+  \]</div>
+</li>
+</ul>
+<p><strong>Bobot Entropy Gabungan:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+E_{split} = \frac{9}{15} \times 0.991 + \frac{6}{15} \times 0 = 0.595
+\]</div>
+<p><strong>Information Gain:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+IG = 1.566 - 0.595 = 0.971
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="perhitungan-untuk-threshold-lain-di-waktu">
+<h3>Perhitungan untuk Threshold Lain di ‘Waktu’<a class="headerlink" href="#perhitungan-untuk-threshold-lain-di-waktu" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Threshold</p></th>
+<th class="head"><p>Entropy Kiri</p></th>
+<th class="head"><p>Entropy Kanan</p></th>
+<th class="head"><p>Weighted Entropy</p></th>
+<th class="head"><p>Information Gain</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>≤14.5</p></td>
+<td><p>0</p></td>
+<td><p>1.566</p></td>
+<td><p>1.072</p></td>
+<td><p>0.494</p></td>
+</tr>
+<tr class="row-odd"><td><p>≤16.5</p></td>
+<td><p>0.811</p></td>
+<td><p>0.954</p></td>
+<td><p>0.859</p></td>
+<td><p>0.707</p></td>
+</tr>
+<tr class="row-even"><td><p>≤19</p></td>
+<td><p>0.918</p></td>
+<td><p>0.772</p></td>
+<td><p>0.817</p></td>
+<td><p>0.749</p></td>
+</tr>
+<tr class="row-odd"><td><p>≤21</p></td>
+<td><p>0.991</p></td>
+<td><p>0.593</p></td>
+<td><p>0.745</p></td>
+<td><p>0.821</p></td>
+</tr>
+<tr class="row-even"><td><p>≤23.5</p></td>
+<td><p>0.985</p></td>
+<td><p>0.446</p></td>
+<td><p>0.684</p></td>
+<td><p>0.882</p></td>
+</tr>
+<tr class="row-odd"><td><p>≤26.5</p></td>
+<td><p>0.955</p></td>
+<td><p>0.254</p></td>
+<td><p>0.597</p></td>
+<td><p>0.969</p></td>
+</tr>
+<tr class="row-even"><td><p>≤33.5</p></td>
+<td><p>0.991</p></td>
+<td><p>0</p></td>
+<td><p>0.595</p></td>
+<td><p><strong>0.971</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="langkah-4-bangun-pohon-keputusan">
+<h3><strong>Langkah 4: Bangun Pohon Keputusan</strong><a class="headerlink" href="#langkah-4-bangun-pohon-keputusan" title="Link to this heading">#</a></h3>
+<p>Karena threshold <strong>Waktu ≤ 33.5</strong> memberikan Information Gain terbesar, kita gunakan split ini di root node.</p>
+</section>
+<section id="node-akar-waktu-29">
+<h3>Node Akar: Waktu ≤ 29?<a class="headerlink" href="#node-akar-waktu-29" title="Link to this heading">#</a></h3>
+<ul>
+<li><p><strong>True (Waktu ≤ 33.5)</strong>:</p>
+<p>Data: jogging dan sprint (9 data)
+Karena belum murni, ulangi proses split di node ini menggunakan fitur dan threshold yang optimal.</p>
+</li>
+<li><p><strong>False (Waktu &gt; 33.5)</strong>:</p>
+<p>Data: 6 data, semuanya <strong>jalan</strong> → <strong>Leaf Node</strong></p>
+</li>
+</ul>
+</section>
+<section id="split-di-node-true-waktu-33-5-menggunakan-kecepatan">
+<h3>Split di Node True (Waktu ≤ 33.5) menggunakan Kecepatan<a class="headerlink" href="#split-di-node-true-waktu-33-5-menggunakan-kecepatan" title="Link to this heading">#</a></h3>
+<p>Ambil threshold terbaik di fitur kecepatan untuk subset ini, misalnya <strong>Kecepatan ≤ 7.5</strong>.</p>
+<ul class="simple">
+<li><p><strong>True (Kecepatan ≤ 7.5 &amp; Waktu ≤ 33.5)</strong>: Semua <strong>jogging</strong> → <strong>Leaf Node</strong></p></li>
+<li><p><strong>False (Kecepatan &gt; 7.5 &amp; Waktu ≤ 33.5)</strong>: Semua <strong>sprint</strong> → <strong>Leaf Node</strong></p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="perbandingan-dengan-library-scikit-learn">
+<h2>3. <strong>Perbandingan dengan Library Scikit-learn</strong><a class="headerlink" href="#perbandingan-dengan-library-scikit-learn" title="Link to this heading">#</a></h2>
+<p>membuat model yang sama menggunakan library <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> di Python untuk memvalidasi hasil perhitungan manual.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span><span class="p">,</span> <span class="n">export_text</span><span class="p">,</span> <span class="n">plot_tree</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># 1. Menyiapkan Data</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Kecepatan (km/j)&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+    <span class="s1">&#39;Waktu (menit)&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">42</span><span class="p">],</span>
+    <span class="s1">&#39;Kelas&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;jalan&#39;</span><span class="p">,</span> <span class="s1">&#39;jalan&#39;</span><span class="p">,</span> <span class="s1">&#39;jalan&#39;</span><span class="p">,</span> <span class="s1">&#39;jogging&#39;</span><span class="p">,</span> <span class="s1">&#39;jogging&#39;</span><span class="p">,</span> <span class="s1">&#39;jogging&#39;</span><span class="p">,</span> <span class="s1">&#39;sprint&#39;</span><span class="p">,</span> <span class="s1">&#39;sprint&#39;</span><span class="p">,</span> <span class="s1">&#39;sprint&#39;</span><span class="p">,</span> <span class="s1">&#39;jalan&#39;</span><span class="p">,</span> <span class="s1">&#39;jogging&#39;</span><span class="p">,</span> <span class="s1">&#39;jalan&#39;</span><span class="p">,</span> <span class="s1">&#39;sprint&#39;</span><span class="p">,</span> <span class="s1">&#39;jogging&#39;</span><span class="p">,</span> <span class="s1">&#39;jalan&#39;</span><span class="p">]</span>
+<span class="p">}</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Memisahkan fitur (X) dan target (y)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;Kecepatan (km/j)&#39;</span><span class="p">,</span> <span class="s1">&#39;Waktu (menit)&#39;</span><span class="p">]]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Kelas&#39;</span><span class="p">]</span>
+
+<span class="c1"># 2. Membuat dan Melatih Model Decision Tree</span>
+<span class="c1"># Menggunakan &#39;entropy&#39; sebagai kriteria untuk konsistensi dengan perhitungan manual</span>
+<span class="n">tree_classifier</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">criterion</span><span class="o">=</span><span class="s1">&#39;entropy&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">tree_classifier</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Model Decision Tree berhasil dilatih.&quot;</span><span class="p">)</span>
+
+<span class="c1"># 3. Visualisasi Pohon Keputusan</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">plot_tree</span><span class="p">(</span><span class="n">tree_classifier</span><span class="p">,</span>
+          <span class="n">feature_names</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span>
+          <span class="n">class_names</span><span class="o">=</span><span class="n">tree_classifier</span><span class="o">.</span><span class="n">classes_</span><span class="p">,</span>
+          <span class="n">filled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+          <span class="n">rounded</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Visualisasi Pohon Keputusan (Scikit-learn)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 4. Menghasilkan Rules dari Model</span>
+<span class="n">rules</span> <span class="o">=</span> <span class="n">export_text</span><span class="p">(</span><span class="n">tree_classifier</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Aturan (Rules) dari Model Scikit-learn:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rules</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model Decision Tree berhasil dilatih.
+</pre></div>
+</div>
+<img alt="_images/9caf75284286469595b71cffdf90f2af349f52dc01d410679e067506004086e7.png" src="_images/9caf75284286469595b71cffdf90f2af349f52dc01d410679e067506004086e7.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Aturan (Rules) dari Model Scikit-learn:
+|--- Kecepatan (km/j) &lt;= 5.50
+|   |--- class: jalan
+|--- Kecepatan (km/j) &gt;  5.50
+|   |--- Waktu (menit) &lt;= 21.00
+|   |   |--- class: sprint
+|   |--- Waktu (menit) &gt;  21.00
+|   |   |--- class: jogging
+</pre></div>
+</div>
+</div>
+</div>
+<section id="perbandingan-hasil">
+<h3><strong>Perbandingan Hasil</strong><a class="headerlink" href="#perbandingan-hasil" title="Link to this heading">#</a></h3>
+<p>Hasil dari model <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> sedikit melenceng dengan perhitungan manual.</p>
+<ul class="simple">
+<li><p><strong>Node Akar</strong>: Keduanya menggunakan <code class="docutils literal notranslate"><span class="pre">Kecepatan</span> <span class="pre">&lt;=</span> <span class="pre">5.5</span></code> sebagai pemecah pertama.</p></li>
+<li><p><strong>Node Anak</strong>: Keduanya menggunakan <code class="docutils literal notranslate"><span class="pre">Waktu</span> <span class="pre">&lt;=</span> <span class="pre">21</span></code> untuk memisahkan ‘jogging’ dan ‘sprint’.</p></li>
+<li><p><strong>Rules</strong>: Aturan yang dihasilkan identik.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="pengujian-dengan-data-baru">
+<h3>4. <strong>Pengujian dengan Data Baru</strong><a class="headerlink" href="#pengujian-dengan-data-baru" title="Link to this heading">#</a></h3>
+<p>Kita akan menguji 2 data baru menggunakan aturan yang telah kita buat.</p>
+<p><strong>Data Uji:</strong></p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Kecepatan</span> <span class="pre">=</span> <span class="pre">7</span> <span class="pre">km/j</span></code>, <code class="docutils literal notranslate"><span class="pre">Waktu</span> <span class="pre">=</span> <span class="pre">28</span> <span class="pre">menit</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Kecepatan</span> <span class="pre">=</span> <span class="pre">4</span> <span class="pre">km/j</span></code>, <code class="docutils literal notranslate"><span class="pre">Waktu</span> <span class="pre">=</span> <span class="pre">38</span> <span class="pre">menit</span></code></p></li>
+</ol>
+</section>
+<section id="pengujian-manual-menggunakan-rules">
+<h3><strong>Pengujian Manual (Menggunakan Rules)</strong><a class="headerlink" href="#pengujian-manual-menggunakan-rules" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Data 1: Kecepatan = 7, Waktu = 28</strong></p>
+<ul class="simple">
+<li><p><strong>Rule 1</strong>: Apakah <code class="docutils literal notranslate"><span class="pre">Kecepatan</span> <span class="pre">&lt;=</span> <span class="pre">5.5</span></code>? (7 &gt; 5.5 ) -&gt; <strong>False</strong>. Lanjut ke rule berikutnya.</p></li>
+<li><p><strong>Rule 2</strong>: Apakah <code class="docutils literal notranslate"><span class="pre">Waktu</span> <span class="pre">&lt;=</span> <span class="pre">21</span></code> DAN <code class="docutils literal notranslate"><span class="pre">Kecepatan</span> <span class="pre">&lt;=</span> <span class="pre">5.5</span></code>? (28 &gt; 21 -&gt; True) DAN (7 &gt; 5.5 -&gt; True) -&gt; <strong>True</strong>.</p></li>
+<li><p><strong>Prediksi</strong>: <strong>Jogging</strong>.</p></li>
+</ul>
+</li>
+<li><p><strong>Data 2: Kecepatan = 4, Waktu = 38</strong></p>
+<ul class="simple">
+<li><p><strong>Rule 1</strong>: Apakah <code class="docutils literal notranslate"><span class="pre">Kecepatan</span> <span class="pre">&lt;=5.5</span></code>? (38 &gt; 33.5) -&gt; <strong>True</strong>.</p></li>
+<li><p><strong>Prediksi</strong>: <strong>jalan</strong>.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="pengujian-dengan-model-scikit-learn">
+<h3><strong>Pengujian dengan Model Scikit-learn</strong><a class="headerlink" href="#pengujian-dengan-model-scikit-learn" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Data baru untuk diuji</span>
+<span class="n">data_baru</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;Kecepatan (km/j)&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+    <span class="s1">&#39;Waktu (menit)&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">28</span><span class="p">,</span> <span class="mi">38</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="c1"># Melakukan prediksi</span>
+<span class="n">prediksi_baru</span> <span class="o">=</span> <span class="n">tree_classifier</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">data_baru</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Prediksi untuk Kecepatan=7, Waktu=28 adalah: </span><span class="si">{</span><span class="n">prediksi_baru</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Prediksi untuk Kecepatan=4, Waktu=38 adalah: </span><span class="si">{</span><span class="n">prediksi_baru</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Prediksi untuk Kecepatan=7, Waktu=28 adalah: jogging
+Prediksi untuk Kecepatan=4, Waktu=38 adalah: jalan
+</pre></div>
+</div>
+</div>
+</div>
+<p>Hasil prediksi dari model <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> <strong>sama persis</strong> dengan hasil pengujian menggunakan aturan manual. Ini menunjukkan model yang kita bangun akurat dan konsisten.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="K_means.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><strong>K-Mean Clustering</strong></p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Diskritisasi.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><strong>Diskritisasi</strong></p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cara-kerja-decision-tree">1. <strong>Cara Kerja Decision Tree</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-perhitungan-manual">2. <strong>Contoh Perhitungan Manual</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1-hitung-entropy-total"><strong>Langkah 1: Hitung Entropy Total</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-uji-threshold-dan-hitung-information-gain-untuk-fitur-kecepatan"><strong>Langkah 2: Uji Threshold dan Hitung Information Gain untuk Fitur ‘Kecepatan’</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-untuk-threshold-kecepatan-7-5">**Perhitungan untuk Threshold: <strong>Kecepatan ≤ 7.5</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-uji-threshold-dan-hitung-information-gain-untuk-fitur-waktu"><strong>Langkah 3: Uji Threshold dan Hitung Information Gain untuk Fitur ‘Waktu’</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-perhitungan-threshold-waktu-33-5">Contoh Perhitungan Threshold: <strong>Waktu ≤ 33.5</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-untuk-threshold-lain-di-waktu">Perhitungan untuk Threshold Lain di ‘Waktu’</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-4-bangun-pohon-keputusan"><strong>Langkah 4: Bangun Pohon Keputusan</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#node-akar-waktu-29">Node Akar: Waktu ≤ 29?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#split-di-node-true-waktu-33-5-menggunakan-kecepatan">Split di Node True (Waktu ≤ 33.5) menggunakan Kecepatan</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perbandingan-dengan-library-scikit-learn">3. <strong>Perbandingan dengan Library Scikit-learn</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perbandingan-hasil"><strong>Perbandingan Hasil</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pengujian-dengan-data-baru">4. <strong>Pengujian dengan Data Baru</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pengujian-manual-menggunakan-rules"><strong>Pengujian Manual (Menggunakan Rules)</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pengujian-dengan-model-scikit-learn"><strong>Pengujian dengan Model Scikit-learn</strong></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Abdulloh Sahl_23-090
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

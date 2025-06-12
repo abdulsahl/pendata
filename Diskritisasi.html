@@ -1,0 +1,1822 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Diskritisasi &#8212; Penambangan Data</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Diskritisasi';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Decision Tree" href="DecissionTree.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Penambangan Data - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="Penambangan Data - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    INTRODUCTION
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Data.html">Apa itu Data Mining?</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="CRISP-DM.html">Metodologi CRISP-DM</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="Data_understanding.html"><strong>Data Understanding</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="Deteksi%20Outlier.html"><strong>Deteksi outlier pada data iris</strong></a></li>
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="naive_bayes.html"><strong>Naive Bayes</strong></a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="crisshosis.html"><strong>Cirrhosis</strong></a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="K_means.html"><strong>K-Mean Clustering</strong></a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="DecissionTree.html"><strong>Decision Tree</strong></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Diskritisasi</strong></a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/abdulsahl/pendata/blob/main/_sources/Diskritisasi.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/abdulsahl/pendata" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/abdulsahl/pendata/issues/new?title=Issue%20on%20page%20%2FDiskritisasi.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Diskritisasi.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Diskritisasi</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cara-kerja"><strong>Cara Kerja</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-langkah"><strong>Langkah-Langkah</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#diskritisasi-equal-width">- <strong>Diskritisasi (Equal Width)</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#diskritisasi-equal-frequency">- <strong>Diskritisasi (Equal Frequency)</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-perhitungan-manual"><strong>Contoh Perhitungan Manual</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">- <strong>Diskritisasi (Equal Width)</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1-tentukan-jumlah-bin-k"><strong>Langkah 1: Tentukan Jumlah Bin (K)</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-urutkan-data"><strong>Langkah 2: Urutkan Data</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-cari-nilai-minimum-maksimum"><strong>Langkah 3: Cari Nilai Minimum &amp; Maksimum</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-4-hitung-lebar-bin"><strong>Langkah 4: Hitung Lebar Bin</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-5-tentukan-batas-bin"><strong>Langkah 5: Tentukan Batas Bin</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-6-petakan-data">**Langkah 6: Petakan Data **</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">- <strong>Diskritisasi (Equal Frequency)</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><strong>Langkah 1: Tentukan Jumlah Bin (K)</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4"><strong>Langkah 2: Urutkan Data</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-hitung-jumlah-data-per-bin"><strong>Langkah 3: Hitung Jumlah Data per Bin</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-4-tentukan-batas-bin"><strong>Langkah 4: Tentukan Batas Bin</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-5-petakan-data">**Langkah 5: Petakan Data **</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#perbandingan-equal-width-vs-equal-frequency"><strong>Perbandingan: Equal Width vs. Equal Frequency</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-diskritisasi-pada-dataset-iris"><strong>Implementasi Diskritisasi pada dataset iris</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#persiapan-data"><strong>1. Persiapan data</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normalisasikan-data"><strong>2. Normalisasikan Data</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#k-means-clustering-pada-setiap-fitur-individu"><strong>4. K-Means Clustering pada Setiap Fitur Individu</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#diskritisasi-dan-penggabungan-fitur"><strong>5. Diskritisasi dan Penggabungan Fitur</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#klasifikasi-dengan-naive-bayes"><strong>6. Klasifikasi dengan Naive Bayes</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#klasifikasi-dengan-decision-tree"><strong>7. Klasifikasi dengan Decision Tree</strong></a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="diskritisasi">
+<h1><strong>Diskritisasi</strong><a class="headerlink" href="#diskritisasi" title="Link to this heading">#</a></h1>
+<p><strong>Diskritisasi</strong> adalah proses mengubah data kontinu (numerik) menjadi data diskrit (kategorikal). Bayangkan Anda memiliki data usia yang sangat bervariasi (misalnya, 21.5 tahun, 47.8 tahun), lalu Anda menyederhanakannya menjadi beberapa kategori seperti “Muda”, “Paruh Baya”, dan “Tua”.</p>
+<p><strong>Tujuan utama diskritisasi:</strong></p>
+<ul class="simple">
+<li><p><strong>Menyederhanakan Model:</strong> Beberapa algoritma machine learning bekerja lebih baik atau bahkan hanya bisa memproses data kategorikal (contoh: Naive Bayes).</p></li>
+<li><p><strong>Mengurangi Noise:</strong> Fluktuasi kecil pada data numerik yang tidak signifikan dapat diabaikan dengan mengelompokkannya ke dalam satu kategori yang sama.</p></li>
+<li><p><strong>Mempermudah Interpretasi:</strong> Jauh lebih mudah memahami pengaruh kategori “Tua” terhadap suatu hasil daripada pengaruh usia “67.3 tahun”.</p></li>
+</ul>
+<hr class="docutils" />
+<section id="cara-kerja">
+<h2><strong>Cara Kerja</strong><a class="headerlink" href="#cara-kerja" title="Link to this heading">#</a></h2>
+<p>Secara umum, proses diskritisasi bekerja dengan membagi rentang nilai data kontinu menjadi beberapa interval atau “bin”. Setiap data poin kemudian dimasukkan ke dalam bin yang sesuai.</p>
+<p>Dua metode yang paling umum adalah:</p>
+<ol class="arabic simple">
+<li><p><strong>Equal Width Binning (Interval Sama):</strong> Metode ini membagi rentang data (dari nilai minimum hingga maksimum) menjadi <em>N</em> interval yang lebarnya sama. Ini adalah metode yang paling intuitif.</p></li>
+<li><p><strong>Equal Frequency Binning (Frekuensi Sama):</strong> Metode ini membagi data sehingga setiap bin memiliki jumlah data poin yang (kurang lebih) sama.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="langkah-langkah">
+<h2><strong>Langkah-Langkah</strong><a class="headerlink" href="#langkah-langkah" title="Link to this heading">#</a></h2>
+<section id="diskritisasi-equal-width">
+<h3>- <strong>Diskritisasi (Equal Width)</strong><a class="headerlink" href="#diskritisasi-equal-width" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Tentukan Jumlah Bin (K):</strong> Pilih berapa banyak kategori yang Anda inginkan. Ini adalah keputusan yang paling penting dan seringkali bergantung pada konteks masalah.</p></li>
+<li><p><strong>Urutkan Data:</strong> Urutkan semua data dari nilai terkecil hingga terbesar untuk mempermudah identifikasi nilai minimum dan maksimum.</p></li>
+<li><p><strong>Cari Nilai Minimum &amp; Maksimum:</strong> Temukan nilai terkecil (min) dan terbesar (max) dari dataset Anda.</p></li>
+<li><p><strong>Hitung Lebar Bin:</strong> Hitung lebar setiap interval menggunakan rumus:
+$<span class="math notranslate nohighlight">\(
+\text{Lebar Bin} = \frac{\text{Nilai Maksimum} - \text{Nilai Minimum}}{\text{Jumlah Bin (K)}}
+\)</span>$</p></li>
+<li><p><strong>Tentukan Batas Bin:</strong> Tentukan rentang nilai untuk setiap bin berdasarkan lebar yang sudah dihitung.</p></li>
+<li><p><strong>Petakan Data:</strong> Masukkan setiap data poin ke dalam bin yang sesuai.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="diskritisasi-equal-frequency">
+<h3>- <strong>Diskritisasi (Equal Frequency)</strong><a class="headerlink" href="#diskritisasi-equal-frequency" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Tentukan Jumlah Bin (K):</strong> Sama seperti sebelumnya, Anda memilih jumlah kategori yang diinginkan.</p></li>
+<li><p><strong>Urutkan Data:</strong> Langkah ini <strong>wajib</strong> dan sangat krusial untuk metode ini.</p></li>
+<li><p><strong>Hitung Jumlah Data per Bin:</strong> Hitung berapa banyak data poin yang seharusnya ada di setiap bin dengan rumus:
+$<span class="math notranslate nohighlight">\(
+\text{Frekuensi per Bin} = \frac{\text{Jumlah Total Data}}{\text{Jumlah Bin (K)}}
+\)</span>$</p></li>
+<li><p><strong>Tentukan Batas Bin (Split Points):</strong> Berdasarkan data yang sudah diurutkan, tentukan titik potong (batas) yang membagi data sesuai jumlah frekuensi per bin.</p></li>
+<li><p><strong>Petakan Data:</strong> Masukkan setiap data poin ke dalam kategori yang sesuai berdasarkan batas yang baru.</p></li>
+</ol>
+</section>
+</section>
+<hr class="docutils" />
+<section id="contoh-perhitungan-manual">
+<h2><strong>Contoh Perhitungan Manual</strong><a class="headerlink" href="#contoh-perhitungan-manual" title="Link to this heading">#</a></h2>
+<section id="id1">
+<h3>- <strong>Diskritisasi (Equal Width)</strong><a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p><strong>Dataset Awal (Usia):</strong>
+<code class="docutils literal notranslate"><span class="pre">[22,</span> <span class="pre">25,</span> <span class="pre">15,</span> <span class="pre">38,</span> <span class="pre">45,</span> <span class="pre">61,</span> <span class="pre">55,</span> <span class="pre">42,</span> <span class="pre">65,</span> <span class="pre">72,</span> <span class="pre">31]</span></code></p>
+<section id="langkah-1-tentukan-jumlah-bin-k">
+<h4><strong>Langkah 1: Tentukan Jumlah Bin (K)</strong><a class="headerlink" href="#langkah-1-tentukan-jumlah-bin-k" title="Link to this heading">#</a></h4>
+<p>Kita ingin membagi data usia menjadi 3 kategori.</p>
+<ul class="simple">
+<li><p><strong>K = 3</strong></p></li>
+<li><p>Kita akan menamainya: <code class="docutils literal notranslate"><span class="pre">Muda</span></code>, <code class="docutils literal notranslate"><span class="pre">Paruh</span> <span class="pre">Baya</span></code>, <code class="docutils literal notranslate"><span class="pre">Tua</span></code>.</p></li>
+</ul>
+</section>
+<section id="langkah-2-urutkan-data">
+<h4><strong>Langkah 2: Urutkan Data</strong><a class="headerlink" href="#langkah-2-urutkan-data" title="Link to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">[15,</span> <span class="pre">22,</span> <span class="pre">25,</span> <span class="pre">31,</span> <span class="pre">38,</span> <span class="pre">42,</span> <span class="pre">45,</span> <span class="pre">55,</span> <span class="pre">61,</span> <span class="pre">65,</span> <span class="pre">72]</span></code></p>
+</section>
+<section id="langkah-3-cari-nilai-minimum-maksimum">
+<h4><strong>Langkah 3: Cari Nilai Minimum &amp; Maksimum</strong><a class="headerlink" href="#langkah-3-cari-nilai-minimum-maksimum" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Nilai Minimum = <strong>15</strong></p></li>
+<li><p>Nilai Maksimum = <strong>72</strong></p></li>
+</ul>
+</section>
+<section id="langkah-4-hitung-lebar-bin">
+<h4><strong>Langkah 4: Hitung Lebar Bin</strong><a class="headerlink" href="#langkah-4-hitung-lebar-bin" title="Link to this heading">#</a></h4>
+<p>Menggunakan rumus yang sudah kita bahas:
+$<span class="math notranslate nohighlight">\(
+\text{Lebar Bin} = \frac{72 - 15}{3} = \frac{57}{3} = 19
+\)</span>$
+Jadi, setiap kategori akan memiliki rentang nilai sebesar <strong>19</strong>.</p>
+</section>
+<section id="langkah-5-tentukan-batas-bin">
+<h4><strong>Langkah 5: Tentukan Batas Bin</strong><a class="headerlink" href="#langkah-5-tentukan-batas-bin" title="Link to this heading">#</a></h4>
+<p>tentukan batas untuk setiap bin:</p>
+<ul class="simple">
+<li><p><strong>Bin 1 (Muda):</strong> Mulai dari nilai minimum hingga (minimum + lebar).
+<code class="docutils literal notranslate"><span class="pre">15</span></code> sampai <code class="docutils literal notranslate"><span class="pre">15</span> <span class="pre">+</span> <span class="pre">19</span></code> = <code class="docutils literal notranslate"><span class="pre">34</span></code>.
+<em>Rentang: [15 - 34]</em></p></li>
+<li><p><strong>Bin 2 (Paruh Baya):</strong> Mulai dari batas atas Bin 1 hingga (batas atas Bin 1 + lebar).
+<code class="docutils literal notranslate"><span class="pre">34</span></code> sampai <code class="docutils literal notranslate"><span class="pre">34</span> <span class="pre">+</span> <span class="pre">19</span></code> = <code class="docutils literal notranslate"><span class="pre">53</span></code>.
+<em>Rentang: (34 - 53]</em></p></li>
+<li><p><strong>Bin 3 (Tua):</strong> Mulai dari batas atas Bin 2 hingga nilai maksimum.
+<code class="docutils literal notranslate"><span class="pre">53</span></code> sampai <code class="docutils literal notranslate"><span class="pre">53</span> <span class="pre">+</span> <span class="pre">19</span></code> = <code class="docutils literal notranslate"><span class="pre">72</span></code>.
+<em>Rentang: (53 - 72]</em></p></li>
+</ul>
+<p><em>Catatan: Aturan umumnya adalah nilai batas atas masuk ke bin berikutnya. Namun, untuk kesederhanaan, kita bisa definisikan: Bin 1 mencakup 34, Bin 2 mencakup 53, dst. Untuk konsistensi, kita akan gunakan aturan: [batas bawah, batas atas). Artinya, nilai yang sama dengan batas atas masuk ke bin berikutnya. Nilai maksimum (72) akan masuk di bin terakhir.</em></p>
+</section>
+<section id="langkah-6-petakan-data">
+<h4>**Langkah 6: Petakan Data **<a class="headerlink" href="#langkah-6-petakan-data" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Usia Asli</p></th>
+<th class="head text-left"><p>Bin (Rentang)</p></th>
+<th class="head text-left"><p>Kategor Baru</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>15</p></td>
+<td class="text-left"><p>[15 - 34)</p></td>
+<td class="text-left"><p><strong>Muda</strong></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>22</p></td>
+<td class="text-left"><p>[15 - 34)</p></td>
+<td class="text-left"><p><strong>Muda</strong></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>25</p></td>
+<td class="text-left"><p>[15 - 34)</p></td>
+<td class="text-left"><p><strong>Muda</strong></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>31</p></td>
+<td class="text-left"><p>[15 - 34)</p></td>
+<td class="text-left"><p><strong>Muda</strong></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>38</p></td>
+<td class="text-left"><p>[34 - 53)</p></td>
+<td class="text-left"><p><strong>Paruh Baya</strong></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>42</p></td>
+<td class="text-left"><p>[34 - 53)</p></td>
+<td class="text-left"><p><strong>Paruh Baya</strong></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>45</p></td>
+<td class="text-left"><p>[34 - 53)</p></td>
+<td class="text-left"><p><strong>Paruh Baya</strong></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>55</p></td>
+<td class="text-left"><p>[53 - 72]</p></td>
+<td class="text-left"><p><strong>Tua</strong></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>61</p></td>
+<td class="text-left"><p>[53 - 72]</p></td>
+<td class="text-left"><p><strong>Tua</strong></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>65</p></td>
+<td class="text-left"><p>[53 - 72]</p></td>
+<td class="text-left"><p><strong>Tua</strong></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>72</p></td>
+<td class="text-left"><p>[53 - 72]</p></td>
+<td class="text-left"><p><strong>Tua</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Hasil Akhir:</strong>
+Data kontinu <code class="docutils literal notranslate"><span class="pre">[22,</span> <span class="pre">25,</span> <span class="pre">15,</span> <span class="pre">...]</span></code> telah berhasil diubah menjadi data kategorikal <code class="docutils literal notranslate"><span class="pre">['Muda',</span> <span class="pre">'Muda',</span> <span class="pre">'Muda',</span> <span class="pre">...]</span></code>.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id2">
+<h3>- <strong>Diskritisasi (Equal Frequency)</strong><a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p><strong>Dataset Awal (Usia):</strong>
+<code class="docutils literal notranslate"><span class="pre">[22,</span> <span class="pre">25,</span> <span class="pre">15,</span> <span class="pre">38,</span> <span class="pre">45,</span> <span class="pre">61,</span> <span class="pre">55,</span> <span class="pre">42,</span> <span class="pre">65,</span> <span class="pre">72,</span> <span class="pre">31]</span></code></p>
+<p><strong>Jumlah Total Data = 11</strong></p>
+<section id="id3">
+<h4><strong>Langkah 1: Tentukan Jumlah Bin (K)</strong><a class="headerlink" href="#id3" title="Link to this heading">#</a></h4>
+<p>Kita tetap menggunakan 3 kategori agar konsisten.</p>
+<ul class="simple">
+<li><p><strong>K = 3</strong></p></li>
+<li><p>Kita akan menamainya: <code class="docutils literal notranslate"><span class="pre">Kelompok</span> <span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">Kelompok</span> <span class="pre">2</span></code>, <code class="docutils literal notranslate"><span class="pre">Kelompok</span> <span class="pre">3</span></code>.</p></li>
+</ul>
+</section>
+<section id="id4">
+<h4><strong>Langkah 2: Urutkan Data</strong><a class="headerlink" href="#id4" title="Link to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">[15,</span> <span class="pre">22,</span> <span class="pre">25,</span> <span class="pre">31,</span> <span class="pre">38,</span> <span class="pre">42,</span> <span class="pre">45,</span> <span class="pre">55,</span> <span class="pre">61,</span> <span class="pre">65,</span> <span class="pre">72]</span></code></p>
+</section>
+<section id="langkah-3-hitung-jumlah-data-per-bin">
+<h4><strong>Langkah 3: Hitung Jumlah Data per Bin</strong><a class="headerlink" href="#langkah-3-hitung-jumlah-data-per-bin" title="Link to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[\text{Frekuensi per Bin} = \frac{11}{3} \approx 3.67\]</div>
+<p>Karena hasilnya bukan bilangan bulat, kita tidak bisa membaginya secara sempurna. Kita harus membulatkannya. Artinya, beberapa bin akan memiliki 4 data dan beberapa akan memiliki 3 data. Kita bisa membaginya menjadi: Bin 1 (4 data), Bin 2 (4 data), dan Bin 3 (3 data). Total 4+4+3 = 11 data.</p>
+</section>
+<section id="langkah-4-tentukan-batas-bin">
+<h4><strong>Langkah 4: Tentukan Batas Bin</strong><a class="headerlink" href="#langkah-4-tentukan-batas-bin" title="Link to this heading">#</a></h4>
+<p>Kita akan memotong daftar data yang sudah diurutkan berdasarkan frekuensi tersebut.</p>
+<p><code class="docutils literal notranslate"><span class="pre">[15,</span> <span class="pre">22,</span> <span class="pre">25,</span> <span class="pre">31,</span> <span class="pre">|</span> <span class="pre">38,</span> <span class="pre">42,</span> <span class="pre">45,</span> <span class="pre">55,</span> <span class="pre">|</span> <span class="pre">61,</span> <span class="pre">65,</span> <span class="pre">72]</span></code>
+&lt;—- Bin 1 —-&gt;   &lt;—- Bin 2 —-&gt;   &lt;– Bin 3 –&gt;</p>
+<ul class="simple">
+<li><p><strong>Batas Bin 1 &amp; 2:</strong> Titik potongnya ada di antara <strong>31</strong> dan <strong>38</strong>. Batasnya bisa kita ambil nilai tengahnya: <code class="docutils literal notranslate"><span class="pre">(31</span> <span class="pre">+</span> <span class="pre">38)</span> <span class="pre">/</span> <span class="pre">2</span> <span class="pre">=</span> <span class="pre">34.5</span></code>.</p></li>
+<li><p><strong>Batas Bin 2 &amp; 3:</strong> Titik potongnya ada di antara <strong>55</strong> dan <strong>61</strong>. Batasnya: <code class="docutils literal notranslate"><span class="pre">(55</span> <span class="pre">+</span> <span class="pre">61)</span> <span class="pre">/</span> <span class="pre">2</span> <span class="pre">=</span> <span class="pre">58</span></code>.</p></li>
+</ul>
+<p>Jadi, batas-batas bin kita adalah:</p>
+<ul class="simple">
+<li><p><strong>Kelompok 1:</strong> Nilai di bawah 34.5</p></li>
+<li><p><strong>Kelompok 2:</strong> Nilai dari 34.5 hingga di bawah 58</p></li>
+<li><p><strong>Kelompok 3:</strong> Nilai dari 58 ke atas</p></li>
+</ul>
+</section>
+<section id="langkah-5-petakan-data">
+<h4>**Langkah 5: Petakan Data **<a class="headerlink" href="#langkah-5-petakan-data" title="Link to this heading">#</a></h4>
+<p>Sekarang, kita petakan setiap data poin dari <strong>dataset awal</strong> ke kelompok yang sesuai.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Usia Asli</p></th>
+<th class="head text-left"><p>Kategori Baru (Equal Frequency)</p></th>
+<th class="head text-left"><p>Kategori Lama (Equal Width)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>15</p></td>
+<td class="text-left"><p><strong>Kelompok 1</strong> (&lt; 34.5)</p></td>
+<td class="text-left"><p>Muda</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>22</p></td>
+<td class="text-left"><p><strong>Kelompok 1</strong> (&lt; 34.5)</p></td>
+<td class="text-left"><p>Muda</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>25</p></td>
+<td class="text-left"><p><strong>Kelompok 1</strong> (&lt; 34.5)</p></td>
+<td class="text-left"><p>Muda</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>31</p></td>
+<td class="text-left"><p><strong>Kelompok 1</strong> (&lt; 34.5)</p></td>
+<td class="text-left"><p>Muda</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>38</p></td>
+<td class="text-left"><p><strong>Kelompok 2</strong> (34.5 - 58)</p></td>
+<td class="text-left"><p>Paruh Baya</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>42</p></td>
+<td class="text-left"><p><strong>Kelompok 2</strong> (34.5 - 58)</p></td>
+<td class="text-left"><p>Paruh Baya</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>45</p></td>
+<td class="text-left"><p><strong>Kelompok 2</strong> (34.5 - 58)</p></td>
+<td class="text-left"><p>Paruh Baya</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>55</p></td>
+<td class="text-left"><p><strong>Kelompok 2</strong> (34.5 - 58)</p></td>
+<td class="text-left"><p><strong>Tua</strong></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>61</p></td>
+<td class="text-left"><p><strong>Kelompok 3</strong> (&gt;= 58)</p></td>
+<td class="text-left"><p><strong>Tua</strong></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>65</p></td>
+<td class="text-left"><p><strong>Kelompok 3</strong> (&gt;= 58)</p></td>
+<td class="text-left"><p><strong>Tua</strong></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>72</p></td>
+<td class="text-left"><p><strong>Kelompok 3</strong> (&gt;= 58)</p></td>
+<td class="text-left"><p><strong>Tua</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Perhatikan Perbedaannya!</strong>
+Dengan metode <em>Equal Frequency</em>, usia <strong>55</strong> sekarang masuk ke <strong>Kelompok 2</strong>, bukan lagi ke kategori ‘Tua’ seperti pada metode <em>Equal Width</em>. Ini terjadi karena metode ini memprioritaskan keseimbangan jumlah anggota di setiap kelompok.</p>
+</section>
+<hr class="docutils" />
+<section id="perbandingan-equal-width-vs-equal-frequency">
+<h4><strong>Perbandingan: Equal Width vs. Equal Frequency</strong><a class="headerlink" href="#perbandingan-equal-width-vs-equal-frequency" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Fitur</p></th>
+<th class="head text-left"><p>Equal Width (Lebar Sama)</p></th>
+<th class="head text-left"><p>Equal Frequency (Frekuensi Sama)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>Prinsip Utama</strong></p></td>
+<td class="text-left"><p>Rentang nilai setiap bin sama.</p></td>
+<td class="text-left"><p>Jumlah data di setiap bin sama.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Kelebihan</strong></p></td>
+<td class="text-left"><p>Sederhana, mudah dihitung dan diinterpretasikan.</p></td>
+<td class="text-left"><p>Tahan terhadap pencilan (outliers) dan data miring (skewed).</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Kekurangan</strong></p></td>
+<td class="text-left"><p>Sensitif terhadap pencilan, bisa menghasilkan bin yang kosong atau sangat sedikit isinya.</p></td>
+<td class="text-left"><p>Bisa memisahkan nilai yang berdekatan ke bin yang berbeda, atau menggabungkan nilai yang jauh ke bin yang sama. Batas bin-nya kurang intuitif.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Kapan Digunakan</strong></p></td>
+<td class="text-left"><p>Ketika data terdistribusi cukup merata (misalnya, distribusi normal).</p></td>
+<td class="text-left"><p>Ketika data terdistribusi miring, banyak pencilan, atau ingin setiap kategori punya pengaruh yang seimbang.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+</section>
+<section id="implementasi-diskritisasi-pada-dataset-iris">
+<h2><strong>Implementasi Diskritisasi pada dataset iris</strong><a class="headerlink" href="#implementasi-diskritisasi-pada-dataset-iris" title="Link to this heading">#</a></h2>
+<section id="persiapan-data">
+<h3><strong>1. Persiapan data</strong><a class="headerlink" href="#persiapan-data" title="Link to this heading">#</a></h3>
+<p>Dataset Iris memiliki 150 sampel bunga Iris dari tiga spesies: Setosa, Versicolor, dan Virginica, dengan empat fitur kontinu: panjang dan lebar sepal, serta panjang dan lebar petal. Dalam kasus ini, kita akan menggunakan data Iris tanpa label target (spesies) untuk menguji algoritma K-Means (unsupervised learning).</p>
+<p><strong>1.1 Install Dependency python yang dibutuhkan</strong>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>pymysql
+<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>pandas
+<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>psycopg2-binary
+<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>sqlalchemy
+<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>python-dotenv
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pymysql in /usr/local/python/3.12.1/lib/python3.12/site-packages (1.1.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> A new release of pip is available: <span class=" -Color -Color-Red">24.3.1</span> -&gt; <span class=" -Color -Color-Green">25.1.1</span>
+<span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> To update, run: <span class=" -Color -Color-Green">python3 -m pip install --upgrade pip</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pandas in /home/codespace/.local/lib/python3.12/site-packages (2.2.3)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: numpy&gt;=1.26.0 in /home/codespace/.local/lib/python3.12/site-packages (from pandas) (2.2.0)
+Requirement already satisfied: python-dateutil&gt;=2.8.2 in /home/codespace/.local/lib/python3.12/site-packages (from pandas) (2.9.0.post0)
+Requirement already satisfied: pytz&gt;=2020.1 in /home/codespace/.local/lib/python3.12/site-packages (from pandas) (2024.2)
+Requirement already satisfied: tzdata&gt;=2022.7 in /home/codespace/.local/lib/python3.12/site-packages (from pandas) (2024.2)
+Requirement already satisfied: six&gt;=1.5 in /home/codespace/.local/lib/python3.12/site-packages (from python-dateutil&gt;=2.8.2-&gt;pandas) (1.17.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> A new release of pip is available: <span class=" -Color -Color-Red">24.3.1</span> -&gt; <span class=" -Color -Color-Green">25.1.1</span>
+<span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> To update, run: <span class=" -Color -Color-Green">python3 -m pip install --upgrade pip</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: psycopg2-binary in /usr/local/python/3.12.1/lib/python3.12/site-packages (2.9.10)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> A new release of pip is available: <span class=" -Color -Color-Red">24.3.1</span> -&gt; <span class=" -Color -Color-Green">25.1.1</span>
+<span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> To update, run: <span class=" -Color -Color-Green">python3 -m pip install --upgrade pip</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: sqlalchemy in /usr/local/python/3.12.1/lib/python3.12/site-packages (2.0.38)
+Requirement already satisfied: greenlet!=0.4.17 in /usr/local/python/3.12.1/lib/python3.12/site-packages (from sqlalchemy) (3.1.1)
+Requirement already satisfied: typing-extensions&gt;=4.6.0 in /home/codespace/.local/lib/python3.12/site-packages (from sqlalchemy) (4.12.2)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> A new release of pip is available: <span class=" -Color -Color-Red">24.3.1</span> -&gt; <span class=" -Color -Color-Green">25.1.1</span>
+<span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> To update, run: <span class=" -Color -Color-Green">python3 -m pip install --upgrade pip</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: python-dotenv in /usr/local/python/3.12.1/lib/python3.12/site-packages (1.0.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> A new release of pip is available: <span class=" -Color -Color-Red">24.3.1</span> -&gt; <span class=" -Color -Color-Green">25.1.1</span>
+<span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> To update, run: <span class=" -Color -Color-Green">python3 -m pip install --upgrade pip</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>1.2 Buat koneksi ke database aiven</strong></p>
+<ul class="simple">
+<li><p>Upload Env</p></li>
+</ul>
+<p>Format:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Database MySQL</span>
+<span class="n">MYSQL_HOST</span><span class="o">=&lt;</span><span class="n">HOSTNAME</span><span class="o">&gt;</span>
+<span class="n">MYSQL_USER</span><span class="o">=&lt;</span><span class="n">USERNAME</span><span class="o">&gt;</span>
+<span class="n">MYSQL_PASSWORD</span><span class="o">=&lt;</span><span class="n">PASSWORD</span><span class="o">&gt;</span>
+<span class="n">MYSQL_PORT</span><span class="o">=&lt;</span><span class="n">PORT</span><span class="o">&gt;</span>
+<span class="n">MYSQL_DATABASE</span><span class="o">=&lt;</span><span class="n">DATABASE_NAME</span><span class="o">&gt;</span>
+
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">files</span>
+<span class="n">uploaded</span> <span class="o">=</span> <span class="n">files</span><span class="o">.</span><span class="n">upload</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">files</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">uploaded</span> <span class="o">=</span> <span class="n">files</span><span class="o">.</span><span class="n">upload</span><span class="p">()</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;google&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Koneksikan</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">create_engine</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span>
+
+<span class="n">load_dotenv</span><span class="p">()</span>
+
+<span class="c1"># Ambil variabel koneksi dari lingkungan</span>
+<span class="n">MYSQL_HOST</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;MYSQL_HOST&quot;</span><span class="p">)</span>
+<span class="n">MYSQL_PORT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;MYSQL_PORT&quot;</span><span class="p">)</span>
+<span class="n">MYSQL_USER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;MYSQL_USER&quot;</span><span class="p">)</span>
+<span class="n">MYSQL_PASSWORD</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;MYSQL_PASSWORD&quot;</span><span class="p">)</span>
+<span class="n">MYSQL_DATABASE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;MYSQL_DATABASE&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># Gunakan SQLAlchemy untuk koneksi ke MySQL</span>
+<span class="n">mysql_engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;mysql+pymysql://</span><span class="si">{</span><span class="n">MYSQL_USER</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">MYSQL_PASSWORD</span><span class="si">}</span><span class="s2">@</span><span class="si">{</span><span class="n">MYSQL_HOST</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">MYSQL_PORT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">MYSQL_DATABASE</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Ambil dan tampilkan data</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="c1"># Query MySQL</span>
+    <span class="n">mysql_query</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM iris_data;&quot;</span>
+    <span class="n">df_mysql</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">mysql_query</span><span class="p">,</span> <span class="n">mysql_engine</span><span class="p">)</span>
+
+
+    <span class="c1"># Print hasil query</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data dari MySQL:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df_mysql</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+
+
+    <span class="c1"># Jika data berhasil diambil, hapus file .env</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;.env&quot;</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;.env&quot;</span><span class="p">)</span>
+
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Gagal mengambil data: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data dari MySQL:
+      Id  Sepal_Length  Sepal_Width  Petal_Length  Petal_Width            Class
+0      1           5.1          3.5           1.4          0.2      Iris-setosa
+1      2           4.9          3.0           1.4          0.2      Iris-setosa
+2      3           4.7          3.2           1.3          0.2      Iris-setosa
+3      4           4.6          3.1           1.5          0.2      Iris-setosa
+4      5           5.0          3.6           1.4          0.2      Iris-setosa
+5      6           5.4          3.9           1.7          0.4      Iris-setosa
+6      7           4.6          3.4           1.4          0.3      Iris-setosa
+7      8           5.0          3.4           1.5          0.2      Iris-setosa
+8      9           4.4          2.9           1.4          0.2      Iris-setosa
+9     10           4.9          3.1           1.5          0.1      Iris-setosa
+10    11           5.4          3.7           1.5          0.2      Iris-setosa
+11    12           4.8          3.4           1.6          0.2      Iris-setosa
+12    13           4.8          3.0           1.4          0.1      Iris-setosa
+13    14           4.3          3.0           1.1          0.1      Iris-setosa
+14    15           5.8          4.0           1.2          0.2      Iris-setosa
+15    16           5.7          4.4           1.5          0.4      Iris-setosa
+16    17           5.4          3.9           1.3          0.4      Iris-setosa
+17    18           5.1          3.5           1.4          0.3      Iris-setosa
+18    19           5.7          3.8           1.7          0.3      Iris-setosa
+19    20           5.1          3.8           1.5          0.3      Iris-setosa
+20    21           5.4          3.4           1.7          0.2      Iris-setosa
+21    22           5.1          3.7           1.5          0.4      Iris-setosa
+22    23           4.6          3.6           1.0          0.2      Iris-setosa
+23    24           5.1          3.3           1.7          0.5      Iris-setosa
+24    25           4.8          3.4           1.9          0.2      Iris-setosa
+25    26           5.0          3.0           1.6          0.2      Iris-setosa
+26    27           5.0          3.4           1.6          0.4      Iris-setosa
+27    28           5.2          3.5           1.5          0.2      Iris-setosa
+28    29           5.2          3.4           1.4          0.2      Iris-setosa
+29    30           4.7          3.2           1.6          0.2      Iris-setosa
+30    31           4.8          3.1           1.6          0.2      Iris-setosa
+31    32           5.4          3.4           1.5          0.4      Iris-setosa
+32    33           5.2          4.1           1.5          0.1      Iris-setosa
+33    34           5.5          4.2           1.4          0.2      Iris-setosa
+34    35           4.9          3.1           1.5          0.1      Iris-setosa
+35    36           5.0          3.2           1.2          0.2      Iris-setosa
+36    37           5.5          3.5           1.3          0.2      Iris-setosa
+37    38           4.9          3.1           1.5          0.1      Iris-setosa
+38    39           4.4          3.0           1.3          0.2      Iris-setosa
+39    40           5.1          3.4           1.5          0.2      Iris-setosa
+40    41           5.0          3.5           1.3          0.3      Iris-setosa
+41    42           4.5          2.3           1.3          0.3      Iris-setosa
+42    43           4.4          3.2           1.3          0.2      Iris-setosa
+43    44           5.0          3.5           1.6          0.6      Iris-setosa
+44    45           5.1          3.8           1.9          0.4      Iris-setosa
+45    46           4.8          3.0           1.4          0.3      Iris-setosa
+46    47           5.1          3.8           1.6          0.2      Iris-setosa
+47    48           4.6          3.2           1.4          0.2      Iris-setosa
+48    49           5.3          3.7           1.5          0.2      Iris-setosa
+49    50           5.0          3.3           1.4          0.2      Iris-setosa
+50    51           7.0          3.2           4.7          1.4  Iris-versicolor
+51    52           6.4          3.2           4.5          1.5  Iris-versicolor
+52    53           6.9          3.1           4.9          1.5  Iris-versicolor
+53    54           5.5          2.3           4.0          1.3  Iris-versicolor
+54    55           6.5          2.8           4.6          1.5  Iris-versicolor
+55    56           5.7          2.8           4.5          1.3  Iris-versicolor
+56    57           6.3          3.3           4.7          1.6  Iris-versicolor
+57    58           4.9          2.4           3.3          1.0  Iris-versicolor
+58    59           6.6          2.9           4.6          1.3  Iris-versicolor
+59    60           5.2          2.7           3.9          1.4  Iris-versicolor
+60    61           5.0          2.0           3.5          1.0  Iris-versicolor
+61    62           5.9          3.0           4.2          1.5  Iris-versicolor
+62    63           6.0          2.2           4.0          1.0  Iris-versicolor
+63    64           6.1          2.9           4.7          1.4  Iris-versicolor
+64    65           5.6          2.9           3.6          1.3  Iris-versicolor
+65    66           6.7          3.1           4.4          1.4  Iris-versicolor
+66    67           5.6          3.0           4.5          1.5  Iris-versicolor
+67    68           5.8          2.7           4.1          1.0  Iris-versicolor
+68    69           6.2          2.2           4.5          1.5  Iris-versicolor
+69    70           5.6          2.5           3.9          1.1  Iris-versicolor
+70    71           5.9          3.2           4.8          1.8  Iris-versicolor
+71    72           6.1          2.8           4.0          1.3  Iris-versicolor
+72    73           6.3          2.5           4.9          1.5  Iris-versicolor
+73    74           6.1          2.8           4.7          1.2  Iris-versicolor
+74    75           6.4          2.9           4.3          1.3  Iris-versicolor
+75    76           6.6          3.0           4.4          1.4  Iris-versicolor
+76    77           6.8          2.8           4.8          1.4  Iris-versicolor
+77    78           6.7          3.0           5.0          1.7  Iris-versicolor
+78    79           6.0          2.9           4.5          1.5  Iris-versicolor
+79    80           5.7          2.6           3.5          1.0  Iris-versicolor
+80    81           5.5          2.4           3.8          1.1  Iris-versicolor
+81    82           5.5          2.4           3.7          1.0  Iris-versicolor
+82    83           5.8          2.7           3.9          1.2  Iris-versicolor
+83    84           6.0          2.7           5.1          1.6  Iris-versicolor
+84    85           5.4          3.0           4.5          1.5  Iris-versicolor
+85    86           6.0          3.4           4.5          1.6  Iris-versicolor
+86    87           6.7          3.1           4.7          1.5  Iris-versicolor
+87    88           6.3          2.3           4.4          1.3  Iris-versicolor
+88    89           5.6          3.0           4.1          1.3  Iris-versicolor
+89    90           5.5          2.5           4.0          1.3  Iris-versicolor
+90    91           5.5          2.6           4.4          1.2  Iris-versicolor
+91    92           6.1          3.0           4.6          1.4  Iris-versicolor
+92    93           5.8          2.6           4.0          1.2  Iris-versicolor
+93    94           5.0          2.3           3.3          1.0  Iris-versicolor
+94    95           5.6          2.7           4.2          1.3  Iris-versicolor
+95    96           5.7          3.0           4.2          1.2  Iris-versicolor
+96    97           5.7          2.9           4.2          1.3  Iris-versicolor
+97    98           6.2          2.9           4.3          1.3  Iris-versicolor
+98    99           5.1          2.5           3.0          1.1  Iris-versicolor
+99   100           5.7          2.8           4.1          1.3  Iris-versicolor
+100  101           6.3          3.3           6.0          2.5   Iris-virginica
+101  102           5.8          2.7           5.1          1.9   Iris-virginica
+102  103           7.1          3.0           5.9          2.1   Iris-virginica
+103  104           6.3          2.9           5.6          1.8   Iris-virginica
+104  105           6.5          3.0           5.8          2.2   Iris-virginica
+105  106           7.6          3.0           6.6          2.1   Iris-virginica
+106  107           4.9          2.5           4.5          1.7   Iris-virginica
+107  108           7.3          2.9           6.3          1.8   Iris-virginica
+108  109           6.7          2.5           5.8          1.8   Iris-virginica
+109  110           7.2          3.6           6.1          2.5   Iris-virginica
+110  111           6.5          3.2           5.1          2.0   Iris-virginica
+111  112           6.4          2.7           5.3          1.9   Iris-virginica
+112  113           6.8          3.0           5.5          2.1   Iris-virginica
+113  114           5.7          2.5           5.0          2.0   Iris-virginica
+114  115           5.8          2.8           5.1          2.4   Iris-virginica
+115  116           6.4          3.2           5.3          2.3   Iris-virginica
+116  117           6.5          3.0           5.5          1.8   Iris-virginica
+117  118           7.7          3.8           6.7          2.2   Iris-virginica
+118  119           7.7          2.6           6.9          2.3   Iris-virginica
+119  120           6.0          2.2           5.0          1.5   Iris-virginica
+120  121           6.9          3.2           5.7          2.3   Iris-virginica
+121  122           5.6          2.8           4.9          2.0   Iris-virginica
+122  123           7.7          2.8           6.7          2.0   Iris-virginica
+123  124           6.3          2.7           4.9          1.8   Iris-virginica
+124  125           6.7          3.3           5.7          2.1   Iris-virginica
+125  126           7.2          3.2           6.0          1.8   Iris-virginica
+126  127           6.2          2.8           4.8          1.8   Iris-virginica
+127  128           6.1          3.0           4.9          1.8   Iris-virginica
+128  129           6.4          2.8           5.6          2.1   Iris-virginica
+129  130           7.2          3.0           5.8          1.6   Iris-virginica
+130  131           7.4          2.8           6.1          1.9   Iris-virginica
+131  132           7.9          3.8           6.4          2.0   Iris-virginica
+132  133           6.4          2.8           5.6          2.2   Iris-virginica
+133  134           6.3          2.8           5.1          1.5   Iris-virginica
+134  135           6.1          2.6           5.6          1.4   Iris-virginica
+135  136           7.7          3.0           6.1          2.3   Iris-virginica
+136  137           6.3          3.4           5.6          2.4   Iris-virginica
+137  138           6.4          3.1           5.5          1.8   Iris-virginica
+138  139           6.0          3.0           4.8          1.8   Iris-virginica
+139  140           6.9          3.1           5.4          2.1   Iris-virginica
+140  141           6.7          3.1           5.6          2.4   Iris-virginica
+141  142           6.9          3.1           5.1          2.3   Iris-virginica
+142  143           5.8          2.7           5.1          1.9   Iris-virginica
+143  144           6.8          3.2           5.9          2.3   Iris-virginica
+144  145           6.7          3.3           5.7          2.5   Iris-virginica
+145  146           6.7          3.0           5.2          2.3   Iris-virginica
+146  147           6.3          2.5           5.0          1.9   Iris-virginica
+147  148           6.5          3.0           5.2          2.0   Iris-virginica
+148  149           6.2          3.4           5.4          2.3   Iris-virginica
+149  150           5.9          3.0           5.1          1.8   Iris-virginica
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>1.3 Memisahkan Setiap fitur</strong></p>
+<p>Memisahkan setiap fitur pada dataset iris untu menerapkan Diskritisasi yang berbeda setiap fitur.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Memisahkan setiap fitur ke dalam DataFrame terpisah</span>
+<span class="n">df_sepal_length</span> <span class="o">=</span> <span class="n">df_mysql</span><span class="p">[[</span><span class="s1">&#39;Sepal_Length&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df_sepal_width</span> <span class="o">=</span> <span class="n">df_mysql</span><span class="p">[[</span><span class="s1">&#39;Sepal_Width&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df_petal_length</span> <span class="o">=</span> <span class="n">df_mysql</span><span class="p">[[</span><span class="s1">&#39;Petal_Length&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df_petal_width</span> <span class="o">=</span> <span class="n">df_mysql</span><span class="p">[[</span><span class="s1">&#39;Petal_Width&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Simpan data asli (termasuk label)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df_mysql</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Untuk K-Means dan visualisasi PCA, kita akan menggunakan semua fitur numerik</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df_mysql</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Id&quot;</span><span class="p">,</span> <span class="s2">&quot;Class&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="normalisasikan-data">
+<h3><strong>2. Normalisasikan Data</strong><a class="headerlink" href="#normalisasikan-data" title="Link to this heading">#</a></h3>
+<p>Sebelum melakukan clustering, sebaiknya lakukan normalisasi atau standardisasi data supaya tiap fitur punya skala yang seimbang. Ini penting karena algoritma clustering seperti KMeans sensitif terhadap skala fitur.</p>
+<ul class="simple">
+<li><p>Data awal</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="c1"># reduksi ke 2 dimensi</span>
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">X_pca</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">X_pca</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">X_pca</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Data tanpa label&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/f80e10359fa12244b21db847389f82994e261c9e5180aef3462ca3f5a37e8d6c.png" src="_images/f80e10359fa12244b21db847389f82994e261c9e5180aef3462ca3f5a37e8d6c.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Normalisasikan Data</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">MinMaxScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># StandardScaler</span>
+<span class="n">scaler_std</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">X_scaled_std</span> <span class="o">=</span> <span class="n">scaler_std</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">pca_std</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">X_pca_std</span> <span class="o">=</span> <span class="n">pca_std</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_scaled_std</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">X_pca_std</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">X_pca_std</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;StandardScaler&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Komponen PCA 1&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Komponen PCA 2&quot;</span><span class="p">)</span>
+
+<span class="c1"># MinMaxScaler</span>
+<span class="n">scaler_mm</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
+<span class="n">X_scaled_mm</span> <span class="o">=</span> <span class="n">scaler_mm</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">pca_mm</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">X_pca_mm</span> <span class="o">=</span> <span class="n">pca_mm</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_scaled_mm</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">X_pca_mm</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">X_pca_mm</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;MinMaxScaler&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Komponen PCA 1&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Komponen PCA 2&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/38f55e40f63e7c4901ce85bebf50f6646cef548b8471120828d79fd588a8126d.png" src="_images/38f55e40f63e7c4901ce85bebf50f6646cef548b8471120828d79fd588a8126d.png" />
+</div>
+</div>
+<p>Setelah dibandingkan, normalisasi dengan MinMaxScaler lebih baik karena menjaga bentuk data asli dan memperjelas jarak antar spesies. Sedangkan StandardScaler membuat data lebih tersebar merata tapi jarak antar spesies kurang jelas. Jadi, MinMaxScaler lebih cocok untuk kasus ini agar klaster spesies lebih mudah dipisahkan.</p>
+</section>
+<section id="k-means-clustering-pada-setiap-fitur-individu">
+<h3><strong>4. K-Means Clustering pada Setiap Fitur Individu</strong><a class="headerlink" href="#k-means-clustering-pada-setiap-fitur-individu" title="Link to this heading">#</a></h3>
+<p>Melakukan clustering K-Means pada setiap fitur secara terpisah dengan nilai K yang berbeda (2, 3, 4, 5).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Dictionary untuk menyimpan DataFrame setiap fitur dan nilai K yang diinginkan</span>
+<span class="n">feature_data_k</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Sepal_Length&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;df&#39;</span><span class="p">:</span> <span class="n">df_sepal_length</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+    <span class="s1">&#39;Sepal_Width&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;df&#39;</span><span class="p">:</span> <span class="n">df_sepal_width</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span>
+    <span class="s1">&#39;Petal_Length&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;df&#39;</span><span class="p">:</span> <span class="n">df_petal_length</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">},</span>
+    <span class="s1">&#39;Petal_Width&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;df&#39;</span><span class="p">:</span> <span class="n">df_petal_width</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="n">feature_name</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">feature_data_k</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">df_feature</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;df&#39;</span><span class="p">]</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Clustering for </span><span class="si">{</span><span class="n">feature_name</span><span class="si">}</span><span class="s2"> with k=</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> ---&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Ambil data fitur dalam bentuk numpy array</span>
+    <span class="n">X_feature</span> <span class="o">=</span> <span class="n">df_feature</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">clusters</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X_feature</span><span class="p">)</span>
+    <span class="n">centroids</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">cluster_centers_</span>
+
+    <span class="c1"># Visualisasi 1D data dan centroid</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_feature</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_feature</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="n">clusters</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">centroids</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">centroids</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Centroid&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">feature_name</span><span class="si">}</span><span class="s1"> (k=</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">feature_name</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span> <span class="c1"># Sembunyikan y-axis ticks untuk visualisasi 1D</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="c1"># Print centroid 1D</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;k = </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">: Centroids = </span><span class="si">{</span><span class="n">centroids</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Clustering for Sepal_Length with k=2 ---
+</pre></div>
+</div>
+<img alt="_images/f00db5e4e4b1030f108a222353466512b37dfb5cdc1ecd8924089840a4933a2f.png" src="_images/f00db5e4e4b1030f108a222353466512b37dfb5cdc1ecd8924089840a4933a2f.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k = 2: Centroids = [6.61044776 5.22409639]
+
+--- Clustering for Sepal_Width with k=3 ---
+</pre></div>
+</div>
+<img alt="_images/436fbcde0d865a4dcbb2d807cbb224c4b80362efa13f15a4fa7cfbc1c42b9ea1.png" src="_images/436fbcde0d865a4dcbb2d807cbb224c4b80362efa13f15a4fa7cfbc1c42b9ea1.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k = 3: Centroids = [3.02222222 3.63888889 2.49393939]
+
+--- Clustering for Petal_Length with k=4 ---
+</pre></div>
+</div>
+<img alt="_images/2f093bf79f27e78d855254cbfc62e671eede40d16f13b5d56408dc7b4cc98103.png" src="_images/2f093bf79f27e78d855254cbfc62e671eede40d16f13b5d56408dc7b4cc98103.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k = 4: Centroids = [4.80888889 1.464      3.884      5.90333333]
+
+--- Clustering for Petal_Width with k=5 ---
+</pre></div>
+</div>
+<img alt="_images/f0271ceb5cad1c892789a9c7dcefd26b5923d32257162537e29507119576529c.png" src="_images/f0271ceb5cad1c892789a9c7dcefd26b5923d32257162537e29507119576529c.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>k = 5: Centroids = [1.08666667 2.33529412 0.244      1.90645161 1.41891892]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="diskritisasi-dan-penggabungan-fitur">
+<h3><strong>5. Diskritisasi dan Penggabungan Fitur</strong><a class="headerlink" href="#diskritisasi-dan-penggabungan-fitur" title="Link to this heading">#</a></h3>
+<p>Melakukan diskritisasi pada setiap fitur berdasarkan hasil K-Means clustering dan menggabungkan fitur-fitur yang telah didiskritisasi.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Dictionary untuk menyimpan DataFrame setiap fitur dan nilai K yang diinginkan (sama seperti sebelumnya)</span>
+<span class="n">feature_data_k</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Sepal_Length&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;df&#39;</span><span class="p">:</span> <span class="n">df_sepal_length</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+    <span class="s1">&#39;Sepal_Width&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;df&#39;</span><span class="p">:</span> <span class="n">df_sepal_width</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span>
+    <span class="s1">&#39;Petal_Length&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;df&#39;</span><span class="p">:</span> <span class="n">df_petal_length</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">},</span>
+    <span class="s1">&#39;Petal_Width&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;df&#39;</span><span class="p">:</span> <span class="n">df_petal_width</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1"># DataFrame untuk menyimpan fitur yang didiskritisasi</span>
+<span class="n">df_discretized</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">feature_name</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">feature_data_k</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">df_feature</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;df&#39;</span><span class="p">]</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Lakukan K-Means clustering untuk mendapatkan label cluster</span>
+    <span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">clusters</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">df_feature</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+
+    <span class="c1"># Buat label diskrit (a, b, c, ...) berdasarkan jumlah cluster</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">)]</span>
+
+    <span class="c1"># Buat DataFrame sementara dengan label cluster</span>
+    <span class="n">df_temp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">clusters</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">feature_name</span><span class="si">}</span><span class="s1">_cluster&#39;</span><span class="p">])</span>
+
+    <span class="c1"># Urutkan nilai unik cluster dan centroid untuk pemetaan yang konsisten</span>
+    <span class="c1"># Ini penting untuk memastikan label &#39;a&#39;, &#39;b&#39;, dll. sesuai dengan urutan nilai fitur</span>
+    <span class="n">sorted_centroids_indices</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">cluster_centers_</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">argsort</span><span class="p">()</span>
+    <span class="n">sorted_cluster_labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">sorted_centroids_indices</span><span class="p">]</span>
+    <span class="n">cluster_to_label_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">old_label</span><span class="p">:</span> <span class="n">new_label</span> <span class="k">for</span> <span class="n">old_label</span><span class="p">,</span> <span class="n">new_label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sorted_cluster_labels</span><span class="p">)}</span>
+
+    <span class="c1"># Map label cluster numerik ke label huruf diskrit</span>
+    <span class="n">df_discretized</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">feature_name</span><span class="si">}</span><span class="s1">_diskrit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_temp</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">feature_name</span><span class="si">}</span><span class="s1">_cluster&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">cluster_to_label_map</span><span class="p">)</span>
+
+<span class="c1"># Gabungkan fitur yang didiskritisasi dengan data asli (opsional, tergantung kebutuhan)</span>
+<span class="c1"># df_combined = pd.concat([df_mysql, df_discretized], axis=1)</span>
+
+<span class="c1"># Tampilkan hasil diskritisasi</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data setelah diskritisasi per fitur:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_discretized</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data setelah diskritisasi per fitur:
+    Sepal_Length_diskrit Sepal_Width_diskrit Petal_Length_diskrit Petal_Width_diskrit
+0                      a                   a                    c                   e
+1                      a                   c                    c                   e
+2                      a                   c                    c                   e
+3                      a                   c                    c                   e
+4                      a                   a                    c                   e
+5                      a                   a                    c                   e
+6                      a                   a                    c                   e
+7                      a                   a                    c                   e
+8                      a                   c                    c                   e
+9                      a                   c                    c                   e
+10                     a                   a                    c                   e
+11                     a                   a                    c                   e
+12                     a                   c                    c                   e
+13                     a                   c                    c                   e
+14                     a                   a                    c                   e
+15                     a                   a                    c                   e
+16                     a                   a                    c                   e
+17                     a                   a                    c                   e
+18                     a                   a                    c                   e
+19                     a                   a                    c                   e
+20                     a                   a                    c                   e
+21                     a                   a                    c                   e
+22                     a                   a                    c                   e
+23                     a                   c                    c                   e
+24                     a                   a                    c                   e
+25                     a                   c                    c                   e
+26                     a                   a                    c                   e
+27                     a                   a                    c                   e
+28                     a                   a                    c                   e
+29                     a                   c                    c                   e
+30                     a                   c                    c                   e
+31                     a                   a                    c                   e
+32                     a                   a                    c                   e
+33                     a                   a                    c                   e
+34                     a                   c                    c                   e
+35                     a                   c                    c                   e
+36                     a                   a                    c                   e
+37                     a                   c                    c                   e
+38                     a                   c                    c                   e
+39                     a                   a                    c                   e
+40                     a                   a                    c                   e
+41                     a                   b                    c                   e
+42                     a                   c                    c                   e
+43                     a                   a                    c                   e
+44                     a                   a                    c                   e
+45                     a                   c                    c                   e
+46                     a                   a                    c                   e
+47                     a                   c                    c                   e
+48                     a                   a                    c                   e
+49                     a                   c                    c                   e
+50                     b                   c                    b                   b
+51                     b                   c                    b                   b
+52                     b                   c                    b                   b
+53                     a                   b                    a                   b
+54                     b                   c                    b                   b
+55                     a                   c                    b                   b
+56                     b                   c                    b                   b
+57                     a                   b                    a                   c
+58                     b                   c                    b                   b
+59                     a                   b                    a                   b
+60                     a                   b                    a                   c
+61                     a                   c                    a                   b
+62                     b                   b                    a                   c
+63                     b                   c                    b                   b
+64                     a                   c                    a                   b
+65                     b                   c                    b                   b
+66                     a                   c                    b                   b
+67                     a                   b                    a                   c
+68                     b                   b                    b                   b
+69                     a                   b                    a                   c
+70                     a                   c                    b                   d
+71                     b                   c                    a                   b
+72                     b                   b                    b                   b
+73                     b                   c                    b                   c
+74                     b                   c                    a                   b
+75                     b                   c                    b                   b
+76                     b                   c                    b                   b
+77                     b                   c                    b                   d
+78                     b                   c                    b                   b
+79                     a                   b                    a                   c
+80                     a                   b                    a                   c
+81                     a                   b                    a                   c
+82                     a                   b                    a                   c
+83                     b                   b                    b                   b
+84                     a                   c                    b                   b
+85                     b                   a                    b                   b
+86                     b                   c                    b                   b
+87                     b                   b                    b                   b
+88                     a                   c                    a                   b
+89                     a                   b                    a                   b
+90                     a                   b                    b                   c
+91                     b                   c                    b                   b
+92                     a                   b                    a                   c
+93                     a                   b                    a                   c
+94                     a                   b                    a                   b
+95                     a                   c                    a                   c
+96                     a                   c                    a                   b
+97                     b                   c                    a                   b
+98                     a                   b                    a                   c
+99                     a                   c                    a                   b
+100                    b                   c                    d                   a
+101                    a                   b                    b                   d
+102                    b                   c                    d                   d
+103                    b                   c                    d                   d
+104                    b                   c                    d                   a
+105                    b                   c                    d                   d
+106                    a                   b                    b                   d
+107                    b                   c                    d                   d
+108                    b                   b                    d                   d
+109                    b                   a                    d                   a
+110                    b                   c                    b                   d
+111                    b                   b                    b                   d
+112                    b                   c                    d                   d
+113                    a                   b                    b                   d
+114                    a                   c                    b                   a
+115                    b                   c                    b                   a
+116                    b                   c                    d                   d
+117                    b                   a                    d                   a
+118                    b                   b                    d                   a
+119                    b                   b                    b                   b
+120                    b                   c                    d                   a
+121                    a                   c                    b                   d
+122                    b                   c                    d                   d
+123                    b                   b                    b                   d
+124                    b                   c                    d                   d
+125                    b                   c                    d                   d
+126                    b                   c                    b                   d
+127                    b                   c                    b                   d
+128                    b                   c                    d                   d
+129                    b                   c                    d                   b
+130                    b                   c                    d                   d
+131                    b                   a                    d                   d
+132                    b                   c                    d                   a
+133                    b                   c                    b                   b
+134                    b                   b                    d                   b
+135                    b                   c                    d                   a
+136                    b                   a                    d                   a
+137                    b                   c                    d                   d
+138                    b                   c                    b                   d
+139                    b                   c                    d                   d
+140                    b                   c                    d                   a
+141                    b                   c                    b                   a
+142                    a                   b                    b                   d
+143                    b                   c                    d                   a
+144                    b                   c                    d                   a
+145                    b                   c                    b                   a
+146                    b                   b                    b                   d
+147                    b                   c                    b                   d
+148                    b                   a                    d                   a
+149                    a                   c                    b                   d
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="klasifikasi-dengan-naive-bayes">
+<h3><strong>6. Klasifikasi dengan Naive Bayes</strong><a class="headerlink" href="#klasifikasi-dengan-naive-bayes" title="Link to this heading">#</a></h3>
+<p>Melakukan klasifikasi menggunakan model Naive Bayes pada data yang telah digabungkan.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span><span class="p">,</span> <span class="n">CategoricalNB</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">classification_report</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+
+<span class="c1"># --- Klasifikasi dengan Naive Bayes pada Data Asli ---</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- Klasifikasi dengan Naive Bayes pada Data Asli ---&quot;</span><span class="p">)</span>
+
+<span class="n">X_nb_original</span> <span class="o">=</span> <span class="n">X</span>  <span class="c1"># Menggunakan fitur asli</span>
+<span class="n">y_nb_original</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="s1">&#39;Class&#39;</span><span class="p">]</span>  <span class="c1"># Menggunakan label kelas asli</span>
+
+<span class="c1"># Bagi data asli menjadi data latih dan data uji</span>
+<span class="n">X_train_nb_original</span><span class="p">,</span> <span class="n">X_test_nb_original</span><span class="p">,</span> <span class="n">y_train_nb_original</span><span class="p">,</span> <span class="n">y_test_nb_original</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_nb_original</span><span class="p">,</span> <span class="n">y_nb_original</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Inisialisasi model Naive Bayes (Gaussian Naive Bayes cocok untuk fitur kontinu)</span>
+<span class="n">model_nb_original</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+
+<span class="c1"># Latih model pada data asli</span>
+<span class="n">model_nb_original</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_nb_original</span><span class="p">,</span> <span class="n">y_train_nb_original</span><span class="p">)</span>
+
+<span class="c1"># Prediksi pada data uji asli</span>
+<span class="n">y_pred_nb_original</span> <span class="o">=</span> <span class="n">model_nb_original</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_nb_original</span><span class="p">)</span>
+
+<span class="c1"># Evaluasi model pada data asli</span>
+<span class="n">accuracy_nb_original</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test_nb_original</span><span class="p">,</span> <span class="n">y_pred_nb_original</span><span class="p">)</span>
+<span class="n">report_nb_original</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_test_nb_original</span><span class="p">,</span> <span class="n">y_pred_nb_original</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Akurasi Naive Bayes (Data Asli): </span><span class="si">{</span><span class="n">accuracy_nb_original</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Classification Report (Data Asli):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">report_nb_original</span><span class="p">)</span>
+
+
+<span class="c1"># --- Klasifikasi dengan Naive Bayes pada Data Didiskritisasi ---</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Klasifikasi dengan Naive Bayes pada Data Didiskritisasi ---&quot;</span><span class="p">)</span>
+
+<span class="n">X_nb_discretized</span> <span class="o">=</span> <span class="n">df_discretized</span> <span class="c1"># Menggunakan fitur yang didiskritisasi</span>
+<span class="n">y_nb_discretized</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="s1">&#39;Class&#39;</span><span class="p">]</span> <span class="c1"># Menggunakan label kelas asli</span>
+
+<span class="c1"># Untuk Categorical Naive Bayes, fitur harus berupa integer.</span>
+<span class="c1"># Kita perlu mengkodekan label diskrit (&#39;a&#39;, &#39;b&#39;, ...) menjadi numerik.</span>
+<span class="c1"># One-Hot Encoding adalah pilihan yang baik untuk Naive Bayes.</span>
+<span class="n">encoder</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="n">X_nb_discretized_encoded</span> <span class="o">=</span> <span class="n">encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_nb_discretized</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+
+<span class="c1"># Bagi data didiskritisasi yang sudah di-encode menjadi data latih dan data uji</span>
+<span class="n">X_train_nb_discretized</span><span class="p">,</span> <span class="n">X_test_nb_discretized</span><span class="p">,</span> <span class="n">y_train_nb_discretized</span><span class="p">,</span> <span class="n">y_test_nb_discretized</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_nb_discretized_encoded</span><span class="p">,</span> <span class="n">y_nb_discretized</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Inisialisasi model Naive Bayes (Categorical Naive Bayes cocok untuk fitur kategorikal)</span>
+<span class="n">model_nb_discretized</span> <span class="o">=</span> <span class="n">CategoricalNB</span><span class="p">()</span>
+
+<span class="c1"># Latih model pada data didiskritisasi</span>
+<span class="n">model_nb_discretized</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_nb_discretized</span><span class="p">,</span> <span class="n">y_train_nb_discretized</span><span class="p">)</span>
+
+<span class="c1"># Prediksi pada data uji didiskritisasi</span>
+<span class="n">y_pred_nb_discretized</span> <span class="o">=</span> <span class="n">model_nb_discretized</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_nb_discretized</span><span class="p">)</span>
+
+<span class="c1"># Evaluasi model pada data didiskritisasi</span>
+<span class="n">accuracy_nb_discretized</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test_nb_discretized</span><span class="p">,</span> <span class="n">y_pred_nb_discretized</span><span class="p">)</span>
+<span class="n">report_nb_discretized</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_test_nb_discretized</span><span class="p">,</span> <span class="n">y_pred_nb_discretized</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Akurasi Naive Bayes (Data Didiskritisasi): </span><span class="si">{</span><span class="n">accuracy_nb_discretized</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Classification Report (Data Didiskritisasi):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">report_nb_discretized</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Klasifikasi dengan Naive Bayes pada Data Asli ---
+Akurasi Naive Bayes (Data Asli): 0.98
+
+Classification Report (Data Asli):
+                 precision    recall  f1-score   support
+
+    Iris-setosa       1.00      1.00      1.00        19
+Iris-versicolor       1.00      0.92      0.96        13
+ Iris-virginica       0.93      1.00      0.96        13
+
+       accuracy                           0.98        45
+      macro avg       0.98      0.97      0.97        45
+   weighted avg       0.98      0.98      0.98        45
+
+
+--- Klasifikasi dengan Naive Bayes pada Data Didiskritisasi ---
+Akurasi Naive Bayes (Data Didiskritisasi): 0.96
+
+Classification Report (Data Didiskritisasi):
+                 precision    recall  f1-score   support
+
+    Iris-setosa       1.00      1.00      1.00        19
+Iris-versicolor       0.92      0.92      0.92        13
+ Iris-virginica       0.92      0.92      0.92        13
+
+       accuracy                           0.96        45
+      macro avg       0.95      0.95      0.95        45
+   weighted avg       0.96      0.96      0.96        45
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="klasifikasi-dengan-decision-tree">
+<h3><strong>7. Klasifikasi dengan Decision Tree</strong><a class="headerlink" href="#klasifikasi-dengan-decision-tree" title="Link to this heading">#</a></h3>
+<p>Melakukan klasifikasi menggunakan model Decision Tree pada data asli dan data yang telah didiskritisasi.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">classification_report</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+
+<span class="c1"># --- Klasifikasi dengan Decision Tree pada Data Asli ---</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- Klasifikasi dengan Decision Tree pada Data Asli ---&quot;</span><span class="p">)</span>
+
+<span class="n">X_dt_original</span> <span class="o">=</span> <span class="n">X</span>  <span class="c1"># Menggunakan fitur asli</span>
+<span class="n">y_dt_original</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="s1">&#39;Class&#39;</span><span class="p">]</span>  <span class="c1"># Menggunakan label kelas asli</span>
+
+<span class="c1"># Bagi data asli menjadi data latih dan data uji</span>
+<span class="n">X_train_dt_original</span><span class="p">,</span> <span class="n">X_test_dt_original</span><span class="p">,</span> <span class="n">y_train_dt_original</span><span class="p">,</span> <span class="n">y_test_dt_original</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_dt_original</span><span class="p">,</span> <span class="n">y_dt_original</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Inisialisasi model Decision Tree</span>
+<span class="n">model_dt_original</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Latih model pada data asli</span>
+<span class="n">model_dt_original</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_dt_original</span><span class="p">,</span> <span class="n">y_train_dt_original</span><span class="p">)</span>
+
+<span class="c1"># Prediksi pada data uji asli</span>
+<span class="n">y_pred_dt_original</span> <span class="o">=</span> <span class="n">model_dt_original</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_dt_original</span><span class="p">)</span>
+
+<span class="c1"># Evaluasi model pada data asli</span>
+<span class="n">accuracy_dt_original</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test_dt_original</span><span class="p">,</span> <span class="n">y_pred_dt_original</span><span class="p">)</span>
+<span class="n">report_dt_original</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_test_dt_original</span><span class="p">,</span> <span class="n">y_pred_dt_original</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Akurasi Decision Tree (Data Asli): </span><span class="si">{</span><span class="n">accuracy_dt_original</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Classification Report (Data Asli):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">report_dt_original</span><span class="p">)</span>
+
+
+<span class="c1"># --- Klasifikasi dengan Decision Tree pada Data Didiskritisasi ---</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Klasifikasi dengan Decision Tree pada Data Didiskritisasi ---&quot;</span><span class="p">)</span>
+
+<span class="n">X_dt_discretized</span> <span class="o">=</span> <span class="n">df_discretized</span> <span class="c1"># Menggunakan fitur yang didiskritisasi</span>
+<span class="n">y_dt_discretized</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="s1">&#39;Class&#39;</span><span class="p">]</span> <span class="c1"># Menggunakan label kelas asli</span>
+
+<span class="c1"># Decision Tree dapat langsung menangani fitur kategorikal dalam bentuk string,</span>
+<span class="c1"># tetapi mengkodekannya (misalnya dengan One-Hot Encoding) seringkali merupakan praktik yang baik,</span>
+<span class="c1"># terutama jika ada banyak kategori atau untuk konsistensi dengan model lain.</span>
+<span class="c1"># Kita akan menggunakan One-Hot Encoding seperti pada Naive Bayes.</span>
+<span class="n">encoder_dt</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="n">X_dt_discretized_encoded</span> <span class="o">=</span> <span class="n">encoder_dt</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_dt_discretized</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+
+
+<span class="c1"># Bagi data didiskritisasi yang sudah di-encode menjadi data latih dan data uji</span>
+<span class="n">X_train_dt_discretized</span><span class="p">,</span> <span class="n">X_test_dt_discretized</span><span class="p">,</span> <span class="n">y_train_dt_discretized</span><span class="p">,</span> <span class="n">y_test_dt_discretized</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_dt_discretized_encoded</span><span class="p">,</span> <span class="n">y_dt_discretized</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Inisialisasi model Decision Tree</span>
+<span class="n">model_dt_discretized</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Latih model pada data didiskritisasi</span>
+<span class="n">model_dt_discretized</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_dt_discretized</span><span class="p">,</span> <span class="n">y_train_dt_discretized</span><span class="p">)</span>
+
+<span class="c1"># Prediksi pada data uji didiskritisasi</span>
+<span class="n">y_pred_dt_discretized</span> <span class="o">=</span> <span class="n">model_dt_discretized</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_dt_discretized</span><span class="p">)</span>
+
+<span class="c1"># Evaluasi model pada data didiskritisasi</span>
+<span class="n">accuracy_dt_discretized</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test_dt_discretized</span><span class="p">,</span> <span class="n">y_pred_dt_discretized</span><span class="p">)</span>
+<span class="n">report_dt_discretized</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">y_test_dt_discretized</span><span class="p">,</span> <span class="n">y_pred_dt_discretized</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Akurasi Decision Tree (Data Didiskritisasi): </span><span class="si">{</span><span class="n">accuracy_dt_discretized</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Classification Report (Data Didiskritisasi):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">report_dt_discretized</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Klasifikasi dengan Decision Tree pada Data Asli ---
+Akurasi Decision Tree (Data Asli): 1.00
+
+Classification Report (Data Asli):
+                 precision    recall  f1-score   support
+
+    Iris-setosa       1.00      1.00      1.00        19
+Iris-versicolor       1.00      1.00      1.00        13
+ Iris-virginica       1.00      1.00      1.00        13
+
+       accuracy                           1.00        45
+      macro avg       1.00      1.00      1.00        45
+   weighted avg       1.00      1.00      1.00        45
+
+
+--- Klasifikasi dengan Decision Tree pada Data Didiskritisasi ---
+Akurasi Decision Tree (Data Didiskritisasi): 1.00
+
+Classification Report (Data Didiskritisasi):
+                 precision    recall  f1-score   support
+
+    Iris-setosa       1.00      1.00      1.00        19
+Iris-versicolor       1.00      1.00      1.00        13
+ Iris-virginica       1.00      1.00      1.00        13
+
+       accuracy                           1.00        45
+      macro avg       1.00      1.00      1.00        45
+   weighted avg       1.00      1.00      1.00        45
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="DecissionTree.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><strong>Decision Tree</strong></p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cara-kerja"><strong>Cara Kerja</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-langkah"><strong>Langkah-Langkah</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#diskritisasi-equal-width">- <strong>Diskritisasi (Equal Width)</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#diskritisasi-equal-frequency">- <strong>Diskritisasi (Equal Frequency)</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contoh-perhitungan-manual"><strong>Contoh Perhitungan Manual</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">- <strong>Diskritisasi (Equal Width)</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1-tentukan-jumlah-bin-k"><strong>Langkah 1: Tentukan Jumlah Bin (K)</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-urutkan-data"><strong>Langkah 2: Urutkan Data</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-cari-nilai-minimum-maksimum"><strong>Langkah 3: Cari Nilai Minimum &amp; Maksimum</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-4-hitung-lebar-bin"><strong>Langkah 4: Hitung Lebar Bin</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-5-tentukan-batas-bin"><strong>Langkah 5: Tentukan Batas Bin</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-6-petakan-data">**Langkah 6: Petakan Data **</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">- <strong>Diskritisasi (Equal Frequency)</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><strong>Langkah 1: Tentukan Jumlah Bin (K)</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4"><strong>Langkah 2: Urutkan Data</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-hitung-jumlah-data-per-bin"><strong>Langkah 3: Hitung Jumlah Data per Bin</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-4-tentukan-batas-bin"><strong>Langkah 4: Tentukan Batas Bin</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-5-petakan-data">**Langkah 5: Petakan Data **</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#perbandingan-equal-width-vs-equal-frequency"><strong>Perbandingan: Equal Width vs. Equal Frequency</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-diskritisasi-pada-dataset-iris"><strong>Implementasi Diskritisasi pada dataset iris</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#persiapan-data"><strong>1. Persiapan data</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normalisasikan-data"><strong>2. Normalisasikan Data</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#k-means-clustering-pada-setiap-fitur-individu"><strong>4. K-Means Clustering pada Setiap Fitur Individu</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#diskritisasi-dan-penggabungan-fitur"><strong>5. Diskritisasi dan Penggabungan Fitur</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#klasifikasi-dengan-naive-bayes"><strong>6. Klasifikasi dengan Naive Bayes</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#klasifikasi-dengan-decision-tree"><strong>7. Klasifikasi dengan Decision Tree</strong></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Abdulloh Sahl_23-090
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
