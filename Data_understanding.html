@@ -1,0 +1,1267 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Data Understanding &#8212; Penambangan Data</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Data_understanding';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Deteksi outlier pada data iris" href="Deteksi%20Outlier.html" />
+    <link rel="prev" title="Metodologi CRISP-DM" href="CRISP-DM.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Penambangan Data - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="Penambangan Data - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    INTRODUCTION
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Data.html">Apa itu Data Mining?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CRISP-DM.html">Metodologi CRISP-DM</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Data Understanding</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Deteksi%20Outlier.html"><strong>Deteksi outlier pada data iris</strong></a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="naive_bayes.html"><strong>Naive Bayes</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="crisshosis.html"><strong>Cirrhosis</strong></a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="K_means.html"><strong>K-Mean Clustering</strong></a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="DecissionTree.html"><strong>Decision Tree</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Diskritisasi.html"><strong>Diskritisasi</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="PraUAS.html">PraUAS</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/abdulsahl/pendata/blob/main/_sources/Data_understanding.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/abdulsahl/pendata" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/abdulsahl/pendata/issues/new?title=Issue%20on%20page%20%2FData_understanding.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Data_understanding.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Data Understanding</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tujuan-pemahaman-data"><strong>Tujuan Pemahaman Data</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahapan-dalam-memahami-data"><strong>Tahapan dalam Memahami Data</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengumpulan-data"><strong>1. Pengumpulan Data</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lokasi-data"><strong>Lokasi Data</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metode-pengumpulan-data"><strong>Metode Pengumpulan Data</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cara-mengumpulkan-data"><strong>Cara Mengumpulkan Data</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#menghubungkan-ke-mysql-dan-postgresql"><strong>1.1 Menghubungkan ke MySQL dan PostgreSQL</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mengambil-dan-menampilkan-data"><strong>1.2 Mengambil dan menampilkan data</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#menggabungkan-data-dari-kedua-database"><strong>3. Menggabungkan Data dari Kedua Database</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#profiling-data">2. <strong>Profiling data</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-variabel-dalam-dataset"><strong>Ringkasan variabel dalam dataset</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#korelasi-dan-asosiasi">3. <strong>Korelasi dan asosiasi</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#memahami-hubungan-antar-variabel"><strong>Memahami hubungan antar variabel</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eksplorasi-data">4. <strong>Eksplorasi Data</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-data-numerik">1. Distribusi Data Numerik</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-data-tiap-kategori">2. Distribusi Data tiap kategori</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hubungan-antar-variabel">3. Hubungan Antar Variabel</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#identifikasi-masalah">5. <strong>Identifikasi masalah</strong></a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="data-understanding">
+<h1><strong>Data Understanding</strong><a class="headerlink" href="#data-understanding" title="Link to this heading">#</a></h1>
+<p><strong>Pemahaman data</strong> merupakan tahap awal dalam proses <em>Knowledge Discovery in Databases (KDD)</em> atau <em>Data Mining</em>. Langkah ini bertujuan untuk mengeksplorasi, menyelidiki, dan menganalisis dataset agar dapat memahami struktur, isi, serta karakteristik data sebelum melakukan analisis lebih lanjut.</p>
+<p>Pemahaman data yang baik sangat penting karena berpengaruh terhadap keberhasilan seluruh proses <em>data mining</em>, termasuk tahap <em>data preparation</em>, <em>modeling</em>, dan <em>evaluation</em>.</p>
+<hr class="docutils" />
+<section id="tujuan-pemahaman-data">
+<h2><strong>Tujuan Pemahaman Data</strong><a class="headerlink" href="#tujuan-pemahaman-data" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Memahami Konteks Data</strong> – Mengenali sumber data, makna setiap variabel, serta hubungan antarvariabel dalam dataset.</p></li>
+<li><p><strong>Mengidentifikasi Permasalahan dalam Data</strong> – Menemukan <em>missing values</em>, <em>outliers</em>, <em>noise</em>, atau ketidakkonsistenan dalam data.</p></li>
+<li><p><strong>Menilai Kualitas Data</strong> – Memastikan bahwa data memiliki tingkat akurasi, kelengkapan, dan relevansi yang cukup untuk dianalisis.</p></li>
+<li><p><strong>Menentukan Arah Analisis</strong> – Berdasarkan pemahaman awal, dapat dirumuskan hipotesis serta teknik <em>data mining</em> yang sesuai.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="tahapan-dalam-memahami-data">
+<h2><strong>Tahapan dalam Memahami Data</strong><a class="headerlink" href="#tahapan-dalam-memahami-data" title="Link to this heading">#</a></h2>
+<p>Berikut adalah beberapa langkah dalam memahami data:</p>
+</section>
+<section id="pengumpulan-data">
+<h2><strong>1. Pengumpulan Data</strong><a class="headerlink" href="#pengumpulan-data" title="Link to this heading">#</a></h2>
+<p>Dataset <strong>IRIS</strong> adalah Dataset ini berisi informasi tentang tiga spesies bunga Iris (<em>Setosa, Versicolor, Virginica</em>), dengan empat fitur utama: panjang dan lebar sepal serta panjang dan lebar petal.</p>
+<hr class="docutils" />
+<section id="lokasi-data">
+<h3><strong>Lokasi Data</strong><a class="headerlink" href="#lokasi-data" title="Link to this heading">#</a></h3>
+<p>Data <strong>IRIS</strong> yang digunakan berada dalam cloud data platform <strong>aiven</strong> dan <strong>Dbeaver</strong> untuk kelola database :</p>
+<ul class="simple">
+<li><p>Data IRIS petal berada di database  <strong>MySQL</strong>.</p></li>
+<li><p>Data IRIS sepal berada di database  <strong>PostgreSQL</strong>.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="metode-pengumpulan-data">
+<h3><strong>Metode Pengumpulan Data</strong><a class="headerlink" href="#metode-pengumpulan-data" title="Link to this heading">#</a></h3>
+<p>Langkah pengumpulan data dilakukan dengan Python menggunakan pustaka berikut:</p>
+<ol class="arabic simple">
+<li><p><strong>pymysql</strong> → Untuk menghubungkan dan mengambil data dari MySQL.</p></li>
+<li><p><strong>pandas</strong> → Untuk membaca dan mengolah data setelah diambil dari database.</p></li>
+<li><p><strong>psycopg2-binary</strong> → Untuk menghubungkan dan mengambil data dari PostgreSQL.</p></li>
+<li><p><strong>sqlalchemy</strong> → Untuk membuat koneksi database yang lebih stabil dan kompatibel dengan <code class="docutils literal notranslate"><span class="pre">pandas.read_sql()</span></code>.</p></li>
+<li><p><strong>python-dotenv</strong> → Untuk menyimpan kredensial database dalam file <code class="docutils literal notranslate"><span class="pre">.env</span></code> agar lebih aman dan tidak perlu hardcoding dalam kode Python.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="cara-mengumpulkan-data">
+<h3><strong>Cara Mengumpulkan Data</strong><a class="headerlink" href="#cara-mengumpulkan-data" title="Link to this heading">#</a></h3>
+<section id="menghubungkan-ke-mysql-dan-postgresql">
+<h4><strong>1.1 Menghubungkan ke MySQL dan PostgreSQL</strong><a class="headerlink" href="#menghubungkan-ke-mysql-dan-postgresql" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Install library python yang diperlukan</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>pymysql
+<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>pandas
+<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>psycopg2-binary
+<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>sqlalchemy
+<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>python-dotenv
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pymysql in /usr/local/python/3.12.1/lib/python3.12/site-packages (1.1.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> A new release of pip is available: <span class=" -Color -Color-Red">24.3.1</span> -&gt; <span class=" -Color -Color-Green">25.1.1</span>
+<span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> To update, run: <span class=" -Color -Color-Green">python3 -m pip install --upgrade pip</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pandas in /home/codespace/.local/lib/python3.12/site-packages (2.2.3)
+Requirement already satisfied: numpy&gt;=1.26.0 in /home/codespace/.local/lib/python3.12/site-packages (from pandas) (2.2.0)
+Requirement already satisfied: python-dateutil&gt;=2.8.2 in /home/codespace/.local/lib/python3.12/site-packages (from pandas) (2.9.0.post0)
+Requirement already satisfied: pytz&gt;=2020.1 in /home/codespace/.local/lib/python3.12/site-packages (from pandas) (2024.2)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: tzdata&gt;=2022.7 in /home/codespace/.local/lib/python3.12/site-packages (from pandas) (2024.2)
+Requirement already satisfied: six&gt;=1.5 in /home/codespace/.local/lib/python3.12/site-packages (from python-dateutil&gt;=2.8.2-&gt;pandas) (1.17.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> A new release of pip is available: <span class=" -Color -Color-Red">24.3.1</span> -&gt; <span class=" -Color -Color-Green">25.1.1</span>
+<span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> To update, run: <span class=" -Color -Color-Green">python3 -m pip install --upgrade pip</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: psycopg2-binary in /usr/local/python/3.12.1/lib/python3.12/site-packages (2.9.10)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> A new release of pip is available: <span class=" -Color -Color-Red">24.3.1</span> -&gt; <span class=" -Color -Color-Green">25.1.1</span>
+<span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> To update, run: <span class=" -Color -Color-Green">python3 -m pip install --upgrade pip</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: sqlalchemy in /usr/local/python/3.12.1/lib/python3.12/site-packages (2.0.38)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: greenlet!=0.4.17 in /usr/local/python/3.12.1/lib/python3.12/site-packages (from sqlalchemy) (3.1.1)
+Requirement already satisfied: typing-extensions&gt;=4.6.0 in /home/codespace/.local/lib/python3.12/site-packages (from sqlalchemy) (4.12.2)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> A new release of pip is available: <span class=" -Color -Color-Red">24.3.1</span> -&gt; <span class=" -Color -Color-Green">25.1.1</span>
+<span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> To update, run: <span class=" -Color -Color-Green">python3 -m pip install --upgrade pip</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: python-dotenv in /usr/local/python/3.12.1/lib/python3.12/site-packages (1.0.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> A new release of pip is available: <span class=" -Color -Color-Red">24.3.1</span> -&gt; <span class=" -Color -Color-Green">25.1.1</span>
+<span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> To update, run: <span class=" -Color -Color-Green">python3 -m pip install --upgrade pip</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>buat file env untuk koneksi database di aiven anda.</p></li>
+</ul>
+<p>Sesuaikan seperti format dibawah ini:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Database MySQL</span>
+<span class="n">MYSQL_HOST</span><span class="o">=&lt;</span><span class="n">HOSTNAME</span><span class="o">&gt;</span>
+<span class="n">MYSQL_USER</span><span class="o">=&lt;</span><span class="n">USERNAME</span><span class="o">&gt;</span>
+<span class="n">MYSQL_PASSWORD</span><span class="o">=&lt;</span><span class="n">PASSWORD</span><span class="o">&gt;</span>
+<span class="n">MYSQL_PORT</span><span class="o">=&lt;</span><span class="n">PORT</span><span class="o">&gt;</span>
+<span class="n">MYSQL_DATABASE</span><span class="o">=&lt;</span><span class="n">DATABASE_NAME</span><span class="o">&gt;</span>
+
+<span class="c1"># Database PostgreSQL</span>
+<span class="n">PG_HOST</span><span class="o">=&lt;</span><span class="n">HOSTNAME</span><span class="o">&gt;</span>
+<span class="n">PG_USER</span><span class="o">=&lt;</span><span class="n">USERNAME</span><span class="o">&gt;</span>
+<span class="n">PG_PASSWORD</span><span class="o">=&lt;</span><span class="n">PASSWORD</span><span class="o">&gt;</span>
+<span class="n">PG_PORT</span><span class="o">=&lt;</span><span class="n">PORT</span><span class="o">&gt;</span>
+<span class="n">PG_DATABASE</span><span class="o">=&lt;</span><span class="n">DATABASE_NAME</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Upload env:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">files</span>
+<span class="n">uploaded</span> <span class="o">=</span> <span class="n">files</span><span class="o">.</span><span class="n">upload</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">files</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">uploaded</span> <span class="o">=</span> <span class="n">files</span><span class="o">.</span><span class="n">upload</span><span class="p">()</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;google&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>koneksikan database di aiven</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">create_engine</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span>
+
+<span class="n">load_dotenv</span><span class="p">()</span>
+
+<span class="c1"># Ambil variabel koneksi dari lingkungan</span>
+<span class="n">MYSQL_HOST</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;MYSQL_HOST&quot;</span><span class="p">)</span>
+<span class="n">MYSQL_PORT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;MYSQL_PORT&quot;</span><span class="p">)</span>
+<span class="n">MYSQL_USER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;MYSQL_USER&quot;</span><span class="p">)</span>
+<span class="n">MYSQL_PASSWORD</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;MYSQL_PASSWORD&quot;</span><span class="p">)</span>
+<span class="n">MYSQL_DATABASE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;MYSQL_DATABASE&quot;</span><span class="p">)</span>
+
+<span class="n">PG_HOST</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;PG_HOST&quot;</span><span class="p">)</span>
+<span class="n">PG_PORT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;PG_PORT&quot;</span><span class="p">)</span>
+<span class="n">PG_USER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;PG_USER&quot;</span><span class="p">)</span>
+<span class="n">PG_PASSWORD</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;PG_PASSWORD&quot;</span><span class="p">)</span>
+<span class="n">PG_DATABASE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;PG_DATABASE&quot;</span><span class="p">)</span>
+
+<span class="c1"># Gunakan SQLAlchemy untuk koneksi ke MySQL</span>
+<span class="n">mysql_engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;mysql+pymysql://</span><span class="si">{</span><span class="n">MYSQL_USER</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">MYSQL_PASSWORD</span><span class="si">}</span><span class="s2">@</span><span class="si">{</span><span class="n">MYSQL_HOST</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">MYSQL_PORT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">MYSQL_DATABASE</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Gunakan SQLAlchemy untuk koneksi ke PostgreSQL</span>
+<span class="n">pg_engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;postgresql+psycopg2://</span><span class="si">{</span><span class="n">PG_USER</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">PG_PASSWORD</span><span class="si">}</span><span class="s2">@</span><span class="si">{</span><span class="n">PG_HOST</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">PG_PORT</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">PG_DATABASE</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="mengambil-dan-menampilkan-data">
+<h4><strong>1.2 Mengambil dan menampilkan data</strong><a class="headerlink" href="#mengambil-dan-menampilkan-data" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="c1"># Query MySQL</span>
+    <span class="n">mysql_query</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM petal_data;&quot;</span>
+    <span class="n">df_mysql</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">mysql_query</span><span class="p">,</span> <span class="n">mysql_engine</span><span class="p">)</span>
+
+    <span class="c1"># Query PostgreSQL</span>
+    <span class="n">pg_query</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM sepal_data;&quot;</span>
+    <span class="n">df_postgres</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">pg_query</span><span class="p">,</span> <span class="n">pg_engine</span><span class="p">)</span>
+
+    <span class="c1"># Print hasil query</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data dari MySQL:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df_mysql</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Data dari PostgreSQL:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df_postgres</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+
+    <span class="c1"># Jika data berhasil diambil, hapus file .env</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;.env&quot;</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;.env&quot;</span><span class="p">)</span>
+
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Gagal mengambil data: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data dari MySQL:
+   id        Class  petal length  petal width
+0   1  Iris-setosa          86.4         70.0
+1   2  Iris-setosa           1.4          0.2
+2   3  Iris-setosa           1.3          0.2
+3   4  Iris-setosa           1.5          0.2
+4   5  Iris-setosa           1.4          0.2
+
+Data dari PostgreSQL:
+   id        Class  sepal length  sepal width
+0   2  Iris-setosa           4.9          3.0
+1   3  Iris-setosa           4.7          3.2
+2   4  Iris-setosa           4.6          3.1
+3   5  Iris-setosa           5.0          3.6
+4   6  Iris-setosa           5.4          3.9
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="menggabungkan-data-dari-kedua-database">
+<h4><strong>3. Menggabungkan Data dari Kedua Database</strong><a class="headerlink" href="#menggabungkan-data-dari-kedua-database" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menggabungkan data dari MySQL (df_mysql) dan PostgreSQL (df_postgres) berdasarkan kolom &#39;id&#39;</span>
+<span class="n">df_combined</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+    <span class="n">df_mysql</span><span class="p">,</span>  <span class="c1"># Data dari MySQL yang berisi informasi petal</span>
+    <span class="n">df_postgres</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Class&#39;</span><span class="p">]),</span>  <span class="c1"># Menghapus kolom &#39;Class&#39; dari df_postgres sebelum penggabungan</span>
+    <span class="n">on</span><span class="o">=</span><span class="s2">&quot;id&quot;</span><span class="p">,</span>  <span class="c1"># Menggabungkan berdasarkan kolom &#39;id&#39; yang harus ada di kedua dataframe</span>
+    <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span>  <span class="c1"># Menggunakan inner join, hanya menyertakan data dengan &#39;id&#39; yang ada di kedua tabel</span>
+<span class="p">)</span>
+
+<span class="c1"># Menampilkan hasil penggabungan</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Data gabungan:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_combined</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data gabungan:
+      id           Class  petal length  petal width  sepal length  sepal width
+0      1     Iris-setosa          86.4         70.0          20.1         30.5
+1      2     Iris-setosa           1.4          0.2           4.9          3.0
+2      3     Iris-setosa           1.3          0.2           4.7          3.2
+3      4     Iris-setosa           1.5          0.2           4.6          3.1
+4      5     Iris-setosa           1.4          0.2           5.0          3.6
+..   ...             ...           ...          ...           ...          ...
+145  146  Iris-virginica           5.2          2.3           6.7          3.0
+146  147  Iris-virginica           5.0          1.9           6.3          2.5
+147  148  Iris-virginica           5.2          2.0           6.5          3.0
+148  149  Iris-virginica           5.4          2.3           6.2          3.4
+149  150  Iris-virginica           5.1          1.8           5.9          3.0
+
+[150 rows x 6 columns]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="profiling-data">
+<h3>2. <strong>Profiling data</strong><a class="headerlink" href="#profiling-data" title="Link to this heading">#</a></h3>
+<p>Profiling data adalah langkah penting dalam memahami karakteristik dataset sebelum melakukan analisis lebih lanjut.</p>
+<hr class="docutils" />
+<section id="ringkasan-variabel-dalam-dataset">
+<h4><strong>Ringkasan variabel dalam dataset</strong><a class="headerlink" href="#ringkasan-variabel-dalam-dataset" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Menampilkan Informasi Dataset</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menampilkan informasi struktur DataFrame setelah penggabungan</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_combined</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>  <span class="c1"># Menampilkan jumlah baris, kolom, tipe data, dan jumlah nilai non-null di setiap kolom</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 150 entries, 0 to 149
+Data columns (total 6 columns):
+ #   Column        Non-Null Count  Dtype  
+---  ------        --------------  -----  
+ 0   id            150 non-null    int64  
+ 1   Class         150 non-null    object 
+ 2   petal length  150 non-null    float64
+ 3   petal width   150 non-null    float64
+ 4   sepal length  150 non-null    float64
+ 5   sepal width   150 non-null    float64
+dtypes: float64(4), int64(1), object(1)
+memory usage: 7.2+ KB
+None
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>Total data:</strong> 150 baris, 6 kolom</p></li>
+<li><p><strong>Kolom &amp; tipe data:</strong></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">id</span></code> → <strong>int64</strong> (bilangan bulat)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Class</span></code> → <strong>object</strong> (kategori)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">petal</span> <span class="pre">length</span></code>, <code class="docutils literal notranslate"><span class="pre">petal</span> <span class="pre">width</span></code>, <code class="docutils literal notranslate"><span class="pre">sepal</span> <span class="pre">length</span></code>, <code class="docutils literal notranslate"><span class="pre">sepal</span> <span class="pre">width</span></code> → <strong>float64</strong> (angka desimal)</p></li>
+</ul>
+</li>
+<li><p><strong>Tidak ada nilai kosong</strong> (<strong>150 non-null</strong> untuk semua kolom)</p></li>
+</ul>
+<hr class="docutils" />
+<ul class="simple">
+<li><p>Menampilkan Ringkasan Statistik untuk Variabel Numerik</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menampilkan statistik deskriptif untuk semua kolom numerik, kecuali &#39;id&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_combined</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       petal length  petal width  sepal length  sepal width
+count    150.000000    150.00000    150.000000   150.000000
+mean       4.325333      1.66400      5.943333     3.234000
+std        6.970563      5.66807      1.426895     2.282464
+min        1.000000      0.10000      4.300000     2.000000
+25%        1.600000      0.30000      5.100000     2.800000
+50%        4.400000      1.30000      5.800000     3.000000
+75%        5.100000      1.80000      6.400000     3.300000
+max       86.400000     70.00000     20.100000    30.500000
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Penjelasan Statistik Deskriptif:</strong></p>
+<ul class="simple">
+<li><p><strong>Total data:</strong> 150 sampel</p></li>
+<li><p><strong>Nilai rata-rata (mean)</strong>:</p>
+<ul>
+<li><p>petal length: <strong>4.33</strong>, petal width: <strong>1.66</strong></p></li>
+<li><p>sepal length: <strong>5.94</strong>, sepal width: <strong>3.23</strong></p></li>
+</ul>
+</li>
+<li><p><strong>Standar deviasi (std)</strong> → Menunjukkan sebaran data</p>
+<ul>
+<li><p>petal width &amp; sepal width memiliki nilai <strong>std tinggi</strong>, menunjukkan variasi besar</p></li>
+</ul>
+</li>
+<li><p><strong>Nilai minimum (min) &amp; maksimum (max)</strong></p>
+<ul>
+<li><p>petal length mencapai <strong>86.4</strong>, sepal length <strong>20.1</strong>, sepal width <strong>30.5</strong></p></li>
+</ul>
+</li>
+<li><p><strong>Kuartil (25%, 50%, 75%)</strong></p>
+<ul>
+<li><p>50% (median) menunjukkan distribusi tengah dari dataset</p></li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<ul class="simple">
+<li><p>Menampilkan Statistik untuk Variabel Kategorikal</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menampilkan jumlah sampel untuk setiap kategori di kolom &#39;Class&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_combined</span><span class="p">[</span><span class="s1">&#39;Class&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Class
+Iris-setosa        50
+Iris-versicolor    50
+Iris-virginica     50
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Penjelasan Distribusi Kelas:</strong></p>
+<ul class="simple">
+<li><p>Dataset memiliki <strong>3 kelas</strong> (spesies bunga Iris):</p>
+<ul>
+<li><p><strong>Iris-setosa</strong> → <strong>50 sampel</strong></p></li>
+<li><p><strong>Iris-versicolor</strong> → <strong>50 sampel</strong></p></li>
+<li><p><strong>Iris-virginica</strong> → <strong>50 sampel</strong></p></li>
+</ul>
+</li>
+<li><p><strong>Distribusi kelas seimbang</strong> (<strong>masing-masing 50 sampel</strong>)</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="korelasi-dan-asosiasi">
+<h3>3. <strong>Korelasi dan asosiasi</strong><a class="headerlink" href="#korelasi-dan-asosiasi" title="Link to this heading">#</a></h3>
+<section id="memahami-hubungan-antar-variabel">
+<h4><strong>Memahami hubungan antar variabel</strong><a class="headerlink" href="#memahami-hubungan-antar-variabel" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Menghitung Korelasi Antar Variabel Numerik</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menghitung korelasi antar fitur numerik dengan metode Pearson</span>
+<span class="c1"># Kolom &#39;id&#39; dan &#39;Class&#39; dihapus karena &#39;id&#39; bukan fitur numerik yang relevan</span>
+<span class="n">df_corr</span> <span class="o">=</span> <span class="n">df_combined</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;Class&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+
+<span class="c1"># Menampilkan matriks korelasi</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_corr</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>              petal length  petal width  sepal length  sepal width
+petal length      1.000000     0.991532      0.916142     0.930563
+petal width       0.991532     1.000000      0.871461     0.964198
+sepal length      0.916142     0.871461      1.000000     0.789396
+sepal width       0.930563     0.964198      0.789396     1.000000
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Penjelasan Korelasi Antar Fitur:</strong></p>
+<ul class="simple">
+<li><p><strong>Nilai korelasi berkisar antara -1 hingga 1:</strong></p>
+<ul>
+<li><p><strong>Mendekati 1</strong> → Hubungan positif kuat (saling meningkat)</p></li>
+<li><p><strong>Mendekati -1</strong> → Hubungan negatif kuat (satu naik, yang lain turun)</p></li>
+<li><p><strong>Mendekati 0</strong> → Tidak ada hubungan</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Analisis Korelasi:</strong><br />
+<strong>petal length &amp; petal width</strong> → <strong>Korelasi sangat kuat (0.99)</strong> → Jika panjang kelopak besar, lebarnya juga besar<br />
+<strong>sepal length &amp; petal length</strong> → <strong>Korelasi tinggi (0.91)</strong> → Panjang sepal cenderung meningkat seiring panjang petal<br />
+<strong>sepal width &amp; petal width</strong> → <strong>Korelasi kuat (0.96)</strong> → Lebar sepal berhubungan erat dengan lebar petal</p>
+<hr class="docutils" />
+<p><strong>Visualisasi</strong>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import library untuk visualisasi</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Membuat figure dengan ukuran 8x6</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Membuat heatmap untuk menampilkan korelasi antar fitur</span>
+<span class="c1"># annot=True → Menampilkan nilai korelasi di dalam setiap sel</span>
+<span class="c1"># cmap=&#39;coolwarm&#39; → Menggunakan skema warna merah-biru untuk membedakan korelasi positif dan negatif</span>
+<span class="c1"># fmt=&quot;.2f&quot; → Menampilkan angka dengan dua desimal</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df_corr</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;.2f&quot;</span><span class="p">)</span>
+
+<span class="c1"># Menampilkan heatmap</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/6360c7fb5cc8f550bb5cc81ebf6eeaa02e78ec64797e46a712926810993dd1ce.png" src="_images/6360c7fb5cc8f550bb5cc81ebf6eeaa02e78ec64797e46a712926810993dd1ce.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Statistik Deskriptif Per Class</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menghitung rata-rata setiap fitur numerik berdasarkan kelas (&#39;Class&#39;)</span>
+<span class="c1"># Kolom &#39;id&#39; dihapus karena tidak relevan dalam perhitungan rata-rata</span>
+<span class="n">df_mean</span> <span class="o">=</span> <span class="n">df_combined</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Class&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="c1"># Menampilkan hasil rata-rata per kelas</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_mean</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                 petal length  petal width  sepal length  sepal width
+Class                                                                
+Iris-setosa             3.164        1.640         5.306        3.958
+Iris-versicolor         4.260        1.326         5.936        2.770
+Iris-virginica          5.552        2.026         6.588        2.974
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Rata-rata Fitur Berdasarkan Kelas (Spesies Bunga Iris):</strong></p>
+<ul class="simple">
+<li><p><strong>Iris-setosa</strong> → <strong>Petal lebih pendek dan sepal lebih lebar</strong> dibandingkan spesies lain.</p></li>
+<li><p><strong>Iris-versicolor</strong> → <strong>Ukuran petal dan sepal berada di antara Setosa &amp; Virginica</strong>.</p></li>
+<li><p><strong>Iris-virginica</strong> → <strong>Petal &amp; sepal paling panjang dan lebar</strong>, menunjukkan ukuran terbesar.</p></li>
+</ul>
+<p><strong>Visualisasi</strong>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Membuat boxplot untuk melihat distribusi &#39;petal length&#39; berdasarkan kelas (&#39;Class&#39;)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;Class&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;petal length&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_combined</span><span class="p">)</span>
+
+<span class="c1"># Menampilkan plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/9a299f5943186db2896c92be796b5029c63847756efffd7b4ccdfd822e6276cf.png" src="_images/9a299f5943186db2896c92be796b5029c63847756efffd7b4ccdfd822e6276cf.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="eksplorasi-data">
+<h3>4. <strong>Eksplorasi Data</strong><a class="headerlink" href="#eksplorasi-data" title="Link to this heading">#</a></h3>
+<p>Eksplorasi data bertujuan untuk memahami distribusi variabel, hubungan antar fitur, serta mendeteksi masalah seperti outliers atau missing values.</p>
+<hr class="docutils" />
+<section id="distribusi-data-numerik">
+<h4>1. Distribusi Data Numerik<a class="headerlink" href="#distribusi-data-numerik" title="Link to this heading">#</a></h4>
+<p>Menggunakan Histogram untuk melihat sebaran nilai dari setiap fitur numerik.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Membuat histogram untuk semua kolom kecuali &#39;id&#39;</span>
+<span class="c1"># figsize=(10, 6) → Menentukan ukuran figure</span>
+<span class="c1"># bins=20 → Membagi data ke dalam 20 interval</span>
+<span class="n">df_combined</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">df_combined</span><span class="o">.</span><span class="n">columns</span> <span class="o">!=</span> <span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="c1"># Menampilkan histogram</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/429933d4e25e1fc0960620d228c4d870feaddba696c7318c1fa82e9748d889c7.png" src="_images/429933d4e25e1fc0960620d228c4d870feaddba696c7318c1fa82e9748d889c7.png" />
+</div>
+</div>
+<p>Histogram ini menunjukkan adanya <strong>nilai outlier yang signifikan</strong> dalam dataset:</p>
+<ul class="simple">
+<li><p><strong>Petal length</strong> memiliki nilai yang mencapai <strong>&gt;80</strong>, padahal seharusnya di bawah 7.</p></li>
+<li><p><strong>Petal width</strong> mencapai <strong>&gt;70</strong>, yang tidak wajar dibandingkan dengan data normal.</p></li>
+<li><p><strong>Sepal length</strong> dan <strong>sepal width</strong> juga memiliki nilai ekstrem yang tidak biasa.</p></li>
+</ul>
+</section>
+<section id="distribusi-data-tiap-kategori">
+<h4>2. Distribusi Data tiap kategori<a class="headerlink" href="#distribusi-data-tiap-kategori" title="Link to this heading">#</a></h4>
+<p>Menggunakan box plot untuk melihat tiap kategori.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Membuat figure dengan ukuran 8x6</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Membuat boxplot untuk melihat distribusi dan outlier pada semua fitur numerik</span>
+<span class="c1"># Kolom &#39;id&#39; dihapus karena tidak relevan dalam analisis</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_combined</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">df_combined</span><span class="o">.</span><span class="n">columns</span> <span class="o">!=</span> <span class="s1">&#39;id&#39;</span><span class="p">])</span>
+
+<span class="c1"># Menampilkan plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ecb32a0bd3898de0255af5396e2675e95d89a197cc8d8b4dd6e5bc2498c0227b.png" src="_images/ecb32a0bd3898de0255af5396e2675e95d89a197cc8d8b4dd6e5bc2498c0227b.png" />
+</div>
+</div>
+<p>Boxplot ini menunjukkan adanya outlier ekstrem di dataset:</p>
+<ul class="simple">
+<li><p>Petal length memiliki nilai yang mencapai &gt;80, yang jauh dari distribusi normal.</p></li>
+<li><p>Petal width, sepal length, dan sepal width juga memiliki outlier yang signifikan.</p></li>
+</ul>
+</section>
+<section id="hubungan-antar-variabel">
+<h4>3. Hubungan Antar Variabel<a class="headerlink" href="#hubungan-antar-variabel" title="Link to this heading">#</a></h4>
+<p>Scatter plot membantu melihat hubungan antara dua variabel numerik.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Membuat pairplot untuk melihat hubungan antar fitur numerik berdasarkan kelas (&#39;Class&#39;)</span>
+<span class="c1"># Kolom &#39;id&#39; dihapus karena tidak relevan dalam analisis</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">df_combined</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]),</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;Class&quot;</span><span class="p">)</span>
+
+<span class="c1"># Menampilkan plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/6ce3595bfa1eb1052d62e69c7b9325fb4698586d4827c24cb25a85aad0f2cb18.png" src="_images/6ce3595bfa1eb1052d62e69c7b9325fb4698586d4827c24cb25a85aad0f2cb18.png" />
+</div>
+</div>
+<p>Scatter plot matrix ini menunjukkan adanya <strong>outlier ekstrem</strong>:</p>
+<p>🔹 <strong>Outlier Ekstrem</strong></p>
+<ul class="simple">
+<li><p>Ada beberapa titik data yang jauh dari kumpulan data lainnya, terutama pada <strong>petal length, petal width, sepal length, dan sepal width</strong>.</p></li>
+<li><p>Titik-titik ini tampaknya <strong>tidak wajar</strong> untuk dataset Iris, sehingga kemungkinan besar merupakan <strong>kesalahan data atau pencatatan</strong>.</p></li>
+</ul>
+</section>
+</section>
+<section id="identifikasi-masalah">
+<h3>5. <strong>Identifikasi masalah</strong><a class="headerlink" href="#identifikasi-masalah" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>deteksi missing value</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mengecek jumlah missing value di setiap kolom</span>
+<span class="n">missing_values</span> <span class="o">=</span> <span class="n">df_combined</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="c1"># Menampilkan hasil jika ada missing value</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jumlah Missing Value per Kolom:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">missing_values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jumlah Missing Value per Kolom:
+ id              0
+Class           0
+petal length    0
+petal width     0
+sepal length    0
+sepal width     0
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Deteksi outlier</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menentukan Q1 (25%) dan Q3 (75%)</span>
+<span class="n">Q1</span> <span class="o">=</span> <span class="n">df_combined</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;Class&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
+<span class="n">Q3</span> <span class="o">=</span> <span class="n">df_combined</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;Class&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)</span>
+<span class="n">IQR</span> <span class="o">=</span> <span class="n">Q3</span> <span class="o">-</span> <span class="n">Q1</span>
+
+<span class="c1"># Menentukan batas bawah dan atas untuk outlier</span>
+<span class="n">lower_bound</span> <span class="o">=</span> <span class="n">Q1</span> <span class="o">-</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">IQR</span>
+<span class="n">upper_bound</span> <span class="o">=</span> <span class="n">Q3</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">IQR</span>
+
+<span class="c1"># Menandai outlier (True jika di luar batas)</span>
+<span class="n">outliers</span> <span class="o">=</span> <span class="p">((</span><span class="n">df_combined</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;Class&#39;</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">lower_bound</span><span class="p">)</span> <span class="o">|</span>
+            <span class="p">(</span><span class="n">df_combined</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;Class&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">upper_bound</span><span class="p">))</span>
+
+<span class="c1"># Menampilkan jumlah outlier per kolom</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jumlah Outlier per Kolom:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">outliers</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jumlah Outlier per Kolom:
+ petal length    1
+petal width     1
+sepal length    1
+sepal width     5
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="CRISP-DM.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Metodologi CRISP-DM</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Deteksi%20Outlier.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><strong>Deteksi outlier pada data iris</strong></p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tujuan-pemahaman-data"><strong>Tujuan Pemahaman Data</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahapan-dalam-memahami-data"><strong>Tahapan dalam Memahami Data</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengumpulan-data"><strong>1. Pengumpulan Data</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lokasi-data"><strong>Lokasi Data</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metode-pengumpulan-data"><strong>Metode Pengumpulan Data</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cara-mengumpulkan-data"><strong>Cara Mengumpulkan Data</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#menghubungkan-ke-mysql-dan-postgresql"><strong>1.1 Menghubungkan ke MySQL dan PostgreSQL</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mengambil-dan-menampilkan-data"><strong>1.2 Mengambil dan menampilkan data</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#menggabungkan-data-dari-kedua-database"><strong>3. Menggabungkan Data dari Kedua Database</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#profiling-data">2. <strong>Profiling data</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-variabel-dalam-dataset"><strong>Ringkasan variabel dalam dataset</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#korelasi-dan-asosiasi">3. <strong>Korelasi dan asosiasi</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#memahami-hubungan-antar-variabel"><strong>Memahami hubungan antar variabel</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eksplorasi-data">4. <strong>Eksplorasi Data</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-data-numerik">1. Distribusi Data Numerik</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-data-tiap-kategori">2. Distribusi Data tiap kategori</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hubungan-antar-variabel">3. Hubungan Antar Variabel</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#identifikasi-masalah">5. <strong>Identifikasi masalah</strong></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Abdulloh Sahl_23-090
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
