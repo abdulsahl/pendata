@@ -1,0 +1,2683 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Analisis Prediktif Kanker Payudara (Wisconsin Diagnostic) &#8212; Penambangan Data</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'UAS';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="PraUAS" href="PraUAS.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Penambangan Data - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="Penambangan Data - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    INTRODUCTION
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Data.html">Apa itu Data Mining?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CRISP-DM.html">Metodologi CRISP-DM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Data_understanding.html"><strong>Data Understanding</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Deteksi%20Outlier.html"><strong>Deteksi outlier pada data iris</strong></a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="naive_bayes.html"><strong>Naive Bayes</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="crisshosis.html"><strong>Cirrhosis</strong></a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="K_means.html"><strong>K-Mean Clustering</strong></a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="DecissionTree.html"><strong>Decision Tree</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Diskritisasi.html"><strong>Diskritisasi</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="PraUAS.html">PraUAS</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Analisis Prediktif Kanker Payudara (Wisconsin Diagnostic)</a></li>
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/abdulsahl/pendata/blob/main/_sources/UAS.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/abdulsahl/pendata" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/abdulsahl/pendata/issues/new?title=Issue%20on%20page%20%2FUAS.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/UAS.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Analisis Prediktif Kanker Payudara (Wisconsin Diagnostic)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Analisis Prediktif Kanker Payudara (Wisconsin Diagnostic)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pendahuluan">Pendahuluan</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-1-pemahaman-data-data-understanding">Tahap 1: Pemahaman Data (Data Understanding)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sumber-data">Sumber Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tujuan-dataset">Tujuan Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#integrasi-data">Integrasi Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eksplorasi-data-exploratory-data-analysis-eda">Eksplorasi Data (Exploratory Data Analysis - EDA)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-distribusi-label">Visualisasi Distribusi Label</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-distribusi-fitur">Visualisasi Distribusi Fitur</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#struktur-dataset">Struktur Dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fitur-dan-label">Fitur dan Label</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identifikasi-kualitas-dataset">Identifikasi Kualitas Dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deteksi-missing-values">Deteksi Missing Values</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pendeteksian-outlier-pencilan">Pendeteksian Outlier (Pencilan)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#konsep-local-outlier-factor-lof">Konsep Local Outlier Factor (LOF)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-2-pra-pemrosesan-data-preprocessing">Tahap 2: Pra-pemrosesan Data (Preprocessing)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformasi-data-encoding-label">Transformasi Data (Encoding Label)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalisasi-data">Normalisasi Data</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-3-pemodelan-modelling">Tahap 3: Pemodelan (Modelling)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-1-gaussian-naive-bayes-gnb">Model 1: Gaussian Naive Bayes (GNB)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-2-support-vector-machine-svm">Model 2: Support Vector Machine (SVM)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-3-decision-tree-classifier">Model 3: Decision Tree Classifier</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#peningkatan-model-metode-ensemble">Peningkatan Model: Metode Ensemble</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stacking-classifier">Stacking Classifier</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bagging-classifier">Bagging Classifier</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-4-evaluasi">Tahap 4: Evaluasi</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan-evaluasi">Kesimpulan Evaluasi</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-5-deployment">Tahap 5: Deployment</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menyimpan-model">Menyimpan Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#integrasi-model-dengan-aplikasi-web-streamlit">Integrasi Model dengan Aplikasi Web (Streamlit)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tampilan-aplikasi-web">Tampilan Aplikasi Web</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="analisis-prediktif-kanker-payudara-wisconsin-diagnostic">
+<h1>Analisis Prediktif Kanker Payudara (Wisconsin Diagnostic)<a class="headerlink" href="#analisis-prediktif-kanker-payudara-wisconsin-diagnostic" title="Link to this heading">#</a></h1>
+<section id="pendahuluan">
+<h2>Pendahuluan<a class="headerlink" href="#pendahuluan" title="Link to this heading">#</a></h2>
+<p>Kanker payudara merupakan salah satu penyebab utama kematian akibat kanker pada wanita di seluruh dunia. Diagnosis yang akurat dan dini adalah kunci untuk meningkatkan tingkat kelangsungan hidup pasien. Salah satu metode diagnostik yang penting adalah <strong>Fine Needle Aspirate (FNA)</strong>, yaitu sebuah prosedur biopsi di mana jarum tipis digunakan untuk mengambil sampel sel dari massa atau benjolan pada payudara.</p>
+<p>Karakteristik sel yang diekstraksi dari FNA dapat dianalisis secara kuantitatif melalui pemrosesan citra digital. Fitur-fitur seperti radius, tekstur, perimeter, dan area dari inti sel dapat memberikan informasi vital untuk membedakan antara tumor jinak (benign) dan ganas (malignant). Proyek analisis data ini bertujuan untuk membangun sebuah model prediktif yang mampu mengklasifikasikan massa payudara sebagai jinak atau ganas berdasarkan fitur-fitur yang dihitung dari citra digital hasil FNA.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="tahap-1-pemahaman-data-data-understanding">
+<h1>Tahap 1: Pemahaman Data (Data Understanding)<a class="headerlink" href="#tahap-1-pemahaman-data-data-understanding" title="Link to this heading">#</a></h1>
+<section id="sumber-data">
+<h2>Sumber Data<a class="headerlink" href="#sumber-data" title="Link to this heading">#</a></h2>
+<p>Dataset yang digunakan dalam analisis ini adalah <strong>Breast Cancer Wisconsin (Diagnostic) Dataset</strong> yang bersumber dari UCI Machine Learning Repository. Dataset ini sangat populer untuk tugas klasifikasi biner dalam machine learning.</p>
+<p>Dataset dapat diakses melalui link berikut:</p>
+<p><a class="reference external" href="https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic">https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic</a></p>
+</section>
+<section id="tujuan-dataset">
+<h2>Tujuan Dataset<a class="headerlink" href="#tujuan-dataset" title="Link to this heading">#</a></h2>
+<p>Tujuan utama dari dataset ini adalah untuk menyediakan data yang dapat digunakan untuk melatih model machine learning dalam mendiagnosis kanker payudara. Setiap entri data merepresentasikan sampel sel payudara dengan serangkaian fitur yang diukur, beserta label diagnosisnya (jinak atau ganas). Model yang berhasil akan dapat membantu ahli patologi dalam membuat keputusan diagnostik yang lebih cepat dan objektif.</p>
+</section>
+<section id="integrasi-data">
+<h2>Integrasi Data<a class="headerlink" href="#integrasi-data" title="Link to this heading">#</a></h2>
+<p>Untuk mengambil dan memproses data, kita akan menggunakan package <code class="docutils literal notranslate"><span class="pre">ucimlrepo</span></code> yang disediakan oleh UCI. Package ini mempermudah proses pengunduhan dan pemuatan dataset ke dalam lingkungan kerja Python, biasanya dalam format DataFrame Pandas.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>ucimlrepo
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: ucimlrepo in /usr/local/python/3.12.1/lib/python3.12/site-packages (0.0.7)
+Requirement already satisfied: pandas&gt;=1.0.0 in /home/codespace/.local/lib/python3.12/site-packages (from ucimlrepo) (2.2.3)
+Requirement already satisfied: certifi&gt;=2020.12.5 in /home/codespace/.local/lib/python3.12/site-packages (from ucimlrepo) (2024.8.30)
+Requirement already satisfied: numpy&gt;=1.26.0 in /home/codespace/.local/lib/python3.12/site-packages (from pandas&gt;=1.0.0-&gt;ucimlrepo) (2.2.0)
+Requirement already satisfied: python-dateutil&gt;=2.8.2 in /home/codespace/.local/lib/python3.12/site-packages (from pandas&gt;=1.0.0-&gt;ucimlrepo) (2.9.0.post0)
+Requirement already satisfied: pytz&gt;=2020.1 in /home/codespace/.local/lib/python3.12/site-packages (from pandas&gt;=1.0.0-&gt;ucimlrepo) (2024.2)
+Requirement already satisfied: tzdata&gt;=2022.7 in /home/codespace/.local/lib/python3.12/site-packages (from pandas&gt;=1.0.0-&gt;ucimlrepo) (2024.2)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: six&gt;=1.5 in /home/codespace/.local/lib/python3.12/site-packages (from python-dateutil&gt;=2.8.2-&gt;pandas&gt;=1.0.0-&gt;ucimlrepo) (1.17.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> A new release of pip is available: <span class=" -Color -Color-Red">24.3.1</span> -&gt; <span class=" -Color -Color-Green">25.1.1</span>
+<span class=" -Color -Color-Bold">[</span><span class=" -Color -Color-Blue">notice</span><span class=" -Color -Color-Bold">]</span> To update, run: <span class=" -Color -Color-Green">python3 -m pip install --upgrade pip</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ucimlrepo</span> <span class="kn">import</span> <span class="n">fetch_ucirepo</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Mengambil dataset dari UCI Repository dengan ID 17</span>
+<span class="n">breast_cancer_wisconsin_diagnostic</span> <span class="o">=</span> <span class="n">fetch_ucirepo</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">17</span><span class="p">)</span>
+
+<span class="c1"># Data (sebagai pandas dataframes)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">breast_cancer_wisconsin_diagnostic</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">features</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">breast_cancer_wisconsin_diagnostic</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">targets</span>
+
+<span class="c1"># Menggabungkan fitur dan target menjadi satu DataFrame untuk analisis</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Menampilkan informasi dasar mengenai dataset</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Informasi Dataset:&quot;</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+
+<span class="c1"># Menampilkan 5 baris pertama dari dataset</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">5 Baris Pertama Dataset:&quot;</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Informasi Dataset:
+&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 569 entries, 0 to 568
+Data columns (total 31 columns):
+ #   Column              Non-Null Count  Dtype  
+---  ------              --------------  -----  
+ 0   radius1             569 non-null    float64
+ 1   texture1            569 non-null    float64
+ 2   perimeter1          569 non-null    float64
+ 3   area1               569 non-null    float64
+ 4   smoothness1         569 non-null    float64
+ 5   compactness1        569 non-null    float64
+ 6   concavity1          569 non-null    float64
+ 7   concave_points1     569 non-null    float64
+ 8   symmetry1           569 non-null    float64
+ 9   fractal_dimension1  569 non-null    float64
+ 10  radius2             569 non-null    float64
+ 11  texture2            569 non-null    float64
+ 12  perimeter2          569 non-null    float64
+ 13  area2               569 non-null    float64
+ 14  smoothness2         569 non-null    float64
+ 15  compactness2        569 non-null    float64
+ 16  concavity2          569 non-null    float64
+ 17  concave_points2     569 non-null    float64
+ 18  symmetry2           569 non-null    float64
+ 19  fractal_dimension2  569 non-null    float64
+ 20  radius3             569 non-null    float64
+ 21  texture3            569 non-null    float64
+ 22  perimeter3          569 non-null    float64
+ 23  area3               569 non-null    float64
+ 24  smoothness3         569 non-null    float64
+ 25  compactness3        569 non-null    float64
+ 26  concavity3          569 non-null    float64
+ 27  concave_points3     569 non-null    float64
+ 28  symmetry3           569 non-null    float64
+ 29  fractal_dimension3  569 non-null    float64
+ 30  Diagnosis           569 non-null    object 
+dtypes: float64(30), object(1)
+memory usage: 137.9+ KB
+
+5 Baris Pertama Dataset:
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>radius1</th>
+      <th>texture1</th>
+      <th>perimeter1</th>
+      <th>area1</th>
+      <th>smoothness1</th>
+      <th>compactness1</th>
+      <th>concavity1</th>
+      <th>concave_points1</th>
+      <th>symmetry1</th>
+      <th>fractal_dimension1</th>
+      <th>...</th>
+      <th>texture3</th>
+      <th>perimeter3</th>
+      <th>area3</th>
+      <th>smoothness3</th>
+      <th>compactness3</th>
+      <th>concavity3</th>
+      <th>concave_points3</th>
+      <th>symmetry3</th>
+      <th>fractal_dimension3</th>
+      <th>Diagnosis</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>17.99</td>
+      <td>10.38</td>
+      <td>122.80</td>
+      <td>1001.0</td>
+      <td>0.11840</td>
+      <td>0.27760</td>
+      <td>0.3001</td>
+      <td>0.14710</td>
+      <td>0.2419</td>
+      <td>0.07871</td>
+      <td>...</td>
+      <td>17.33</td>
+      <td>184.60</td>
+      <td>2019.0</td>
+      <td>0.1622</td>
+      <td>0.6656</td>
+      <td>0.7119</td>
+      <td>0.2654</td>
+      <td>0.4601</td>
+      <td>0.11890</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>20.57</td>
+      <td>17.77</td>
+      <td>132.90</td>
+      <td>1326.0</td>
+      <td>0.08474</td>
+      <td>0.07864</td>
+      <td>0.0869</td>
+      <td>0.07017</td>
+      <td>0.1812</td>
+      <td>0.05667</td>
+      <td>...</td>
+      <td>23.41</td>
+      <td>158.80</td>
+      <td>1956.0</td>
+      <td>0.1238</td>
+      <td>0.1866</td>
+      <td>0.2416</td>
+      <td>0.1860</td>
+      <td>0.2750</td>
+      <td>0.08902</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>19.69</td>
+      <td>21.25</td>
+      <td>130.00</td>
+      <td>1203.0</td>
+      <td>0.10960</td>
+      <td>0.15990</td>
+      <td>0.1974</td>
+      <td>0.12790</td>
+      <td>0.2069</td>
+      <td>0.05999</td>
+      <td>...</td>
+      <td>25.53</td>
+      <td>152.50</td>
+      <td>1709.0</td>
+      <td>0.1444</td>
+      <td>0.4245</td>
+      <td>0.4504</td>
+      <td>0.2430</td>
+      <td>0.3613</td>
+      <td>0.08758</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>11.42</td>
+      <td>20.38</td>
+      <td>77.58</td>
+      <td>386.1</td>
+      <td>0.14250</td>
+      <td>0.28390</td>
+      <td>0.2414</td>
+      <td>0.10520</td>
+      <td>0.2597</td>
+      <td>0.09744</td>
+      <td>...</td>
+      <td>26.50</td>
+      <td>98.87</td>
+      <td>567.7</td>
+      <td>0.2098</td>
+      <td>0.8663</td>
+      <td>0.6869</td>
+      <td>0.2575</td>
+      <td>0.6638</td>
+      <td>0.17300</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>20.29</td>
+      <td>14.34</td>
+      <td>135.10</td>
+      <td>1297.0</td>
+      <td>0.10030</td>
+      <td>0.13280</td>
+      <td>0.1980</td>
+      <td>0.10430</td>
+      <td>0.1809</td>
+      <td>0.05883</td>
+      <td>...</td>
+      <td>16.67</td>
+      <td>152.20</td>
+      <td>1575.0</td>
+      <td>0.1374</td>
+      <td>0.2050</td>
+      <td>0.4000</td>
+      <td>0.1625</td>
+      <td>0.2364</td>
+      <td>0.07678</td>
+      <td>M</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 31 columns</p>
+</div></div></div>
+</div>
+</section>
+<section id="eksplorasi-data-exploratory-data-analysis-eda">
+<h2>Eksplorasi Data (Exploratory Data Analysis - EDA)<a class="headerlink" href="#eksplorasi-data-exploratory-data-analysis-eda" title="Link to this heading">#</a></h2>
+<p>EDA adalah langkah krusial untuk memahami karakteristik, pola, dan anomali dalam data. Kita akan melakukan visualisasi untuk mendapatkan wawasan awal.</p>
+<section id="visualisasi-distribusi-label">
+<h3>Visualisasi Distribusi Label<a class="headerlink" href="#visualisasi-distribusi-label" title="Link to this heading">#</a></h3>
+<p>Kita akan melihat distribusi antara diagnosis jinak (Benign) dan ganas (Malignant) untuk memahami apakah dataset kita seimbang (balanced) atau tidak.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Diagnosis&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribusi Diagnosis (M=Ganas, B=Jinak)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Diagnosis&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Jumlah Sampel&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_3948/2172615412.py:5: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.countplot(x=&#39;Diagnosis&#39;, data=data, palette=&#39;viridis&#39;)
+</pre></div>
+</div>
+<img alt="_images/9b49f25c64e190b82c61ead504e1b96df237413e325e7b2493d31a08ddcd371a.png" src="_images/9b49f25c64e190b82c61ead504e1b96df237413e325e7b2493d31a08ddcd371a.png" />
+</div>
+</div>
+</section>
+<section id="visualisasi-distribusi-fitur">
+<h3>Visualisasi Distribusi Fitur<a class="headerlink" href="#visualisasi-distribusi-fitur" title="Link to this heading">#</a></h3>
+<p>Kita akan menggunakan histogram untuk melihat distribusi dari setiap fitur numerik. Ini membantu kita memahami rentang nilai, sebaran, dan potensi adanya pencilan (outliers).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualisasi distribusi fitur dengan histogram</span>
+<span class="c1"># Karena ada 30 fitur, kita akan menampilkannya dalam beberapa plot agar mudah dibaca.</span>
+<span class="n">data</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Distribusi Fitur-Fitur Numerik&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">rect</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.97</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/a64acfd2e049647c7c6327ae32f0c1d75efea62a129fb9dd0734f630b237edd5.png" src="_images/a64acfd2e049647c7c6327ae32f0c1d75efea62a129fb9dd0734f630b237edd5.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="struktur-dataset">
+<h2>Struktur Dataset<a class="headerlink" href="#struktur-dataset" title="Link to this heading">#</a></h2>
+<p>Memahami struktur dataset, termasuk jumlah baris, kolom, serta tipe data dari masing-masing kolom.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mengetahui bentuk dataset (baris &amp; kolom)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bentuk dataset: </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> baris dan </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> kolom&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Bentuk dataset: 569 baris dan 31 kolom
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mengetahui nama-nama kolom</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Nama Kolom:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Nama Kolom:
+[&#39;radius1&#39;, &#39;texture1&#39;, &#39;perimeter1&#39;, &#39;area1&#39;, &#39;smoothness1&#39;, &#39;compactness1&#39;, &#39;concavity1&#39;, &#39;concave_points1&#39;, &#39;symmetry1&#39;, &#39;fractal_dimension1&#39;, &#39;radius2&#39;, &#39;texture2&#39;, &#39;perimeter2&#39;, &#39;area2&#39;, &#39;smoothness2&#39;, &#39;compactness2&#39;, &#39;concavity2&#39;, &#39;concave_points2&#39;, &#39;symmetry2&#39;, &#39;fractal_dimension2&#39;, &#39;radius3&#39;, &#39;texture3&#39;, &#39;perimeter3&#39;, &#39;area3&#39;, &#39;smoothness3&#39;, &#39;compactness3&#39;, &#39;concavity3&#39;, &#39;concave_points3&#39;, &#39;symmetry3&#39;, &#39;fractal_dimension3&#39;, &#39;Diagnosis&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<section id="fitur-dan-label">
+<h3>Fitur dan Label<a class="headerlink" href="#fitur-dan-label" title="Link to this heading">#</a></h3>
+<p><strong>Fitur</strong> adalah variabel independen yang digunakan untuk membuat prediksi. Terdapat 30 fitur numerik dalam dataset ini, yang merupakan karakteristik dari inti sel. Fitur-fitur ini dikelompokkan menjadi tiga kategori:</p>
+<ul class="simple">
+<li><p><strong>_mean</strong>: Rata-rata dari nilai-nilai pengukuran (contoh: <code class="docutils literal notranslate"><span class="pre">radius_mean</span></code>, <code class="docutils literal notranslate"><span class="pre">texture_mean</span></code>).</p></li>
+<li><p><strong>_se</strong>: Standar error dari nilai-nilai pengukuran (contoh: <code class="docutils literal notranslate"><span class="pre">radius_se</span></code>, <code class="docutils literal notranslate"><span class="pre">texture_se</span></code>).</p></li>
+<li><p><strong>_worst</strong> atau <strong>_largest</strong>: Rata-rata dari tiga nilai terbesar (contoh: <code class="docutils literal notranslate"><span class="pre">radius_worst</span></code>, <code class="docutils literal notranslate"><span class="pre">texture_worst</span></code>).</p></li>
+</ul>
+<p><strong>Label</strong> adalah variabel dependen (target) yang ingin kita prediksi. Dalam kasus ini, labelnya adalah kolom <code class="docutils literal notranslate"><span class="pre">Diagnosis</span></code>.</p>
+<ul class="simple">
+<li><p><strong>M</strong>: Malignant (ganas)</p></li>
+<li><p><strong>B</strong>: Benign (jinak)</p></li>
+</ul>
+</section>
+</section>
+<section id="identifikasi-kualitas-dataset">
+<h2>Identifikasi Kualitas Dataset<a class="headerlink" href="#identifikasi-kualitas-dataset" title="Link to this heading">#</a></h2>
+<p>Langkah ini penting untuk memeriksa apakah ada data yang hilang (missing values) atau pencilan (outliers) yang dapat memengaruhi kinerja model.</p>
+<section id="deteksi-missing-values">
+<h3>Deteksi Missing Values<a class="headerlink" href="#deteksi-missing-values" title="Link to this heading">#</a></h3>
+<p>Missing values adalah data yang tidak ada atau kosong dalam dataset. Kehadirannya dapat menyebabkan error pada saat pelatihan model atau menghasilkan prediksi yang tidak akurat. Kita perlu memeriksa apakah dataset ini memiliki missing values.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menghitung jumlah missing values di setiap kolom</span>
+<span class="n">missing_counts</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jumlah Missing Values per Kolom:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">missing_counts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jumlah Missing Values per Kolom:
+radius1               0
+texture1              0
+perimeter1            0
+area1                 0
+smoothness1           0
+compactness1          0
+concavity1            0
+concave_points1       0
+symmetry1             0
+fractal_dimension1    0
+radius2               0
+texture2              0
+perimeter2            0
+area2                 0
+smoothness2           0
+compactness2          0
+concavity2            0
+concave_points2       0
+symmetry2             0
+fractal_dimension2    0
+radius3               0
+texture3              0
+perimeter3            0
+area3                 0
+smoothness3           0
+compactness3          0
+concavity3            0
+concave_points3       0
+symmetry3             0
+fractal_dimension3    0
+Diagnosis             0
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Hasil:</strong> Berdasarkan output di atas, dataset ini <strong>tidak memiliki missing values</strong> sama sekali. Ini merupakan kualitas data yang sangat baik dan menyederhanakan tahap preprocessing, karena kita tidak perlu melakukan imputasi data (mengisi data yang hilang).</p>
+</section>
+</section>
+<section id="pendeteksian-outlier-pencilan">
+<h2>Pendeteksian Outlier (Pencilan)<a class="headerlink" href="#pendeteksian-outlier-pencilan" title="Link to this heading">#</a></h2>
+<p>Outlier adalah titik data yang secara signifikan berbeda dari observasi lainnya. Outlier dapat disebabkan oleh kesalahan pengukuran atau bisa jadi merupakan variasi data yang nyata. Mendeteksi outlier penting karena dapat memengaruhi hasil analisis statistik dan kinerja model. Salah satu metode yang kuat untuk deteksi outlier adalah <strong>Local Outlier Factor (LOF)</strong>.</p>
+<section id="konsep-local-outlier-factor-lof">
+<h3>Konsep Local Outlier Factor (LOF)<a class="headerlink" href="#konsep-local-outlier-factor-lof" title="Link to this heading">#</a></h3>
+<p>LOF adalah algoritma yang mengukur penyimpangan densitas lokal suatu titik data terhadap tetangganya. Ide utamanya adalah mengidentifikasi outlier dengan membandingkan kepadatan lingkungan lokalnya. Skor LOF yang tinggi menunjukkan bahwa titik tersebut berada di area dengan densitas yang jauh lebih rendah dibandingkan tetangganya, sehingga kemungkinan besar adalah outlier.</p>
+<ul class="simple">
+<li><p><strong>LOF ≈ 1</strong>: Titik ini memiliki densitas yang mirip dengan tetangganya (inlier).</p></li>
+<li><p><strong>LOF &gt; 1</strong>: Titik ini berada di area yang kurang padat dibandingkan tetangganya (kemungkinan outlier).</p></li>
+</ul>
+<p>Kita akan menerapkan LOF pada data kita yang sudah dinormalisasi untuk mengidentifikasi potensi outlier.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">LocalOutlierFactor</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Kita akan mendeteksi outlier pada fitur saja, jadi kita akan drop kolom &#39;Diagnosis&#39;</span>
+<span class="c1"># dan kolom &#39;ID&#39; yang tidak relevan untuk analisis ini.</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">features</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Diagnosis&#39;</span><span class="p">,</span> <span class="s1">&#39;ID&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+    <span class="c1"># Jika kolom &#39;ID&#39; atau &#39;Diagnosis&#39; sudah tidak ada atau berbeda nama</span>
+    <span class="n">features</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Diagnosis&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># Inisialisasi model LOF</span>
+<span class="c1"># n_neighbors: Jumlah tetangga yang digunakan untuk menghitung densitas lokal.</span>
+<span class="c1"># contamination: Perkiraan proporsi outlier dalam data. &#39;auto&#39; adalah default yang baik.</span>
+<span class="n">lof</span> <span class="o">=</span> <span class="n">LocalOutlierFactor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">contamination</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+
+<span class="c1"># Melakukan prediksi outlier (-1 untuk outlier, 1 untuk inlier)</span>
+<span class="n">y_pred_lof</span> <span class="o">=</span> <span class="n">lof</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+
+<span class="c1"># Mengidentifikasi indeks dari baris yang terdeteksi sebagai outlier</span>
+<span class="n">outlier_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y_pred_lof</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- Hasil Deteksi Outlier dengan Local Outlier Factor (LOF) ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Jumlah outlier yang terdeteksi: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">outlier_indices</span><span class="p">)</span><span class="si">}</span><span class="s2"> data&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Indeks (baris) data yang terdeteksi sebagai outlier adalah: </span><span class="se">\n</span><span class="si">{</span><span class="n">outlier_indices</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Menampilkan data asli yang teridentifikasi sebagai Outlier</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Berikut adalah rincian data yang teridentifikasi sebagai Outlier:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">outlier_indices</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Hasil Deteksi Outlier dengan Local Outlier Factor (LOF) ---
+
+Jumlah outlier yang terdeteksi: 29 data
+
+Indeks (baris) data yang terdeteksi sebagai outlier adalah: 
+[  3   5   9  23  24  31  38  64  82 101 122 180 193 202 203 212 219 236
+ 265 275 339 352 359 368 417 461 503 521 539]
+
+Berikut adalah rincian data yang teridentifikasi sebagai Outlier:
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>radius1</th>
+      <th>texture1</th>
+      <th>perimeter1</th>
+      <th>area1</th>
+      <th>smoothness1</th>
+      <th>compactness1</th>
+      <th>concavity1</th>
+      <th>concave_points1</th>
+      <th>symmetry1</th>
+      <th>fractal_dimension1</th>
+      <th>...</th>
+      <th>texture3</th>
+      <th>perimeter3</th>
+      <th>area3</th>
+      <th>smoothness3</th>
+      <th>compactness3</th>
+      <th>concavity3</th>
+      <th>concave_points3</th>
+      <th>symmetry3</th>
+      <th>fractal_dimension3</th>
+      <th>Diagnosis</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>3</th>
+      <td>11.420</td>
+      <td>20.38</td>
+      <td>77.58</td>
+      <td>386.1</td>
+      <td>0.14250</td>
+      <td>0.28390</td>
+      <td>0.24140</td>
+      <td>0.10520</td>
+      <td>0.2597</td>
+      <td>0.09744</td>
+      <td>...</td>
+      <td>26.50</td>
+      <td>98.87</td>
+      <td>567.7</td>
+      <td>0.20980</td>
+      <td>0.86630</td>
+      <td>0.68690</td>
+      <td>0.25750</td>
+      <td>0.6638</td>
+      <td>0.17300</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>12.450</td>
+      <td>15.70</td>
+      <td>82.57</td>
+      <td>477.1</td>
+      <td>0.12780</td>
+      <td>0.17000</td>
+      <td>0.15780</td>
+      <td>0.08089</td>
+      <td>0.2087</td>
+      <td>0.07613</td>
+      <td>...</td>
+      <td>23.75</td>
+      <td>103.40</td>
+      <td>741.6</td>
+      <td>0.17910</td>
+      <td>0.52490</td>
+      <td>0.53550</td>
+      <td>0.17410</td>
+      <td>0.3985</td>
+      <td>0.12440</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>12.460</td>
+      <td>24.04</td>
+      <td>83.97</td>
+      <td>475.9</td>
+      <td>0.11860</td>
+      <td>0.23960</td>
+      <td>0.22730</td>
+      <td>0.08543</td>
+      <td>0.2030</td>
+      <td>0.08243</td>
+      <td>...</td>
+      <td>40.68</td>
+      <td>97.65</td>
+      <td>711.4</td>
+      <td>0.18530</td>
+      <td>1.05800</td>
+      <td>1.10500</td>
+      <td>0.22100</td>
+      <td>0.4366</td>
+      <td>0.20750</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>21.160</td>
+      <td>23.04</td>
+      <td>137.20</td>
+      <td>1404.0</td>
+      <td>0.09428</td>
+      <td>0.10220</td>
+      <td>0.10970</td>
+      <td>0.08632</td>
+      <td>0.1769</td>
+      <td>0.05278</td>
+      <td>...</td>
+      <td>35.59</td>
+      <td>188.00</td>
+      <td>2615.0</td>
+      <td>0.14010</td>
+      <td>0.26000</td>
+      <td>0.31550</td>
+      <td>0.20090</td>
+      <td>0.2822</td>
+      <td>0.07526</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>16.650</td>
+      <td>21.38</td>
+      <td>110.00</td>
+      <td>904.6</td>
+      <td>0.11210</td>
+      <td>0.14570</td>
+      <td>0.15250</td>
+      <td>0.09170</td>
+      <td>0.1995</td>
+      <td>0.06330</td>
+      <td>...</td>
+      <td>31.56</td>
+      <td>177.00</td>
+      <td>2215.0</td>
+      <td>0.18050</td>
+      <td>0.35780</td>
+      <td>0.46950</td>
+      <td>0.20950</td>
+      <td>0.3613</td>
+      <td>0.09564</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>11.840</td>
+      <td>18.70</td>
+      <td>77.93</td>
+      <td>440.6</td>
+      <td>0.11090</td>
+      <td>0.15160</td>
+      <td>0.12180</td>
+      <td>0.05182</td>
+      <td>0.2301</td>
+      <td>0.07799</td>
+      <td>...</td>
+      <td>28.12</td>
+      <td>119.40</td>
+      <td>888.7</td>
+      <td>0.16370</td>
+      <td>0.57750</td>
+      <td>0.69560</td>
+      <td>0.15460</td>
+      <td>0.4761</td>
+      <td>0.14020</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>14.990</td>
+      <td>25.20</td>
+      <td>95.54</td>
+      <td>698.8</td>
+      <td>0.09387</td>
+      <td>0.05131</td>
+      <td>0.02398</td>
+      <td>0.02899</td>
+      <td>0.1565</td>
+      <td>0.05504</td>
+      <td>...</td>
+      <td>25.20</td>
+      <td>95.54</td>
+      <td>698.8</td>
+      <td>0.09387</td>
+      <td>0.05131</td>
+      <td>0.02398</td>
+      <td>0.02899</td>
+      <td>0.1565</td>
+      <td>0.05504</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>64</th>
+      <td>12.680</td>
+      <td>23.84</td>
+      <td>82.69</td>
+      <td>499.0</td>
+      <td>0.11220</td>
+      <td>0.12620</td>
+      <td>0.11280</td>
+      <td>0.06873</td>
+      <td>0.1905</td>
+      <td>0.06590</td>
+      <td>...</td>
+      <td>33.47</td>
+      <td>111.80</td>
+      <td>888.3</td>
+      <td>0.18510</td>
+      <td>0.40610</td>
+      <td>0.40240</td>
+      <td>0.17160</td>
+      <td>0.3383</td>
+      <td>0.10310</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>82</th>
+      <td>25.220</td>
+      <td>24.91</td>
+      <td>171.50</td>
+      <td>1878.0</td>
+      <td>0.10630</td>
+      <td>0.26650</td>
+      <td>0.33390</td>
+      <td>0.18450</td>
+      <td>0.1829</td>
+      <td>0.06782</td>
+      <td>...</td>
+      <td>33.62</td>
+      <td>211.70</td>
+      <td>2562.0</td>
+      <td>0.15730</td>
+      <td>0.60760</td>
+      <td>0.64760</td>
+      <td>0.28670</td>
+      <td>0.2355</td>
+      <td>0.10510</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>101</th>
+      <td>6.981</td>
+      <td>13.43</td>
+      <td>43.79</td>
+      <td>143.5</td>
+      <td>0.11700</td>
+      <td>0.07568</td>
+      <td>0.00000</td>
+      <td>0.00000</td>
+      <td>0.1930</td>
+      <td>0.07818</td>
+      <td>...</td>
+      <td>19.54</td>
+      <td>50.41</td>
+      <td>185.2</td>
+      <td>0.15840</td>
+      <td>0.12020</td>
+      <td>0.00000</td>
+      <td>0.00000</td>
+      <td>0.2932</td>
+      <td>0.09382</td>
+      <td>B</td>
+    </tr>
+    <tr>
+      <th>122</th>
+      <td>24.250</td>
+      <td>20.20</td>
+      <td>166.20</td>
+      <td>1761.0</td>
+      <td>0.14470</td>
+      <td>0.28670</td>
+      <td>0.42680</td>
+      <td>0.20120</td>
+      <td>0.2655</td>
+      <td>0.06877</td>
+      <td>...</td>
+      <td>23.99</td>
+      <td>180.90</td>
+      <td>2073.0</td>
+      <td>0.16960</td>
+      <td>0.42440</td>
+      <td>0.58030</td>
+      <td>0.22480</td>
+      <td>0.3222</td>
+      <td>0.08009</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>180</th>
+      <td>27.220</td>
+      <td>21.87</td>
+      <td>182.10</td>
+      <td>2250.0</td>
+      <td>0.10940</td>
+      <td>0.19140</td>
+      <td>0.28710</td>
+      <td>0.18780</td>
+      <td>0.1800</td>
+      <td>0.05770</td>
+      <td>...</td>
+      <td>32.85</td>
+      <td>220.80</td>
+      <td>3216.0</td>
+      <td>0.14720</td>
+      <td>0.40340</td>
+      <td>0.53400</td>
+      <td>0.26880</td>
+      <td>0.2856</td>
+      <td>0.08082</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>193</th>
+      <td>12.340</td>
+      <td>26.86</td>
+      <td>81.15</td>
+      <td>477.4</td>
+      <td>0.10340</td>
+      <td>0.13530</td>
+      <td>0.10850</td>
+      <td>0.04562</td>
+      <td>0.1943</td>
+      <td>0.06937</td>
+      <td>...</td>
+      <td>39.34</td>
+      <td>101.70</td>
+      <td>768.9</td>
+      <td>0.17850</td>
+      <td>0.47060</td>
+      <td>0.44250</td>
+      <td>0.14590</td>
+      <td>0.3215</td>
+      <td>0.12050</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>202</th>
+      <td>23.290</td>
+      <td>26.67</td>
+      <td>158.90</td>
+      <td>1685.0</td>
+      <td>0.11410</td>
+      <td>0.20840</td>
+      <td>0.35230</td>
+      <td>0.16200</td>
+      <td>0.2200</td>
+      <td>0.06229</td>
+      <td>...</td>
+      <td>32.68</td>
+      <td>177.00</td>
+      <td>1986.0</td>
+      <td>0.15360</td>
+      <td>0.41670</td>
+      <td>0.78920</td>
+      <td>0.27330</td>
+      <td>0.3198</td>
+      <td>0.08762</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>203</th>
+      <td>13.810</td>
+      <td>23.75</td>
+      <td>91.56</td>
+      <td>597.8</td>
+      <td>0.13230</td>
+      <td>0.17680</td>
+      <td>0.15580</td>
+      <td>0.09176</td>
+      <td>0.2251</td>
+      <td>0.07421</td>
+      <td>...</td>
+      <td>41.85</td>
+      <td>128.50</td>
+      <td>1153.0</td>
+      <td>0.22260</td>
+      <td>0.52090</td>
+      <td>0.46460</td>
+      <td>0.20130</td>
+      <td>0.4432</td>
+      <td>0.10860</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>212</th>
+      <td>28.110</td>
+      <td>18.47</td>
+      <td>188.50</td>
+      <td>2499.0</td>
+      <td>0.11420</td>
+      <td>0.15160</td>
+      <td>0.32010</td>
+      <td>0.15950</td>
+      <td>0.1648</td>
+      <td>0.05525</td>
+      <td>...</td>
+      <td>18.47</td>
+      <td>188.50</td>
+      <td>2499.0</td>
+      <td>0.11420</td>
+      <td>0.15160</td>
+      <td>0.32010</td>
+      <td>0.15950</td>
+      <td>0.1648</td>
+      <td>0.05525</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>219</th>
+      <td>19.530</td>
+      <td>32.47</td>
+      <td>128.00</td>
+      <td>1223.0</td>
+      <td>0.08420</td>
+      <td>0.11300</td>
+      <td>0.11450</td>
+      <td>0.06637</td>
+      <td>0.1428</td>
+      <td>0.05313</td>
+      <td>...</td>
+      <td>45.41</td>
+      <td>180.20</td>
+      <td>2477.0</td>
+      <td>0.14080</td>
+      <td>0.40970</td>
+      <td>0.39950</td>
+      <td>0.16250</td>
+      <td>0.2713</td>
+      <td>0.07568</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>236</th>
+      <td>23.210</td>
+      <td>26.97</td>
+      <td>153.50</td>
+      <td>1670.0</td>
+      <td>0.09509</td>
+      <td>0.16820</td>
+      <td>0.19500</td>
+      <td>0.12370</td>
+      <td>0.1909</td>
+      <td>0.06309</td>
+      <td>...</td>
+      <td>34.51</td>
+      <td>206.00</td>
+      <td>2944.0</td>
+      <td>0.14810</td>
+      <td>0.41260</td>
+      <td>0.58200</td>
+      <td>0.25930</td>
+      <td>0.3103</td>
+      <td>0.08677</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>265</th>
+      <td>20.730</td>
+      <td>31.12</td>
+      <td>135.70</td>
+      <td>1419.0</td>
+      <td>0.09469</td>
+      <td>0.11430</td>
+      <td>0.13670</td>
+      <td>0.08646</td>
+      <td>0.1769</td>
+      <td>0.05674</td>
+      <td>...</td>
+      <td>47.16</td>
+      <td>214.00</td>
+      <td>3432.0</td>
+      <td>0.14010</td>
+      <td>0.26440</td>
+      <td>0.34420</td>
+      <td>0.16590</td>
+      <td>0.2868</td>
+      <td>0.08218</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>275</th>
+      <td>11.890</td>
+      <td>17.36</td>
+      <td>76.20</td>
+      <td>435.6</td>
+      <td>0.12250</td>
+      <td>0.07210</td>
+      <td>0.05929</td>
+      <td>0.07404</td>
+      <td>0.2015</td>
+      <td>0.05875</td>
+      <td>...</td>
+      <td>18.99</td>
+      <td>79.46</td>
+      <td>472.4</td>
+      <td>0.13590</td>
+      <td>0.08368</td>
+      <td>0.07153</td>
+      <td>0.08946</td>
+      <td>0.2220</td>
+      <td>0.06033</td>
+      <td>B</td>
+    </tr>
+    <tr>
+      <th>339</th>
+      <td>23.510</td>
+      <td>24.27</td>
+      <td>155.10</td>
+      <td>1747.0</td>
+      <td>0.10690</td>
+      <td>0.12830</td>
+      <td>0.23080</td>
+      <td>0.14100</td>
+      <td>0.1797</td>
+      <td>0.05506</td>
+      <td>...</td>
+      <td>30.73</td>
+      <td>202.40</td>
+      <td>2906.0</td>
+      <td>0.15150</td>
+      <td>0.26780</td>
+      <td>0.48190</td>
+      <td>0.20890</td>
+      <td>0.2593</td>
+      <td>0.07738</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>352</th>
+      <td>25.730</td>
+      <td>17.46</td>
+      <td>174.20</td>
+      <td>2010.0</td>
+      <td>0.11490</td>
+      <td>0.23630</td>
+      <td>0.33680</td>
+      <td>0.19130</td>
+      <td>0.1956</td>
+      <td>0.06121</td>
+      <td>...</td>
+      <td>23.58</td>
+      <td>229.30</td>
+      <td>3234.0</td>
+      <td>0.15300</td>
+      <td>0.59370</td>
+      <td>0.64510</td>
+      <td>0.27560</td>
+      <td>0.3690</td>
+      <td>0.08815</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>359</th>
+      <td>9.436</td>
+      <td>18.32</td>
+      <td>59.82</td>
+      <td>278.6</td>
+      <td>0.10090</td>
+      <td>0.05956</td>
+      <td>0.02710</td>
+      <td>0.01406</td>
+      <td>0.1506</td>
+      <td>0.06959</td>
+      <td>...</td>
+      <td>25.02</td>
+      <td>75.79</td>
+      <td>439.6</td>
+      <td>0.13330</td>
+      <td>0.10490</td>
+      <td>0.11440</td>
+      <td>0.05052</td>
+      <td>0.2454</td>
+      <td>0.08136</td>
+      <td>B</td>
+    </tr>
+    <tr>
+      <th>368</th>
+      <td>21.710</td>
+      <td>17.25</td>
+      <td>140.90</td>
+      <td>1546.0</td>
+      <td>0.09384</td>
+      <td>0.08562</td>
+      <td>0.11680</td>
+      <td>0.08465</td>
+      <td>0.1717</td>
+      <td>0.05054</td>
+      <td>...</td>
+      <td>26.44</td>
+      <td>199.50</td>
+      <td>3143.0</td>
+      <td>0.13630</td>
+      <td>0.16280</td>
+      <td>0.28610</td>
+      <td>0.18200</td>
+      <td>0.2510</td>
+      <td>0.06494</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>417</th>
+      <td>15.500</td>
+      <td>21.08</td>
+      <td>102.90</td>
+      <td>803.1</td>
+      <td>0.11200</td>
+      <td>0.15710</td>
+      <td>0.15220</td>
+      <td>0.08481</td>
+      <td>0.2085</td>
+      <td>0.06864</td>
+      <td>...</td>
+      <td>27.65</td>
+      <td>157.10</td>
+      <td>1748.0</td>
+      <td>0.15170</td>
+      <td>0.40020</td>
+      <td>0.42110</td>
+      <td>0.21340</td>
+      <td>0.3003</td>
+      <td>0.10480</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>461</th>
+      <td>27.420</td>
+      <td>26.27</td>
+      <td>186.90</td>
+      <td>2501.0</td>
+      <td>0.10840</td>
+      <td>0.19880</td>
+      <td>0.36350</td>
+      <td>0.16890</td>
+      <td>0.2061</td>
+      <td>0.05623</td>
+      <td>...</td>
+      <td>31.37</td>
+      <td>251.20</td>
+      <td>4254.0</td>
+      <td>0.13570</td>
+      <td>0.42560</td>
+      <td>0.68330</td>
+      <td>0.26250</td>
+      <td>0.2641</td>
+      <td>0.07427</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>503</th>
+      <td>23.090</td>
+      <td>19.83</td>
+      <td>152.10</td>
+      <td>1682.0</td>
+      <td>0.09342</td>
+      <td>0.12750</td>
+      <td>0.16760</td>
+      <td>0.10030</td>
+      <td>0.1505</td>
+      <td>0.05484</td>
+      <td>...</td>
+      <td>23.87</td>
+      <td>211.50</td>
+      <td>2782.0</td>
+      <td>0.11990</td>
+      <td>0.36250</td>
+      <td>0.37940</td>
+      <td>0.22640</td>
+      <td>0.2908</td>
+      <td>0.07277</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>521</th>
+      <td>24.630</td>
+      <td>21.60</td>
+      <td>165.50</td>
+      <td>1841.0</td>
+      <td>0.10300</td>
+      <td>0.21060</td>
+      <td>0.23100</td>
+      <td>0.14710</td>
+      <td>0.1991</td>
+      <td>0.06739</td>
+      <td>...</td>
+      <td>26.93</td>
+      <td>205.70</td>
+      <td>2642.0</td>
+      <td>0.13420</td>
+      <td>0.41880</td>
+      <td>0.46580</td>
+      <td>0.24750</td>
+      <td>0.3157</td>
+      <td>0.09671</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>539</th>
+      <td>7.691</td>
+      <td>25.44</td>
+      <td>48.34</td>
+      <td>170.4</td>
+      <td>0.08668</td>
+      <td>0.11990</td>
+      <td>0.09252</td>
+      <td>0.01364</td>
+      <td>0.2037</td>
+      <td>0.07751</td>
+      <td>...</td>
+      <td>31.89</td>
+      <td>54.49</td>
+      <td>223.6</td>
+      <td>0.15960</td>
+      <td>0.30640</td>
+      <td>0.33930</td>
+      <td>0.05000</td>
+      <td>0.2790</td>
+      <td>0.10660</td>
+      <td>B</td>
+    </tr>
+  </tbody>
+</table>
+<p>29 rows × 31 columns</p>
+</div></div></div>
+</div>
+<p><strong>Penanganan Outlier:</strong>
+Untuk analisis ini, kita akan <strong>mempertahankan</strong> outlier yang terdeteksi. Dalam konteks medis, data yang tampak ekstrem bisa jadi merupakan kasus penyakit yang langka atau parah dan mengandung informasi klinis yang berharga. Menghapusnya secara sembarangan dapat mengurangi kemampuan generalisasi model. Namun, dalam proyek nyata, setiap outlier akan ditinjau oleh ahli domain (misalnya, ahli patologi) untuk divalidasi.</p>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="tahap-2-pra-pemrosesan-data-preprocessing">
+<h1>Tahap 2: Pra-pemrosesan Data (Preprocessing)<a class="headerlink" href="#tahap-2-pra-pemrosesan-data-preprocessing" title="Link to this heading">#</a></h1>
+<p>Meskipun tidak ada missing values, beberapa langkah preprocessing tetap diperlukan untuk mempersiapkan data sebelum masuk ke tahap pemodelan.</p>
+<section id="transformasi-data-encoding-label">
+<h2>Transformasi Data (Encoding Label)<a class="headerlink" href="#transformasi-data-encoding-label" title="Link to this heading">#</a></h2>
+<p>Model machine learning bekerja dengan angka. Oleh karena itu, kita perlu mengubah label kategorikal <code class="docutils literal notranslate"><span class="pre">Diagnosis</span></code> (‘M’ dan ‘B’) menjadi format numerik. Kita akan menggunakan skema berikut:</p>
+<ul class="simple">
+<li><p><strong>1</strong> untuk <strong>Malignant (Ganas)</strong></p></li>
+<li><p><strong>0</strong> untuk <strong>Benign (Jinak)</strong></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelEncoder</span>
+
+<span class="c1"># Membuat salinan data untuk preprocessing agar data asli tetap utuh</span>
+<span class="n">data_processed</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="n">le</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
+<span class="n">data_processed</span><span class="p">[</span><span class="s1">&#39;Diagnosis&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">data_processed</span><span class="p">[</span><span class="s1">&#39;Diagnosis&#39;</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data setelah encoding label (0=Jinak, 1=Ganas):&quot;</span><span class="p">)</span>
+<span class="n">data_processed</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data setelah encoding label (0=Jinak, 1=Ganas):
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>radius1</th>
+      <th>texture1</th>
+      <th>perimeter1</th>
+      <th>area1</th>
+      <th>smoothness1</th>
+      <th>compactness1</th>
+      <th>concavity1</th>
+      <th>concave_points1</th>
+      <th>symmetry1</th>
+      <th>fractal_dimension1</th>
+      <th>...</th>
+      <th>texture3</th>
+      <th>perimeter3</th>
+      <th>area3</th>
+      <th>smoothness3</th>
+      <th>compactness3</th>
+      <th>concavity3</th>
+      <th>concave_points3</th>
+      <th>symmetry3</th>
+      <th>fractal_dimension3</th>
+      <th>Diagnosis</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>17.99</td>
+      <td>10.38</td>
+      <td>122.80</td>
+      <td>1001.0</td>
+      <td>0.11840</td>
+      <td>0.27760</td>
+      <td>0.3001</td>
+      <td>0.14710</td>
+      <td>0.2419</td>
+      <td>0.07871</td>
+      <td>...</td>
+      <td>17.33</td>
+      <td>184.60</td>
+      <td>2019.0</td>
+      <td>0.1622</td>
+      <td>0.6656</td>
+      <td>0.7119</td>
+      <td>0.2654</td>
+      <td>0.4601</td>
+      <td>0.11890</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>20.57</td>
+      <td>17.77</td>
+      <td>132.90</td>
+      <td>1326.0</td>
+      <td>0.08474</td>
+      <td>0.07864</td>
+      <td>0.0869</td>
+      <td>0.07017</td>
+      <td>0.1812</td>
+      <td>0.05667</td>
+      <td>...</td>
+      <td>23.41</td>
+      <td>158.80</td>
+      <td>1956.0</td>
+      <td>0.1238</td>
+      <td>0.1866</td>
+      <td>0.2416</td>
+      <td>0.1860</td>
+      <td>0.2750</td>
+      <td>0.08902</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>19.69</td>
+      <td>21.25</td>
+      <td>130.00</td>
+      <td>1203.0</td>
+      <td>0.10960</td>
+      <td>0.15990</td>
+      <td>0.1974</td>
+      <td>0.12790</td>
+      <td>0.2069</td>
+      <td>0.05999</td>
+      <td>...</td>
+      <td>25.53</td>
+      <td>152.50</td>
+      <td>1709.0</td>
+      <td>0.1444</td>
+      <td>0.4245</td>
+      <td>0.4504</td>
+      <td>0.2430</td>
+      <td>0.3613</td>
+      <td>0.08758</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>11.42</td>
+      <td>20.38</td>
+      <td>77.58</td>
+      <td>386.1</td>
+      <td>0.14250</td>
+      <td>0.28390</td>
+      <td>0.2414</td>
+      <td>0.10520</td>
+      <td>0.2597</td>
+      <td>0.09744</td>
+      <td>...</td>
+      <td>26.50</td>
+      <td>98.87</td>
+      <td>567.7</td>
+      <td>0.2098</td>
+      <td>0.8663</td>
+      <td>0.6869</td>
+      <td>0.2575</td>
+      <td>0.6638</td>
+      <td>0.17300</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>20.29</td>
+      <td>14.34</td>
+      <td>135.10</td>
+      <td>1297.0</td>
+      <td>0.10030</td>
+      <td>0.13280</td>
+      <td>0.1980</td>
+      <td>0.10430</td>
+      <td>0.1809</td>
+      <td>0.05883</td>
+      <td>...</td>
+      <td>16.67</td>
+      <td>152.20</td>
+      <td>1575.0</td>
+      <td>0.1374</td>
+      <td>0.2050</td>
+      <td>0.4000</td>
+      <td>0.1625</td>
+      <td>0.2364</td>
+      <td>0.07678</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 31 columns</p>
+</div></div></div>
+</div>
+</section>
+<section id="normalisasi-data">
+<h2>Normalisasi Data<a class="headerlink" href="#normalisasi-data" title="Link to this heading">#</a></h2>
+<p><strong>Mengapa Normalisasi Penting?</strong>
+Dari histogram sebelumnya, kita melihat bahwa fitur-fitur numerik memiliki rentang nilai yang sangat berbeda. Sebagai contoh, <code class="docutils literal notranslate"><span class="pre">area_mean</span></code> memiliki nilai dalam ratusan, sedangkan <code class="docutils literal notranslate"><span class="pre">smoothness_mean</span></code> memiliki nilai yang sangat kecil (kurang dari 1). Algoritma seperti Support Vector Machine (SVM) dan K-Nearest Neighbors (KNN) sangat sensitif terhadap skala fitur. Jika kita tidak melakukan normalisasi, fitur dengan skala yang lebih besar akan mendominasi proses pelatihan dan menyebabkan model menjadi bias.</p>
+<p><strong>Metode:</strong>
+Kita akan menggunakan <strong>Min-Max Scaling</strong>, yang akan mengubah skala setiap fitur ke dalam rentang [0, 1]. Rumusnya adalah:</p>
+<div class="math notranslate nohighlight">
+\[ X_{\text{scaled}} = \frac{X - X_{\min}}{X_{\max} - X_{\min}} \]</div>
+<p>Ini memastikan bahwa semua fitur memiliki kontribusi yang setara terhadap model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
+
+<span class="c1"># Memisahkan fitur (X) dan label (y) dari data yang sudah di-encode</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">data_processed</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Diagnosis&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data_processed</span><span class="p">[</span><span class="s1">&#39;Diagnosis&#39;</span><span class="p">]</span>
+
+<span class="c1"># Inisialisasi MinMaxScaler</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
+
+<span class="c1"># Melakukan normalisasi pada fitur-fitur</span>
+<span class="n">X_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c1"># Mengubah kembali ke format DataFrame untuk kemudahan inspeksi</span>
+<span class="n">X_scaled_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data Fitur Setelah Normalisasi (5 Baris Pertama):&quot;</span><span class="p">)</span>
+<span class="n">X_scaled_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data Fitur Setelah Normalisasi (5 Baris Pertama):
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>radius1</th>
+      <th>texture1</th>
+      <th>perimeter1</th>
+      <th>area1</th>
+      <th>smoothness1</th>
+      <th>compactness1</th>
+      <th>concavity1</th>
+      <th>concave_points1</th>
+      <th>symmetry1</th>
+      <th>fractal_dimension1</th>
+      <th>...</th>
+      <th>radius3</th>
+      <th>texture3</th>
+      <th>perimeter3</th>
+      <th>area3</th>
+      <th>smoothness3</th>
+      <th>compactness3</th>
+      <th>concavity3</th>
+      <th>concave_points3</th>
+      <th>symmetry3</th>
+      <th>fractal_dimension3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.521037</td>
+      <td>0.022658</td>
+      <td>0.545989</td>
+      <td>0.363733</td>
+      <td>0.593753</td>
+      <td>0.792037</td>
+      <td>0.703140</td>
+      <td>0.731113</td>
+      <td>0.686364</td>
+      <td>0.605518</td>
+      <td>...</td>
+      <td>0.620776</td>
+      <td>0.141525</td>
+      <td>0.668310</td>
+      <td>0.450698</td>
+      <td>0.601136</td>
+      <td>0.619292</td>
+      <td>0.568610</td>
+      <td>0.912027</td>
+      <td>0.598462</td>
+      <td>0.418864</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.643144</td>
+      <td>0.272574</td>
+      <td>0.615783</td>
+      <td>0.501591</td>
+      <td>0.289880</td>
+      <td>0.181768</td>
+      <td>0.203608</td>
+      <td>0.348757</td>
+      <td>0.379798</td>
+      <td>0.141323</td>
+      <td>...</td>
+      <td>0.606901</td>
+      <td>0.303571</td>
+      <td>0.539818</td>
+      <td>0.435214</td>
+      <td>0.347553</td>
+      <td>0.154563</td>
+      <td>0.192971</td>
+      <td>0.639175</td>
+      <td>0.233590</td>
+      <td>0.222878</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.601496</td>
+      <td>0.390260</td>
+      <td>0.595743</td>
+      <td>0.449417</td>
+      <td>0.514309</td>
+      <td>0.431017</td>
+      <td>0.462512</td>
+      <td>0.635686</td>
+      <td>0.509596</td>
+      <td>0.211247</td>
+      <td>...</td>
+      <td>0.556386</td>
+      <td>0.360075</td>
+      <td>0.508442</td>
+      <td>0.374508</td>
+      <td>0.483590</td>
+      <td>0.385375</td>
+      <td>0.359744</td>
+      <td>0.835052</td>
+      <td>0.403706</td>
+      <td>0.213433</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.210090</td>
+      <td>0.360839</td>
+      <td>0.233501</td>
+      <td>0.102906</td>
+      <td>0.811321</td>
+      <td>0.811361</td>
+      <td>0.565604</td>
+      <td>0.522863</td>
+      <td>0.776263</td>
+      <td>1.000000</td>
+      <td>...</td>
+      <td>0.248310</td>
+      <td>0.385928</td>
+      <td>0.241347</td>
+      <td>0.094008</td>
+      <td>0.915472</td>
+      <td>0.814012</td>
+      <td>0.548642</td>
+      <td>0.884880</td>
+      <td>1.000000</td>
+      <td>0.773711</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.629893</td>
+      <td>0.156578</td>
+      <td>0.630986</td>
+      <td>0.489290</td>
+      <td>0.430351</td>
+      <td>0.347893</td>
+      <td>0.463918</td>
+      <td>0.518390</td>
+      <td>0.378283</td>
+      <td>0.186816</td>
+      <td>...</td>
+      <td>0.519744</td>
+      <td>0.123934</td>
+      <td>0.506948</td>
+      <td>0.341575</td>
+      <td>0.437364</td>
+      <td>0.172415</td>
+      <td>0.319489</td>
+      <td>0.558419</td>
+      <td>0.157500</td>
+      <td>0.142595</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 30 columns</p>
+</div></div></div>
+</div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="tahap-3-pemodelan-modelling">
+<h1>Tahap 3: Pemodelan (Modelling)<a class="headerlink" href="#tahap-3-pemodelan-modelling" title="Link to this heading">#</a></h1>
+<p>Pada tahap ini, kita akan membangun dan melatih beberapa model klasifikasi untuk memprediksi diagnosis kanker payudara. Data yang akan kita gunakan adalah data yang sudah bersih dan ternormalisasi (<code class="docutils literal notranslate"><span class="pre">X_scaled_df</span></code> dan <code class="docutils literal notranslate"><span class="pre">y</span></code>).</p>
+<p>Pertama, kita perlu membagi dataset menjadi dua bagian:</p>
+<ul class="simple">
+<li><p><strong>Data Latih (Training Data):</strong> Digunakan untuk melatih model (misalnya, 80% dari data).</p></li>
+<li><p><strong>Data Uji (Testing Data):</strong> Digunakan untuk menguji kinerja model pada data yang belum pernah dilihat sebelumnya (misalnya, 20% dari data).</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X_scaled_df</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bentuk data latih (X_train): </span><span class="si">{</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bentuk data uji (X_test): </span><span class="si">{</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Bentuk data latih (X_train): (455, 30)
+Bentuk data uji (X_test): (114, 30)
+</pre></div>
+</div>
+</div>
+</div>
+<section id="model-1-gaussian-naive-bayes-gnb">
+<h2>Model 1: Gaussian Naive Bayes (GNB)<a class="headerlink" href="#model-1-gaussian-naive-bayes-gnb" title="Link to this heading">#</a></h2>
+<p><strong>Konsep:</strong>
+Naive Bayes adalah classifier probabilistik yang didasarkan pada Teorema Bayes dengan asumsi “naive” (naif) bahwa setiap fitur bersifat independen satu sama lain. Varian <strong>Gaussian</strong> digunakan ketika fitur-fitur bersifat kontinu (seperti dalam kasus kita) dan diasumsikan mengikuti distribusi normal (Gaussian).</p>
+<p><strong>Kelebihan:</strong> Cepat, sederhana, dan bekerja dengan baik bahkan dengan data berdimensi tinggi.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">accuracy_score</span>
+
+<span class="c1"># Inisialisasi model GNB</span>
+<span class="n">gnb_model</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+
+<span class="c1"># Melatih model</span>
+<span class="n">gnb_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Melakukan prediksi pada data uji</span>
+<span class="n">y_pred_gnb</span> <span class="o">=</span> <span class="n">gnb_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># Evaluasi model</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hasil Evaluasi Model Gaussian Naive Bayes:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Akurasi: </span><span class="si">{</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="w"> </span><span class="n">y_pred_gnb</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_gnb</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Jinak (0)&#39;</span><span class="p">,</span> <span class="s1">&#39;Ganas (1)&#39;</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hasil Evaluasi Model Gaussian Naive Bayes:
+Akurasi: 0.9211
+              precision    recall  f1-score   support
+
+   Jinak (0)       0.92      0.96      0.94        72
+   Ganas (1)       0.92      0.86      0.89        42
+
+    accuracy                           0.92       114
+   macro avg       0.92      0.91      0.91       114
+weighted avg       0.92      0.92      0.92       114
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="model-2-support-vector-machine-svm">
+<h2>Model 2: Support Vector Machine (SVM)<a class="headerlink" href="#model-2-support-vector-machine-svm" title="Link to this heading">#</a></h2>
+<p><strong>Konsep:</strong>
+SVM bekerja dengan mencari <strong>hyperplane</strong> optimal yang dapat memisahkan dua kelas data dengan margin (jarak) terbesar. Titik data terdekat ke hyperplane disebut <em>support vectors</em>. SVM sangat efektif dalam ruang berdimensi tinggi dan dapat menggunakan “kernel trick” untuk menangani data yang tidak dapat dipisahkan secara linear.</p>
+<p><strong>Kelebihan:</strong> Efektif untuk data berdimensi tinggi dan memiliki <em>margin of separation</em> yang jelas.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+
+<span class="c1"># Inisialisasi model SVM dengan kernel linear</span>
+<span class="n">svm_model</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Melatih model</span>
+<span class="n">svm_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Melakukan prediksi</span>
+<span class="n">y_pred_svm</span> <span class="o">=</span> <span class="n">svm_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># Evaluasi model</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hasil Evaluasi Model Support Vector Machine (SVM):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Akurasi: </span><span class="si">{</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="w"> </span><span class="n">y_pred_svm</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_svm</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Jinak (0)&#39;</span><span class="p">,</span> <span class="s1">&#39;Ganas (1)&#39;</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hasil Evaluasi Model Support Vector Machine (SVM):
+Akurasi: 0.9825
+              precision    recall  f1-score   support
+
+   Jinak (0)       0.97      1.00      0.99        72
+   Ganas (1)       1.00      0.95      0.98        42
+
+    accuracy                           0.98       114
+   macro avg       0.99      0.98      0.98       114
+weighted avg       0.98      0.98      0.98       114
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="model-3-decision-tree-classifier">
+<h2>Model 3: Decision Tree Classifier<a class="headerlink" href="#model-3-decision-tree-classifier" title="Link to this heading">#</a></h2>
+<p><strong>Konsep:</strong>
+Decision Tree adalah model yang memprediksi nilai target dengan mempelajari aturan keputusan sederhana yang disimpulkan dari fitur data. Model ini berbentuk struktur seperti pohon, di mana setiap node internal merepresentasikan “tes” pada sebuah fitur, setiap cabang merepresentasikan hasil tes, dan setiap daun (leaf node) merepresentasikan label kelas.</p>
+<p><strong>Kelebihan:</strong> Mudah diinterpretasikan dan divisualisasikan, tidak memerlukan normalisasi data secara ketat.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+
+<span class="c1"># Inisialisasi model Decision Tree</span>
+<span class="n">dt_model</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Melatih model</span>
+<span class="n">dt_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Melakukan prediksi</span>
+<span class="n">y_pred_dt</span> <span class="o">=</span> <span class="n">dt_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># Evaluasi model</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hasil Evaluasi Model Decision Tree:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Akurasi: </span><span class="si">{</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="w"> </span><span class="n">y_pred_dt</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_dt</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Jinak (0)&#39;</span><span class="p">,</span> <span class="s1">&#39;Ganas (1)&#39;</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hasil Evaluasi Model Decision Tree:
+Akurasi: 0.9298
+              precision    recall  f1-score   support
+
+   Jinak (0)       0.94      0.94      0.94        72
+   Ganas (1)       0.90      0.90      0.90        42
+
+    accuracy                           0.93       114
+   macro avg       0.92      0.92      0.92       114
+weighted avg       0.93      0.93      0.93       114
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="peningkatan-model-metode-ensemble">
+<h2>Peningkatan Model: Metode Ensemble<a class="headerlink" href="#peningkatan-model-metode-ensemble" title="Link to this heading">#</a></h2>
+<p>Metode ensemble bertujuan meningkatkan performa prediktif dengan menggabungkan beberapa model menjadi satu model yang lebih kuat. Kita akan mencoba dua teknik populer: <strong>Stacking</strong> dan <strong>Bagging</strong>.</p>
+<section id="stacking-classifier">
+<h3>Stacking Classifier<a class="headerlink" href="#stacking-classifier" title="Link to this heading">#</a></h3>
+<p>Stacking (atau <em>Stacked Generalization</em>) menggunakan beberapa model (disebut <em>base models</em>) untuk membuat prediksi. Prediksi dari model-model ini kemudian digunakan sebagai input untuk melatih model tingkat akhir (<em>meta-model</em>) yang akan membuat prediksi final. Ide dasarnya adalah memanfaatkan kekuatan dari berbagai jenis model.</p>
+<ul class="simple">
+<li><p><strong>Base Models:</strong> Kita akan gunakan GNB, SVM, dan Decision Tree yang sudah kita buat.</p></li>
+<li><p><strong>Meta-Model:</strong> Kita akan gunakan <code class="docutils literal notranslate"><span class="pre">LogisticRegression</span></code> sebagai model final.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">StackingClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+
+<span class="c1"># Mendefinisikan base models</span>
+<span class="n">estimators</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;gnb&#39;</span><span class="p">,</span> <span class="n">GaussianNB</span><span class="p">()),</span>
+    <span class="p">(</span><span class="s1">&#39;svm&#39;</span><span class="p">,</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s1">&#39;dt&#39;</span><span class="p">,</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">))</span>
+<span class="p">]</span>
+
+<span class="c1"># Inisialisasi Stacking Classifier dengan Logistic Regression sebagai meta-model</span>
+<span class="n">stacking_model</span> <span class="o">=</span> <span class="n">StackingClassifier</span><span class="p">(</span><span class="n">estimators</span><span class="o">=</span><span class="n">estimators</span><span class="p">,</span> <span class="n">final_estimator</span><span class="o">=</span><span class="n">LogisticRegression</span><span class="p">())</span>
+
+<span class="c1"># Melatih model stacking</span>
+<span class="n">stacking_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Melakukan prediksi</span>
+<span class="n">y_pred_stacking</span> <span class="o">=</span> <span class="n">stacking_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># Evaluasi model</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hasil Evaluasi Model Stacking Classifier:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Akurasi: </span><span class="si">{</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="w"> </span><span class="n">y_pred_stacking</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_stacking</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Jinak (0)&#39;</span><span class="p">,</span> <span class="s1">&#39;Ganas (1)&#39;</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hasil Evaluasi Model Stacking Classifier:
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Akurasi: 0.9912
+              precision    recall  f1-score   support
+
+   Jinak (0)       0.99      1.00      0.99        72
+   Ganas (1)       1.00      0.98      0.99        42
+
+    accuracy                           0.99       114
+   macro avg       0.99      0.99      0.99       114
+weighted avg       0.99      0.99      0.99       114
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="bagging-classifier">
+<h3>Bagging Classifier<a class="headerlink" href="#bagging-classifier" title="Link to this heading">#</a></h3>
+<p>Bagging (<em>Bootstrap Aggregating</em>) bekerja dengan melatih beberapa model yang sama (biasanya Decision Tree) pada subset data yang berbeda. Subset ini dibuat dengan teknik <em>bootstrap</em> (pengambilan sampel dengan pengembalian). Prediksi akhir dibuat dengan melakukan <em>voting</em> (pemungutan suara mayoritas) dari semua model.</p>
+<p><strong>Tujuan:</strong> Mengurangi varians dan mencegah <em>overfitting</em>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">BaggingClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+
+<span class="c1"># Inisialisasi Bagging Classifier dengan Decision Tree sebagai base estimator</span>
+<span class="c1"># n_estimators adalah jumlah model yang akan dilatih</span>
+<span class="n">bagging_model</span> <span class="o">=</span> <span class="n">BaggingClassifier</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">DecisionTreeClassifier</span><span class="p">(),</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Melatih model bagging</span>
+<span class="n">bagging_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Melakukan prediksi</span>
+<span class="n">y_pred_bagging</span> <span class="o">=</span> <span class="n">bagging_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># Evaluasi model</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hasil Evaluasi Model Bagging Classifier:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Akurasi: </span><span class="si">{</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="w"> </span><span class="n">y_pred_bagging</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_bagging</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Jinak (0)&#39;</span><span class="p">,</span> <span class="s1">&#39;Ganas (1)&#39;</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hasil Evaluasi Model Bagging Classifier:
+Akurasi: 0.9737
+              precision    recall  f1-score   support
+
+   Jinak (0)       0.96      1.00      0.98        72
+   Ganas (1)       1.00      0.93      0.96        42
+
+    accuracy                           0.97       114
+   macro avg       0.98      0.96      0.97       114
+weighted avg       0.97      0.97      0.97       114
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="tahap-4-evaluasi">
+<h1>Tahap 4: Evaluasi<a class="headerlink" href="#tahap-4-evaluasi" title="Link to this heading">#</a></h1>
+<p>Setelah membangun kelima model, kita akan membandingkan performanya berdasarkan metrik akurasi untuk menentukan model mana yang terbaik untuk tugas klasifikasi ini.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mengumpulkan hasil akurasi dari semua model</span>
+<span class="n">accuracies</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Gaussian Naive Bayes&quot;</span><span class="p">:</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_gnb</span><span class="p">),</span>
+    <span class="s2">&quot;Support Vector Machine&quot;</span><span class="p">:</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_svm</span><span class="p">),</span>
+    <span class="s2">&quot;Decision Tree&quot;</span><span class="p">:</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_dt</span><span class="p">),</span>
+    <span class="s2">&quot;Stacking Classifier&quot;</span><span class="p">:</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_stacking</span><span class="p">),</span>
+    <span class="s2">&quot;Bagging Classifier&quot;</span><span class="p">:</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_bagging</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">accuracies_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">accuracies</span><span class="o">.</span><span class="n">items</span><span class="p">()),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Model&#39;</span><span class="p">,</span> <span class="s1">&#39;Akurasi&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;Akurasi&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Perbandingan Akurasi Model:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">accuracies_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Perbandingan Akurasi Model:
+                    Model   Akurasi
+3     Stacking Classifier  0.991228
+1  Support Vector Machine  0.982456
+4      Bagging Classifier  0.973684
+2           Decision Tree  0.929825
+0    Gaussian Naive Bayes  0.921053
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualisasi perbandingan akurasi</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Akurasi&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Model&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">accuracies_df</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;magma&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Perbandingan Akurasi Antar Model Klasifikasi&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Akurasi&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Model&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">accuracies_df</span><span class="p">[</span><span class="s1">&#39;Akurasi&#39;</span><span class="p">]):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">value</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_3948/2931324057.py:3: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `y` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.barplot(x=&#39;Akurasi&#39;, y=&#39;Model&#39;, data=accuracies_df, palette=&#39;magma&#39;)
+</pre></div>
+</div>
+<img alt="_images/cbbcbbf923c463247e6bd0c74512eea11312944bc502a29b27777c48bfb25fe3.png" src="_images/cbbcbbf923c463247e6bd0c74512eea11312944bc502a29b27777c48bfb25fe3.png" />
+</div>
+</div>
+<section id="kesimpulan-evaluasi">
+<h2>Kesimpulan Evaluasi<a class="headerlink" href="#kesimpulan-evaluasi" title="Link to this heading">#</a></h2>
+<p>Berdasarkan hasil evaluasi, model <strong>Stacking Classifier</strong> menunjukkan performa terbaik dengan akurasi yang sangat tinggi (sekitar 99.12%). Ini menunjukkan bahwa kedua pendekatan ini sangat efektif dalam memisahkan kelas jinak dan ganas pada dataset ini. Model <strong>Support Vector Machine (SVM)</strong> juga menunjukkan performa yang baik, sementara GNB memiliki performa terendah.</p>
+<p>Untuk tahap deployment, kita akan memilih model <strong>Stacking Classifier</strong>.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="tahap-5-deployment">
+<h1>Tahap 5: Deployment<a class="headerlink" href="#tahap-5-deployment" title="Link to this heading">#</a></h1>
+<p>Deployment adalah tahap akhir di mana model yang telah kita latih dan evaluasi akan diintegrasikan ke dalam aplikasi nyata agar dapat digunakan oleh pengguna akhir. Untuk kasus ini, kita bisa membuat aplikasi web sederhana di mana pengguna (misalnya, seorang teknisi lab) dapat memasukkan nilai-nilai fitur dari sampel FNA baru, dan aplikasi akan memberikan prediksi diagnosis.</p>
+<section id="menyimpan-model">
+<h2>Menyimpan Model<a class="headerlink" href="#menyimpan-model" title="Link to this heading">#</a></h2>
+<p>Langkah pertama adalah menyimpan model terbaik <strong>Stacking Classifer</strong> yang telah kita latih ke dalam sebuah file. Kita akan menggunakan library <code class="docutils literal notranslate"><span class="pre">joblib</span></code> untuk ini.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">joblib</span>
+
+<span class="c1"># Menyimpan model ke dalam file bernama &#39;stacking_classifier_model.pkl&#39;</span>
+<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">stacking_model</span><span class="p">,</span> <span class="s1">&#39;stacking_classifer.pkl&#39;</span><span class="p">)</span>
+
+<span class="c1"># Menyimpan scaler yang digunakan untuk normalisasi</span>
+<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">scaler</span><span class="p">,</span> <span class="s1">&#39;scaler_wisconsin.pkl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;scaler_wisconsin.pkl&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="integrasi-model-dengan-aplikasi-web-streamlit">
+<h2>Integrasi Model dengan Aplikasi Web (Streamlit)<a class="headerlink" href="#integrasi-model-dengan-aplikasi-web-streamlit" title="Link to this heading">#</a></h2>
+<p>Setelah model disimpan, kita dapat membangun antarmuka pengguna (UI) menggunakan framework seperti <strong>Streamlit</strong>. Streamlit sangat cocok untuk data science karena memungkinkan kita membuat aplikasi web interaktif hanya dengan menggunakan Python.</p>
+<p><strong>Langkah-langkahnya adalah sebagai berikut:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Buat file Python baru</strong> (misalnya, <code class="docutils literal notranslate"><span class="pre">app.py</span></code>).</p></li>
+<li><p><strong>Impor library</strong> yang diperlukan: <code class="docutils literal notranslate"><span class="pre">streamlit</span></code>, <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, <code class="docutils literal notranslate"><span class="pre">joblib</span></code>.</p></li>
+<li><p><strong>Muat model dan scaler</strong> yang sudah disimpan:</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stacking_classifer</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;stacking_classifer.pkl&#39;</span><span class="p">)</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;scaler_wisconsin.pkl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p><strong>Buat antarmuka pengguna</strong> menggunakan fungsi Streamlit (<code class="docutils literal notranslate"><span class="pre">st.title</span></code>, <code class="docutils literal notranslate"><span class="pre">st.sidebar</span></code>, <code class="docutils literal notranslate"><span class="pre">st.slider</span></code>, <code class="docutils literal notranslate"><span class="pre">st.number_input</span></code>) untuk membuat form input bagi ke-30 fitur.</p></li>
+<li><p><strong>Buat tombol “Prediksi”</strong>. Ketika ditekan:</p>
+<ul class="simple">
+<li><p>Ambil semua nilai input dari pengguna.</p></li>
+<li><p>Lakukan normalisasi pada data input menggunakan <code class="docutils literal notranslate"><span class="pre">scaler</span></code> yang sudah dimuat.</p></li>
+<li><p>Lakukan prediksi menggunakan <code class="docutils literal notranslate"><span class="pre">stacking_classifer()</span></code>.</p></li>
+<li><p>Tampilkan hasil prediksi kepada pengguna (misalnya, “Diagnosis: Ganas” dengan warna merah, atau “Diagnosis: Jinak” dengan warna hijau).</p></li>
+</ul>
+</li>
+</ol>
+<section id="tampilan-aplikasi-web">
+<h3>Tampilan Aplikasi Web<a class="headerlink" href="#tampilan-aplikasi-web" title="Link to this heading">#</a></h3>
+<p><img alt="image.png" src="data:image/png;base64,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8tpIj5kiy4aC54i88Wt0vlpV570svT7NlnRMauurvfapd4O8tt1Wl269d//p69/YdL/lzaHsOucP/vAVs9I25Fx7t1u26HzJG8N612FFtjetu966Zksr+2hVznZc+p4PVM+/4DUH/cFfkevE9LPBquT9pd7cTdPT47zd81/evsw7D6XzILv2qd3ebFzStHT80jGo9/ko3Z7sXFJbV+0YrEqO6bTPaburDoz9+Re8ZladeduWfc6rzZct7Y79qjbeezbU+dz4ij++cFb7Zx34I4TaMa133k23Kxv7VXWuh1blzMe8fHnXTdmS9a+2L82WVscqayNNT+dB3vyrHZe8bduQ87k2L9+qBmOV99k53UfpZ5e8ZUNy/BZZWvn8UftekaVl54jac3beuSR9X6h37kyP1bxjsJvnl07mRnrftsgikNu7xVcrA8A8tGb1sfHxDZ+clfaJy6+Y9Rujn01+43bJ4sVx7LHHxLv++n0zv3e0Z8+euOOOO2fl66bsa4TK5qwnPTHe+74PzfTvy1/+alx99efjZS/7/YiacTn++ONi2bJlccYZp8Z73/ehpJbOLFm8OL7xjevjy1/+6qy0dB99fMMn49ZbfxRnn/2smtJzo/Z3k7N/n/2cn/Xr7Oc8K77+9Wtn1t1xx51xydv+Os4449SZPBERZ5/9rHjf+4uNZ/q7uWef/axZaXm/5dxs/zZStGzeMdhve/bsiU9cfsWsOZQ3T9udazd+76b4xOVXzDpHfP3r1878u0zuuOPOg37H7Y477jxo/qx95HEzaTt27jzot4nyxiU7H/zeS14081VbRfMVUdvHL9Xso1SzfEXnbq284yeTN6b9dPKjToqdO3fGhz/y8Zm02veUdHvjwLicffazDjrnRJvnkkzaRhzoX6bX779f+vJXZ47fvPfVvLF63/s/FMuXL4vjjz9uVt5Ms/3baDz6IW//ZmOQt703fu+mWLJ4cfzxH790Ji3TzvjV5mu2f9/7vg/FWU964qy0s89+VltjeOONN816X42IOPnkk3LP7f200PZHXhvNjplGmp0j8sav0fmqVu17WSvnjTy11wFlUHseuvrqzzfdb5naORQHzrG3/PetM2lfv6b+tUo7ZTudL3nXYa1sbxmcfPJJccnb/nrW/CtynZh+NoiC7y/NjvN25e3LvPNQPen2nnzySbPS8s7V6RjU+3wU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" /></p>
+<p>Fitur:</p>
+<ul class="simple">
+<li><p>sidebar untuk navigasi</p></li>
+<li><p>area utama dengan form input untuk setiap fitur. Setelah pengguna mengisi nilai dan menekan tombol, hasil prediksi akan muncul di bawahnya.</p></li>
+</ul>
+<p>Link Web: <a class="reference external" href="https://prediksikankerpayudara-jnagzde44vhp2rb7lwzndz.streamlit.app/">https://prediksikankerpayudara-jnagzde44vhp2rb7lwzndz.streamlit.app/</a></p>
+<p>Dengan pendekatan ini, model machine learning yang kompleks dapat disajikan dalam format yang sederhana dan dapat digunakan oleh siapa saja, bahkan tanpa latar belakang teknis di bidang data science.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="PraUAS.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">PraUAS</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Analisis Prediktif Kanker Payudara (Wisconsin Diagnostic)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pendahuluan">Pendahuluan</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-1-pemahaman-data-data-understanding">Tahap 1: Pemahaman Data (Data Understanding)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sumber-data">Sumber Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tujuan-dataset">Tujuan Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#integrasi-data">Integrasi Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eksplorasi-data-exploratory-data-analysis-eda">Eksplorasi Data (Exploratory Data Analysis - EDA)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-distribusi-label">Visualisasi Distribusi Label</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-distribusi-fitur">Visualisasi Distribusi Fitur</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#struktur-dataset">Struktur Dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fitur-dan-label">Fitur dan Label</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identifikasi-kualitas-dataset">Identifikasi Kualitas Dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deteksi-missing-values">Deteksi Missing Values</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pendeteksian-outlier-pencilan">Pendeteksian Outlier (Pencilan)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#konsep-local-outlier-factor-lof">Konsep Local Outlier Factor (LOF)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-2-pra-pemrosesan-data-preprocessing">Tahap 2: Pra-pemrosesan Data (Preprocessing)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformasi-data-encoding-label">Transformasi Data (Encoding Label)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalisasi-data">Normalisasi Data</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-3-pemodelan-modelling">Tahap 3: Pemodelan (Modelling)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-1-gaussian-naive-bayes-gnb">Model 1: Gaussian Naive Bayes (GNB)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-2-support-vector-machine-svm">Model 2: Support Vector Machine (SVM)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-3-decision-tree-classifier">Model 3: Decision Tree Classifier</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#peningkatan-model-metode-ensemble">Peningkatan Model: Metode Ensemble</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stacking-classifier">Stacking Classifier</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bagging-classifier">Bagging Classifier</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-4-evaluasi">Tahap 4: Evaluasi</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan-evaluasi">Kesimpulan Evaluasi</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-5-deployment">Tahap 5: Deployment</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menyimpan-model">Menyimpan Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#integrasi-model-dengan-aplikasi-web-streamlit">Integrasi Model dengan Aplikasi Web (Streamlit)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tampilan-aplikasi-web">Tampilan Aplikasi Web</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Abdulloh Sahl_23-090
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
