@@ -1,0 +1,1488 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Data Understanding &#8212; Proyek Sains Data</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'data-understanding';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Data Preprocessing" href="data-preprocessing.html" />
+    <link rel="prev" title="Bisnis Understanding" href="bisnis-understanding.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Proyek Sains Data - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Proyek Sains Data - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Proyek Sains Data
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bisnis-understanding.html"><strong>Bisnis Understanding</strong></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Data Understanding</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-preprocessing.html"><strong>Data Preprocessing</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Imbalanced.html"><strong>Imbalance Data</strong></a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://abdulsahl.github.io/PSD/intro.html" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://abdulsahl.github.io/PSD/intro.html/issues/new?title=Issue%20on%20page%20%2Fdata-understanding.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/data-understanding.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Data Understanding</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konfigurasi"><strong>1. Konfigurasi</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#koneksi-database"><strong>2. Koneksi Database</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ekstraksi-data"><strong>3. Ekstraksi data</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#verifikasi-data"><strong>4. Verifikasi data</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eksplorasi-data-python"><strong>5. Eksplorasi Data (Python)</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-sebaran-data"><strong>1. Analisis Sebaran Data</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-uji-normalitas-shapiro-wilk-test"><strong>A. Uji Normalitas (Shapiro-Wilk Test)</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-perbandingan-antar-kelas-spesies"><strong>2. Analisis Perbandingan Antar Kelas (Spesies)</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-visualisasi-perbandingan-distribusi-violin-plots"><strong>A. Visualisasi Perbandingan Distribusi (Violin Plots)</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b-validasi-statistik-perbedaan-rata-rata-anova"><strong>B. Validasi Statistik Perbedaan Rata-rata (ANOVA)</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-struktur-dimensi-data"><strong>3. Analisis Struktur &amp; Dimensi Data</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-visualisasi-dengan-reduksi-dimensi-principal-component-analysis-pca"><strong>A. Visualisasi dengan Reduksi Dimensi (Principal Component Analysis - PCA)</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ekplorasi-data-power-bi"><strong>6. Ekplorasi Data (Power BI)</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-tipe-numerik"><strong>1. Distribusi tipe numerik</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-tipe-kategorikal"><strong>2. Distribusi tipe kategorikal</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rata-rata"><strong>3. Rata-rata</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-fitur"><strong>A. Fitur</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b-fitur-per-spesies"><strong>B. Fitur per spesies</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#minimum"><strong>4. Minimum</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><strong>A. Fitur</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><strong>B. Fitur per spesies</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum"><strong>5. Maximum</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><strong>A. Fitur</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4"><strong>B. Fitur per spesies</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standar-devisiasi"><strong>6. Standar Devisiasi</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"><strong>A. Fitur</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6"><strong>B. Fitur per spesies</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#median"><strong>6. Median</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7"><strong>A. Fitur</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8"><strong>B. Fitur per spesies</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="data-understanding">
+<h1><strong>Data Understanding</strong><a class="headerlink" href="#data-understanding" title="Link to this heading">#</a></h1>
+<p>Dalam proyek dunia nyata, data jarang sekali tersedia dalam satu file yang bersih. Seringkali, data tersebar di berbagai sistem, database, atau bahkan lokasi geografis—sebuah fenomena yang dikenal sebagai <strong>data silos</strong>. Dengan data petal di <strong>MySQL</strong> dan sepal di <strong>PostgreSQL</strong> (keduanya di platform Aiven).</p>
+<section id="konfigurasi">
+<h2><strong>1. Konfigurasi</strong><a class="headerlink" href="#konfigurasi" title="Link to this heading">#</a></h2>
+<p>Menggunakan file <code class="docutils literal notranslate"><span class="pre">.env</span></code> untuk menyimpan informasi sensitif di luar <em>script</em> Python. Pustaka <code class="docutils literal notranslate"><span class="pre">python-dotenv</span></code> akan digunakan untuk memuat variabel-variabel ini ke dalam lingkungan kerja.</p>
+<ul>
+<li><p><strong>Implementasi</strong>:</p>
+<ol class="arabic simple">
+<li><p>Buat sebuah file bernama <code class="docutils literal notranslate"><span class="pre">.env</span></code> di direktori proyek.</p></li>
+<li><p>Isi file tersebut dengan format berikut, menggunakan detail koneksi dari <em>dashboard</em> Aiven Anda:</p></li>
+</ol>
+<!-- end list -->
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Kredensial Aiven untuk PostgreSQL</span>
+<span class="n">PG_USER</span><span class="o">=</span><span class="s2">&quot;username_pg&quot;</span>
+<span class="n">PG_PASSWORD</span><span class="o">=</span><span class="s2">&quot;password_pg&quot;</span>
+<span class="n">PG_HOST</span><span class="o">=</span><span class="s2">&quot;host.aivencloud.com&quot;</span>
+<span class="n">PG_PORT</span><span class="o">=</span><span class="s2">&quot;12345&quot;</span>
+<span class="n">PG_DBNAME</span><span class="o">=</span><span class="s2">&quot;database_name_pg&quot;</span>
+
+<span class="c1"># Kredensial Aiven untuk MySQL</span>
+<span class="n">MYSQL_USER</span><span class="o">=</span><span class="s2">&quot;username_mysql&quot;</span>
+<span class="n">MYSQL_PASSWORD</span><span class="o">=</span><span class="s2">&quot;password_mysql&quot;</span>
+<span class="n">MYSQL_HOST</span><span class="o">=</span><span class="s2">&quot;host.aivencloud.com&quot;</span>
+<span class="n">MYSQL_PORT</span><span class="o">=</span><span class="s2">&quot;54321&quot;</span>
+<span class="n">MYSQL_DBNAME</span><span class="o">=</span><span class="s2">&quot;database_name_mysql&quot;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="koneksi-database">
+<h2><strong>2. Koneksi Database</strong><a class="headerlink" href="#koneksi-database" title="Link to this heading">#</a></h2>
+<p>Untuk berinteraksi dengan berbagai jenis database SQL dari Python secara seragam, akan menggunakan <strong>SQLAlchemy</strong>, <strong>psycopg2-binary</strong>, dan <strong>mysql-connector-python</strong>. Pustaka ini menyediakan sebuah <em>Object-Relational Mapper</em> (ORM) dan <em>engine</em> koneksi yang mengabstraksi detail spesifik dari setiap dialek SQL.</p>
+<p>Membuat dua “engine” koneksi terpisah. Setiap <em>engine</em> mengelola <em>pool</em> koneksi ke databasenya masing-masing, memungkinkan eksekusi kueri yang efisien.</p>
+<ul class="simple">
+<li><p><strong>Implementasi (Kode Python)</strong>:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>    <span class="kn">import</span> <span class="nn">os</span>
+    <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+    <span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span>
+    <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">create_engine</span><span class="p">,</span> <span class="n">text</span>
+
+    <span class="c1"># Muat variabel dari file .env ke dalam environment</span>
+    <span class="n">load_dotenv</span><span class="p">()</span>
+
+    <span class="c1"># Koneksi ke PostgreSQL untuk data Sepal</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">pg_uri</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;postgresql+psycopg2://</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;PG_USER&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;PG_PASSWORD&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;@</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;PG_HOST&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;PG_PORT&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;PG_DBNAME&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="n">pg_engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">pg_uri</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Koneksi ke PostgreSQL berhasil dibangun.&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; Gagal terkoneksi ke PostgreSQL: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+    <span class="c1"># Koneksi ke MySQL untuk data Petal</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">mysql_uri</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;mysql+mysqlconnector://</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;MYSQL_USER&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;MYSQL_PASSWORD&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;@</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;MYSQL_HOST&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;MYSQL_PORT&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;MYSQL_DBNAME&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="n">mysql_engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">mysql_uri</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Koneksi ke MySQL berhasil dibangun.&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; Gagal terkoneksi ke MySQL: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Koneksi ke PostgreSQL berhasil dibangun.
+ Koneksi ke MySQL berhasil dibangun.
+</pre></div>
+</div>
+</div>
+</div>
+<p>Kode di atas menggunakan <em>f-string</em> untuk membangun URI koneksi secara dinamis dari variabel lingkungan. Penggunaan blok <code class="docutils literal notranslate"><span class="pre">try...except</span></code> adalah praktik yang baik untuk menangani potensi kegagalan koneksi secara elegan.</p>
+</section>
+<section id="ekstraksi-data">
+<h2><strong>3. Ekstraksi data</strong><a class="headerlink" href="#ekstraksi-data" title="Link to this heading">#</a></h2>
+<p>Dengan <em>engine</em> yang sudah siap, kini bisa mengeksekusi kueri untuk menarik data dan kemudian menggabungkannya.</p>
+<p>Menggunakan fungsi <code class="docutils literal notranslate"><span class="pre">pd.read_sql</span></code> dari pandas yang sangat efisien, yang mengambil kueri SQL dan sebuah <em>engine</em> koneksi sebagai input, lalu langsung mengembalikan hasilnya sebagai DataFrame. Kedua tabel memiliki <strong>kolom kunci yang sama</strong> (misalnya, <code class="docutils literal notranslate"><span class="pre">id</span></code>) untuk proses penggabungan (<em>join</em>).</p>
+<ul class="simple">
+<li><p><strong>Implementasi (Kode Python)</strong>:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>    <span class="c1"># nama tabel adalah &#39;sepal_data&#39; di PostgreSQL dan &#39;petal_data&#39; di MySQL</span>
+    <span class="n">query_sepal</span> <span class="o">=</span> <span class="n">text</span><span class="p">(</span><span class="s2">&quot;SELECT id, sepal_length, sepal_width, species FROM sepal_data&quot;</span><span class="p">)</span>
+    <span class="n">query_petal</span> <span class="o">=</span> <span class="n">text</span><span class="p">(</span><span class="s2">&quot;SELECT id, petal_length, petal_width FROM petal_data&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Eksekusi kueri dan muat ke DataFrame</span>
+    <span class="n">sepal_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">query_sepal</span><span class="p">,</span> <span class="n">pg_engine</span><span class="p">)</span>
+    <span class="n">petal_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">query_petal</span><span class="p">,</span> <span class="n">mysql_engine</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data Sepal&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">sepal_df</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Data Petal&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">petal_df</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+
+    <span class="c1"># Gabungkan (merge) kedua DataFrame berdasarkan kunci primer &#39;id&#39;</span>
+    <span class="c1"># Menggunakan &#39;inner join&#39; untuk memastikan hanya baris yang cocok di kedua tabel yang diambil</span>
+    <span class="n">iris_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">sepal_df</span><span class="p">,</span> <span class="n">petal_df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Dataset Iris&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">iris_df</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data Sepal
+      id  sepal_length  sepal_width          species
+0      1           5.1          3.5      Iris-setosa
+1      2           4.9          3.0      Iris-setosa
+2      3           4.7          3.2      Iris-setosa
+3      4           4.6          3.1      Iris-setosa
+4      5           5.0          3.6      Iris-setosa
+5      6           5.4          3.9      Iris-setosa
+6      7           4.6          3.4      Iris-setosa
+7      8           5.0          3.4      Iris-setosa
+8      9           4.4          2.9      Iris-setosa
+9     10           4.9          3.1      Iris-setosa
+10    11           5.4          3.7      Iris-setosa
+11    12           4.8          3.4      Iris-setosa
+12    13           4.8          3.0      Iris-setosa
+13    14           4.3          3.0      Iris-setosa
+14    15           5.8          4.0      Iris-setosa
+15    16           5.7          4.4      Iris-setosa
+16    17           5.4          3.9      Iris-setosa
+17    18           5.1          3.5      Iris-setosa
+18    19           5.7          3.8      Iris-setosa
+19    20           5.1          3.8      Iris-setosa
+20    21           5.4          3.4      Iris-setosa
+21    22           5.1          3.7      Iris-setosa
+22    23           4.6          3.6      Iris-setosa
+23    24           5.1          3.3      Iris-setosa
+24    25           4.8          3.4      Iris-setosa
+25    26           5.0          3.0      Iris-setosa
+26    27           5.0          3.4      Iris-setosa
+27    28           5.2          3.5      Iris-setosa
+28    29           5.2          3.4      Iris-setosa
+29    30           4.7          3.2      Iris-setosa
+30    31           4.8          3.1      Iris-setosa
+31    32           5.4          3.4      Iris-setosa
+32    33           5.2          4.1      Iris-setosa
+33    34           5.5          4.2      Iris-setosa
+34    35           4.9          3.1      Iris-setosa
+35    36           5.0          3.2      Iris-setosa
+36    37           5.5          3.5      Iris-setosa
+37    38           4.9          3.1      Iris-setosa
+38    39           4.4          3.0      Iris-setosa
+39    40           5.1          3.4      Iris-setosa
+40    41           5.0          3.5      Iris-setosa
+41    42           4.5          2.3      Iris-setosa
+42    43           4.4          3.2      Iris-setosa
+43    44           5.0          3.5      Iris-setosa
+44    45           5.1          3.8      Iris-setosa
+45    46           4.8          3.0      Iris-setosa
+46    47           5.1          3.8      Iris-setosa
+47    48           4.6          3.2      Iris-setosa
+48    49           5.3          3.7      Iris-setosa
+49    50           5.0          3.3      Iris-setosa
+50    51           7.0          3.2  Iris-versicolor
+51    52           6.4          3.2  Iris-versicolor
+52    53           6.9          3.1  Iris-versicolor
+53    54           5.5          2.3  Iris-versicolor
+54    55           6.5          2.8  Iris-versicolor
+55    56           5.7          2.8  Iris-versicolor
+56    57           6.3          3.3  Iris-versicolor
+57    58           4.9          2.4  Iris-versicolor
+58    59           6.6          2.9  Iris-versicolor
+59    60           5.2          2.7  Iris-versicolor
+60    61           5.0          2.0  Iris-versicolor
+61    62           5.9          3.0  Iris-versicolor
+62    63           6.0          2.2  Iris-versicolor
+63    64           6.1          2.9  Iris-versicolor
+64    65           5.6          2.9  Iris-versicolor
+65    66           6.7          3.1  Iris-versicolor
+66    67           5.6          3.0  Iris-versicolor
+67    68           5.8          2.7  Iris-versicolor
+68    69           6.2          2.2  Iris-versicolor
+69    70           5.6          2.5  Iris-versicolor
+70    71           5.9          3.2  Iris-versicolor
+71    72           6.1          2.8  Iris-versicolor
+72    73           6.3          2.5  Iris-versicolor
+73    74           6.1          2.8  Iris-versicolor
+74    75           6.4          2.9  Iris-versicolor
+75    76           6.6          3.0  Iris-versicolor
+76    77           6.8          2.8  Iris-versicolor
+77    78           6.7          3.0  Iris-versicolor
+78    79           6.0          2.9  Iris-versicolor
+79    80           5.7          2.6  Iris-versicolor
+80    81           5.5          2.4  Iris-versicolor
+81    82           5.5          2.4  Iris-versicolor
+82    83           5.8          2.7  Iris-versicolor
+83    84           6.0          2.7  Iris-versicolor
+84    85           5.4          3.0  Iris-versicolor
+85    86           6.0          3.4  Iris-versicolor
+86    87           6.7          3.1  Iris-versicolor
+87    88           6.3          2.3  Iris-versicolor
+88    89           5.6          3.0  Iris-versicolor
+89    90           5.5          2.5  Iris-versicolor
+90    91           5.5          2.6  Iris-versicolor
+91    92           6.1          3.0  Iris-versicolor
+92    93           5.8          2.6  Iris-versicolor
+93    94           5.0          2.3  Iris-versicolor
+94    95           5.6          2.7  Iris-versicolor
+95    96           5.7          3.0  Iris-versicolor
+96    97           5.7          2.9  Iris-versicolor
+97    98           6.2          2.9  Iris-versicolor
+98    99           5.1          2.5  Iris-versicolor
+99   100           5.7          2.8  Iris-versicolor
+100  101           6.3          3.3   Iris-virginica
+101  102           5.8          2.7   Iris-virginica
+102  103           7.1          3.0   Iris-virginica
+103  104           6.3          2.9   Iris-virginica
+104  105           6.5          3.0   Iris-virginica
+105  106           7.6          3.0   Iris-virginica
+106  107           4.9          2.5   Iris-virginica
+107  108           7.3          2.9   Iris-virginica
+108  109           6.7          2.5   Iris-virginica
+109  110           7.2          3.6   Iris-virginica
+110  111           6.5          3.2   Iris-virginica
+111  112           6.4          2.7   Iris-virginica
+112  113           6.8          3.0   Iris-virginica
+113  114           5.7          2.5   Iris-virginica
+114  115           5.8          2.8   Iris-virginica
+115  116           6.4          3.2   Iris-virginica
+116  117           6.5          3.0   Iris-virginica
+117  118           7.7          3.8   Iris-virginica
+118  119           7.7          2.6   Iris-virginica
+119  120           6.0          2.2   Iris-virginica
+120  121           6.9          3.2   Iris-virginica
+121  122           5.6          2.8   Iris-virginica
+122  123           7.7          2.8   Iris-virginica
+123  124           6.3          2.7   Iris-virginica
+124  125           6.7          3.3   Iris-virginica
+125  126           7.2          3.2   Iris-virginica
+126  127           6.2          2.8   Iris-virginica
+127  128           6.1          3.0   Iris-virginica
+128  129           6.4          2.8   Iris-virginica
+129  130           7.2          3.0   Iris-virginica
+130  131           7.4          2.8   Iris-virginica
+131  132           7.9          3.8   Iris-virginica
+132  133           6.4          2.8   Iris-virginica
+133  134           6.3          2.8   Iris-virginica
+134  135           6.1          2.6   Iris-virginica
+135  136           7.7          3.0   Iris-virginica
+136  137           6.3          3.4   Iris-virginica
+137  138           6.4          3.1   Iris-virginica
+138  139           6.0          3.0   Iris-virginica
+139  140           6.9          3.1   Iris-virginica
+140  141           6.7          3.1   Iris-virginica
+141  142           6.9          3.1   Iris-virginica
+142  143           5.8          2.7   Iris-virginica
+143  144           6.8          3.2   Iris-virginica
+144  145           6.7          3.3   Iris-virginica
+145  146           6.7          3.0   Iris-virginica
+146  147           6.3          2.5   Iris-virginica
+147  148           6.5          3.0   Iris-virginica
+148  149           6.2          3.4   Iris-virginica
+149  150           5.9          3.0   Iris-virginica
+
+Data Petal
+      id  petal_length  petal_width
+0      1           1.4          0.2
+1      2           1.4          0.2
+2      3           1.3          0.2
+3      4           1.5          0.2
+4      5           1.4          0.2
+5      6           1.7          0.4
+6      7           1.4          0.3
+7      8           1.5          0.2
+8      9           1.4          0.2
+9     10           1.5          0.1
+10    11           1.5          0.2
+11    12           1.6          0.2
+12    13           1.4          0.1
+13    14           1.1          0.1
+14    15           1.2          0.2
+15    16           1.5          0.4
+16    17           1.3          0.4
+17    18           1.4          0.3
+18    19           1.7          0.3
+19    20           1.5          0.3
+20    21           1.7          0.2
+21    22           1.5          0.4
+22    23           1.0          0.2
+23    24           1.7          0.5
+24    25           1.9          0.2
+25    26           1.6          0.2
+26    27           1.6          0.4
+27    28           1.5          0.2
+28    29           1.4          0.2
+29    30           1.6          0.2
+30    31           1.6          0.2
+31    32           1.5          0.4
+32    33           1.5          0.1
+33    34           1.4          0.2
+34    35           1.5          0.1
+35    36           1.2          0.2
+36    37           1.3          0.2
+37    38           1.5          0.1
+38    39           1.3          0.2
+39    40           1.5          0.2
+40    41           1.3          0.3
+41    42           1.3          0.3
+42    43           1.3          0.2
+43    44           1.6          0.6
+44    45           1.9          0.4
+45    46           1.4          0.3
+46    47           1.6          0.2
+47    48           1.4          0.2
+48    49           1.5          0.2
+49    50           1.4          0.2
+50    51           4.7          1.4
+51    52           4.5          1.5
+52    53           4.9          1.5
+53    54           4.0          1.3
+54    55           4.6          1.5
+55    56           4.5          1.3
+56    57           4.7          1.6
+57    58           3.3          1.0
+58    59           4.6          1.3
+59    60           3.9          1.4
+60    61           3.5          1.0
+61    62           4.2          1.5
+62    63           4.0          1.0
+63    64           4.7          1.4
+64    65           3.6          1.3
+65    66           4.4          1.4
+66    67           4.5          1.5
+67    68           4.1          1.0
+68    69           4.5          1.5
+69    70           3.9          1.1
+70    71           4.8          1.8
+71    72           4.0          1.3
+72    73           4.9          1.5
+73    74           4.7          1.2
+74    75           4.3          1.3
+75    76           4.4          1.4
+76    77           4.8          1.4
+77    78           5.0          1.7
+78    79           4.5          1.5
+79    80           3.5          1.0
+80    81           3.8          1.1
+81    82           3.7          1.0
+82    83           3.9          1.2
+83    84           5.1          1.6
+84    85           4.5          1.5
+85    86           4.5          1.6
+86    87           4.7          1.5
+87    88           4.4          1.3
+88    89           4.1          1.3
+89    90           4.0          1.3
+90    91           4.4          1.2
+91    92           4.6          1.4
+92    93           4.0          1.2
+93    94           3.3          1.0
+94    95           4.2          1.3
+95    96           4.2          1.2
+96    97           4.2          1.3
+97    98           4.3          1.3
+98    99           3.0          1.1
+99   100           4.1          1.3
+100  101           6.0          2.5
+101  102           5.1          1.9
+102  103           5.9          2.1
+103  104           5.6          1.8
+104  105           5.8          2.2
+105  106           6.6          2.1
+106  107           4.5          1.7
+107  108           6.3          1.8
+108  109           5.8          1.8
+109  110           6.1          2.5
+110  111           5.1          2.0
+111  112           5.3          1.9
+112  113           5.5          2.1
+113  114           5.0          2.0
+114  115           5.1          2.4
+115  116           5.3          2.3
+116  117           5.5          1.8
+117  118           6.7          2.2
+118  119           6.9          2.3
+119  120           5.0          1.5
+120  121           5.7          2.3
+121  122           4.9          2.0
+122  123           6.7          2.0
+123  124           4.9          1.8
+124  125           5.7          2.1
+125  126           6.0          1.8
+126  127           4.8          1.8
+127  128           4.9          1.8
+128  129           5.6          2.1
+129  130           5.8          1.6
+130  131           6.1          1.9
+131  132           6.4          2.0
+132  133           5.6          2.2
+133  134           5.1          1.5
+134  135           5.6          1.4
+135  136           6.1          2.3
+136  137           5.6          2.4
+137  138           5.5          1.8
+138  139           4.8          1.8
+139  140           5.4          2.1
+140  141           5.6          2.4
+141  142           5.1          2.3
+142  143           5.1          1.9
+143  144           5.9          2.3
+144  145           5.7          2.5
+145  146           5.2          2.3
+146  147           5.0          1.9
+147  148           5.2          2.0
+148  149           5.4          2.3
+149  150           5.1          1.8
+
+ Dataset Iris
+      id  sepal_length  sepal_width          species  petal_length  petal_width
+0      1           5.1          3.5      Iris-setosa           1.4          0.2
+1      2           4.9          3.0      Iris-setosa           1.4          0.2
+2      3           4.7          3.2      Iris-setosa           1.3          0.2
+3      4           4.6          3.1      Iris-setosa           1.5          0.2
+4      5           5.0          3.6      Iris-setosa           1.4          0.2
+5      6           5.4          3.9      Iris-setosa           1.7          0.4
+6      7           4.6          3.4      Iris-setosa           1.4          0.3
+7      8           5.0          3.4      Iris-setosa           1.5          0.2
+8      9           4.4          2.9      Iris-setosa           1.4          0.2
+9     10           4.9          3.1      Iris-setosa           1.5          0.1
+10    11           5.4          3.7      Iris-setosa           1.5          0.2
+11    12           4.8          3.4      Iris-setosa           1.6          0.2
+12    13           4.8          3.0      Iris-setosa           1.4          0.1
+13    14           4.3          3.0      Iris-setosa           1.1          0.1
+14    15           5.8          4.0      Iris-setosa           1.2          0.2
+15    16           5.7          4.4      Iris-setosa           1.5          0.4
+16    17           5.4          3.9      Iris-setosa           1.3          0.4
+17    18           5.1          3.5      Iris-setosa           1.4          0.3
+18    19           5.7          3.8      Iris-setosa           1.7          0.3
+19    20           5.1          3.8      Iris-setosa           1.5          0.3
+20    21           5.4          3.4      Iris-setosa           1.7          0.2
+21    22           5.1          3.7      Iris-setosa           1.5          0.4
+22    23           4.6          3.6      Iris-setosa           1.0          0.2
+23    24           5.1          3.3      Iris-setosa           1.7          0.5
+24    25           4.8          3.4      Iris-setosa           1.9          0.2
+25    26           5.0          3.0      Iris-setosa           1.6          0.2
+26    27           5.0          3.4      Iris-setosa           1.6          0.4
+27    28           5.2          3.5      Iris-setosa           1.5          0.2
+28    29           5.2          3.4      Iris-setosa           1.4          0.2
+29    30           4.7          3.2      Iris-setosa           1.6          0.2
+30    31           4.8          3.1      Iris-setosa           1.6          0.2
+31    32           5.4          3.4      Iris-setosa           1.5          0.4
+32    33           5.2          4.1      Iris-setosa           1.5          0.1
+33    34           5.5          4.2      Iris-setosa           1.4          0.2
+34    35           4.9          3.1      Iris-setosa           1.5          0.1
+35    36           5.0          3.2      Iris-setosa           1.2          0.2
+36    37           5.5          3.5      Iris-setosa           1.3          0.2
+37    38           4.9          3.1      Iris-setosa           1.5          0.1
+38    39           4.4          3.0      Iris-setosa           1.3          0.2
+39    40           5.1          3.4      Iris-setosa           1.5          0.2
+40    41           5.0          3.5      Iris-setosa           1.3          0.3
+41    42           4.5          2.3      Iris-setosa           1.3          0.3
+42    43           4.4          3.2      Iris-setosa           1.3          0.2
+43    44           5.0          3.5      Iris-setosa           1.6          0.6
+44    45           5.1          3.8      Iris-setosa           1.9          0.4
+45    46           4.8          3.0      Iris-setosa           1.4          0.3
+46    47           5.1          3.8      Iris-setosa           1.6          0.2
+47    48           4.6          3.2      Iris-setosa           1.4          0.2
+48    49           5.3          3.7      Iris-setosa           1.5          0.2
+49    50           5.0          3.3      Iris-setosa           1.4          0.2
+50    51           7.0          3.2  Iris-versicolor           4.7          1.4
+51    52           6.4          3.2  Iris-versicolor           4.5          1.5
+52    53           6.9          3.1  Iris-versicolor           4.9          1.5
+53    54           5.5          2.3  Iris-versicolor           4.0          1.3
+54    55           6.5          2.8  Iris-versicolor           4.6          1.5
+55    56           5.7          2.8  Iris-versicolor           4.5          1.3
+56    57           6.3          3.3  Iris-versicolor           4.7          1.6
+57    58           4.9          2.4  Iris-versicolor           3.3          1.0
+58    59           6.6          2.9  Iris-versicolor           4.6          1.3
+59    60           5.2          2.7  Iris-versicolor           3.9          1.4
+60    61           5.0          2.0  Iris-versicolor           3.5          1.0
+61    62           5.9          3.0  Iris-versicolor           4.2          1.5
+62    63           6.0          2.2  Iris-versicolor           4.0          1.0
+63    64           6.1          2.9  Iris-versicolor           4.7          1.4
+64    65           5.6          2.9  Iris-versicolor           3.6          1.3
+65    66           6.7          3.1  Iris-versicolor           4.4          1.4
+66    67           5.6          3.0  Iris-versicolor           4.5          1.5
+67    68           5.8          2.7  Iris-versicolor           4.1          1.0
+68    69           6.2          2.2  Iris-versicolor           4.5          1.5
+69    70           5.6          2.5  Iris-versicolor           3.9          1.1
+70    71           5.9          3.2  Iris-versicolor           4.8          1.8
+71    72           6.1          2.8  Iris-versicolor           4.0          1.3
+72    73           6.3          2.5  Iris-versicolor           4.9          1.5
+73    74           6.1          2.8  Iris-versicolor           4.7          1.2
+74    75           6.4          2.9  Iris-versicolor           4.3          1.3
+75    76           6.6          3.0  Iris-versicolor           4.4          1.4
+76    77           6.8          2.8  Iris-versicolor           4.8          1.4
+77    78           6.7          3.0  Iris-versicolor           5.0          1.7
+78    79           6.0          2.9  Iris-versicolor           4.5          1.5
+79    80           5.7          2.6  Iris-versicolor           3.5          1.0
+80    81           5.5          2.4  Iris-versicolor           3.8          1.1
+81    82           5.5          2.4  Iris-versicolor           3.7          1.0
+82    83           5.8          2.7  Iris-versicolor           3.9          1.2
+83    84           6.0          2.7  Iris-versicolor           5.1          1.6
+84    85           5.4          3.0  Iris-versicolor           4.5          1.5
+85    86           6.0          3.4  Iris-versicolor           4.5          1.6
+86    87           6.7          3.1  Iris-versicolor           4.7          1.5
+87    88           6.3          2.3  Iris-versicolor           4.4          1.3
+88    89           5.6          3.0  Iris-versicolor           4.1          1.3
+89    90           5.5          2.5  Iris-versicolor           4.0          1.3
+90    91           5.5          2.6  Iris-versicolor           4.4          1.2
+91    92           6.1          3.0  Iris-versicolor           4.6          1.4
+92    93           5.8          2.6  Iris-versicolor           4.0          1.2
+93    94           5.0          2.3  Iris-versicolor           3.3          1.0
+94    95           5.6          2.7  Iris-versicolor           4.2          1.3
+95    96           5.7          3.0  Iris-versicolor           4.2          1.2
+96    97           5.7          2.9  Iris-versicolor           4.2          1.3
+97    98           6.2          2.9  Iris-versicolor           4.3          1.3
+98    99           5.1          2.5  Iris-versicolor           3.0          1.1
+99   100           5.7          2.8  Iris-versicolor           4.1          1.3
+100  101           6.3          3.3   Iris-virginica           6.0          2.5
+101  102           5.8          2.7   Iris-virginica           5.1          1.9
+102  103           7.1          3.0   Iris-virginica           5.9          2.1
+103  104           6.3          2.9   Iris-virginica           5.6          1.8
+104  105           6.5          3.0   Iris-virginica           5.8          2.2
+105  106           7.6          3.0   Iris-virginica           6.6          2.1
+106  107           4.9          2.5   Iris-virginica           4.5          1.7
+107  108           7.3          2.9   Iris-virginica           6.3          1.8
+108  109           6.7          2.5   Iris-virginica           5.8          1.8
+109  110           7.2          3.6   Iris-virginica           6.1          2.5
+110  111           6.5          3.2   Iris-virginica           5.1          2.0
+111  112           6.4          2.7   Iris-virginica           5.3          1.9
+112  113           6.8          3.0   Iris-virginica           5.5          2.1
+113  114           5.7          2.5   Iris-virginica           5.0          2.0
+114  115           5.8          2.8   Iris-virginica           5.1          2.4
+115  116           6.4          3.2   Iris-virginica           5.3          2.3
+116  117           6.5          3.0   Iris-virginica           5.5          1.8
+117  118           7.7          3.8   Iris-virginica           6.7          2.2
+118  119           7.7          2.6   Iris-virginica           6.9          2.3
+119  120           6.0          2.2   Iris-virginica           5.0          1.5
+120  121           6.9          3.2   Iris-virginica           5.7          2.3
+121  122           5.6          2.8   Iris-virginica           4.9          2.0
+122  123           7.7          2.8   Iris-virginica           6.7          2.0
+123  124           6.3          2.7   Iris-virginica           4.9          1.8
+124  125           6.7          3.3   Iris-virginica           5.7          2.1
+125  126           7.2          3.2   Iris-virginica           6.0          1.8
+126  127           6.2          2.8   Iris-virginica           4.8          1.8
+127  128           6.1          3.0   Iris-virginica           4.9          1.8
+128  129           6.4          2.8   Iris-virginica           5.6          2.1
+129  130           7.2          3.0   Iris-virginica           5.8          1.6
+130  131           7.4          2.8   Iris-virginica           6.1          1.9
+131  132           7.9          3.8   Iris-virginica           6.4          2.0
+132  133           6.4          2.8   Iris-virginica           5.6          2.2
+133  134           6.3          2.8   Iris-virginica           5.1          1.5
+134  135           6.1          2.6   Iris-virginica           5.6          1.4
+135  136           7.7          3.0   Iris-virginica           6.1          2.3
+136  137           6.3          3.4   Iris-virginica           5.6          2.4
+137  138           6.4          3.1   Iris-virginica           5.5          1.8
+138  139           6.0          3.0   Iris-virginica           4.8          1.8
+139  140           6.9          3.1   Iris-virginica           5.4          2.1
+140  141           6.7          3.1   Iris-virginica           5.6          2.4
+141  142           6.9          3.1   Iris-virginica           5.1          2.3
+142  143           5.8          2.7   Iris-virginica           5.1          1.9
+143  144           6.8          3.2   Iris-virginica           5.9          2.3
+144  145           6.7          3.3   Iris-virginica           5.7          2.5
+145  146           6.7          3.0   Iris-virginica           5.2          2.3
+146  147           6.3          2.5   Iris-virginica           5.0          1.9
+147  148           6.5          3.0   Iris-virginica           5.2          2.0
+148  149           6.2          3.4   Iris-virginica           5.4          2.3
+149  150           5.9          3.0   Iris-virginica           5.1          1.8
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="verifikasi-data">
+<h2><strong>4. Verifikasi data</strong><a class="headerlink" href="#verifikasi-data" title="Link to this heading">#</a></h2>
+<p>Setelah penggabungan, sangat penting untuk melakukan verifikasi cepat untuk memastikan prosesnya berjalan sesuai harapan.</p>
+<p>Memeriksa dimensi, tipe data, dan nilai-nilai yang hilang dari DataFrame hasil gabungan.</p>
+<ul class="simple">
+<li><p><strong>Implementasi (Kode Python)</strong>:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Periksa dimensi data. Seharusnya ada 150 baris dan 6 kolom</span>
+<span class="c1"># (sid, sepal_length, sepal_width, species, petal_length, petal_width)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dimensi DataFrame: </span><span class="si">{</span><span class="n">iris_df</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># 2. Periksa informasi umum, termasuk tipe data dan nilai non-null</span>
+<span class="c1"># penting untuk memastikan pandas menginterpretasikan tipe data (numerik, kategorikal) dengan benar.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Info DataFrame:&quot;</span><span class="p">)</span>
+<span class="n">iris_df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Dimensi DataFrame: (150, 6)
+
+Info DataFrame:
+&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 150 entries, 0 to 149
+Data columns (total 6 columns):
+ #   Column        Non-Null Count  Dtype  
+---  ------        --------------  -----  
+ 0   id            150 non-null    int64  
+ 1   sepal_length  150 non-null    float64
+ 2   sepal_width   150 non-null    float64
+ 3   species       150 non-null    object 
+ 4   petal_length  150 non-null    float64
+ 5   petal_width   150 non-null    float64
+dtypes: float64(4), int64(1), object(1)
+memory usage: 7.2+ KB
+</pre></div>
+</div>
+</div>
+</div>
+<p>Output dari <code class="docutils literal notranslate"><span class="pre">.info()</span></code> mengonfirmasi bahwa tidak ada data yang hilang selama proses <em>join</em> dan tipe data untuk setiap kolom sudah sesuai (misalnya, <code class="docutils literal notranslate"><span class="pre">float64</span></code> untuk ukuran, <code class="docutils literal notranslate"><span class="pre">object</span></code> untuk <code class="docutils literal notranslate"><span class="pre">species</span></code>). Jika jumlah baris kurang dari 150, ini bisa mengindikasikan adanya ketidakcocokan <code class="docutils literal notranslate"><span class="pre">id</span></code> antara kedua database.</p>
+</section>
+<section id="eksplorasi-data-python">
+<h2><strong>5. Eksplorasi Data (Python)</strong><a class="headerlink" href="#eksplorasi-data-python" title="Link to this heading">#</a></h2>
+<p>Setelah berhasil mengintegrasikan data dari sumber MySQL dan PostgreSQL, langkah selanjutnya adalah melakukan investigasi mendalam terhadap dataset <code class="docutils literal notranslate"><span class="pre">iris_df</span></code> yang telah terunifikasi. Fase ini bertujuan untuk melampaui observasi permukaan dan menggunakan perangkat statistik serta visualisasi canggih dalam Python untuk membangun pemahaman yang robust tentang struktur, sebaran, dan hubungan dalam data.</p>
+<section id="analisis-sebaran-data">
+<h3><strong>1. Analisis Sebaran Data</strong><a class="headerlink" href="#analisis-sebaran-data" title="Link to this heading">#</a></h3>
+<p>Menguji asumsi statistik dan mengkuantifikasi bentuk sebaran data, sebuah langkah penting sebelum pemodelan.</p>
+<section id="a-uji-normalitas-shapiro-wilk-test">
+<h4><strong>A. Uji Normalitas (Shapiro-Wilk Test)</strong><a class="headerlink" href="#a-uji-normalitas-shapiro-wilk-test" title="Link to this heading">#</a></h4>
+<p>Banyak algoritma bekerja paling baik dengan data yang berdistribusi normal. Menguji hipotesis nol (<span class="math notranslate nohighlight">\(H\_0\)</span>) bahwa data berasal dari sebaran normal.</p>
+<ul class="simple">
+<li><p><strong>Implementasi</strong>:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">shapiro</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--- Uji Normalitas Shapiro-Wilk untuk &#39;Petal Width&#39; ---&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">species_name</span> <span class="ow">in</span> <span class="n">iris_df</span><span class="p">[</span><span class="s1">&#39;species&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+    <span class="n">subset</span> <span class="o">=</span> <span class="n">iris_df</span><span class="p">[</span><span class="n">iris_df</span><span class="p">[</span><span class="s1">&#39;species&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">species_name</span><span class="p">]</span>
+    <span class="n">stat</span><span class="p">,</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">shapiro</span><span class="p">(</span><span class="n">subset</span><span class="p">[</span><span class="s1">&#39;petal_width&#39;</span><span class="p">])</span>
+        
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Spesies: </span><span class="si">{</span><span class="n">species_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - P-value: </span><span class="si">{</span><span class="n">p_value</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        
+    <span class="k">if</span> <span class="n">p_value</span> <span class="o">&gt;</span> <span class="mf">0.05</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  - Kesimpulan: Data kemungkinan berdistribusi normal.&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  - Kesimpulan: Data kemungkinan TIDAK berdistribusi normal.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Uji Normalitas Shapiro-Wilk untuk &#39;Petal Width&#39; ---
+
+Spesies: Iris-setosa
+  - P-value: 0.0000
+  - Kesimpulan: Data kemungkinan TIDAK berdistribusi normal.
+
+Spesies: Iris-versicolor
+  - P-value: 0.0273
+  - Kesimpulan: Data kemungkinan TIDAK berdistribusi normal.
+
+Spesies: Iris-virginica
+  - P-value: 0.0870
+  - Kesimpulan: Data kemungkinan berdistribusi normal.
+</pre></div>
+</div>
+</div>
+</div>
+<p>Penemuan untuk fitur petal_width, distribusi pada Iris-setosa dan Iris-versicolor secara statistik tidak normal (p &lt; 0.05), sementara Iris-virginica normal (p &gt; 0.05).</p>
+<p>Ini adalah temuan penting. Ini mengindikasikan bahwa asumsi normalitas tidak berlaku secara universal di seluruh subset data. Konsekuensinya, model-model non-parametrik (yang tidak membuat asumsi kuat tentang distribusi data) seperti Decision Trees, Random Forest, K-Nearest Neighbors (KNN), dan Support Vector Machines (SVM) kemungkinan akan lebih robust dan menjadi kandidat model yang kuat untuk dataset ini.</p>
+</section>
+</section>
+<section id="analisis-perbandingan-antar-kelas-spesies">
+<h3><strong>2. Analisis Perbandingan Antar Kelas (Spesies)</strong><a class="headerlink" href="#analisis-perbandingan-antar-kelas-spesies" title="Link to this heading">#</a></h3>
+<p>Memahami secara mendalam bagaimana fitur-fitur membedakan antar spesies.</p>
+<section id="a-visualisasi-perbandingan-distribusi-violin-plots">
+<h4><strong>A. Visualisasi Perbandingan Distribusi (Violin Plots)</strong><a class="headerlink" href="#a-visualisasi-perbandingan-distribusi-violin-plots" title="Link to this heading">#</a></h4>
+<p><em>Violin plot</em> adalah kombinasi dari <em>box plot</em> dan <em>Kernel Density Estimate</em> (KDE), yang memberikan gambaran ringkas namun kaya tentang distribusi data.</p>
+<ul class="simple">
+<li><p><strong>Implementasi</strong>:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Perbandingan Distribusi Fitur Antar Spesies&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.03</span><span class="p">)</span>
+
+<span class="c1"># List fitur untuk di-plot</span>
+<span class="n">features_to_plot</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal_width&#39;</span><span class="p">,</span> <span class="s1">&#39;petal_length&#39;</span><span class="p">,</span> <span class="s1">&#39;petal_width&#39;</span><span class="p">]</span>
+<span class="n">ax_flat</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">feature</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">features_to_plot</span><span class="p">):</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax_flat</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">data</span><span class="o">=</span><span class="n">iris_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;species&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">feature</span><span class="p">)</span>
+    <span class="n">ax_flat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Distribusi </span><span class="si">{</span><span class="n">feature</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">ax_flat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">ax_flat</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;cm&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/0d8116a251b09d5cb4343d3016350a8a8163a293b9a9bf69b6f82ad99dbd989d.png" src="_images/0d8116a251b09d5cb4343d3016350a8a8163a293b9a9bf69b6f82ad99dbd989d.png" />
+</div>
+</div>
+<p>Gambar dengan jelas mendukung temuan statistik di atas.</p>
+<ul class="simple">
+<li><p>Plot untuk petal_length dan petal_width (baris bawah) secara dramatis menunjukkan isolasi penuh dari Iris-setosa, yang memiliki distribusi yang sangat sempit dan terpisah di nilai-nilai rendah.</p></li>
+<li><p>Plot untuk fitur sepal (baris atas) menunjukkan tumpang tindih yang lebih besar antar ketiga spesies, meskipun masih ada pola yang bisa dibedakan (misalnya, sepal_width Setosa cenderung lebih besar).</p></li>
+<li><p>Bentuk “violin” yang berbeda-beda antar spesies untuk fitur yang sama secara visual mengkonfirmasi mengapa beberapa di antaranya tidak lolos uji normalitas.</p></li>
+</ul>
+</section>
+<section id="b-validasi-statistik-perbedaan-rata-rata-anova">
+<h4><strong>B. Validasi Statistik Perbedaan Rata-rata (ANOVA)</strong><a class="headerlink" href="#b-validasi-statistik-perbedaan-rata-rata-anova" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Implementasi</strong>:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">f_oneway</span>
+
+<span class="c1"># Ekstrak data petal length untuk setiap spesies</span>
+<span class="n">grouped_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">group</span><span class="p">[</span><span class="s1">&#39;petal_length&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">iris_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;species&#39;</span><span class="p">)]</span>
+
+<span class="c1"># Lakukan uji One-Way ANOVA</span>
+<span class="n">f_stat</span><span class="p">,</span> <span class="n">p_value_anova</span> <span class="o">=</span> <span class="n">f_oneway</span><span class="p">(</span><span class="o">*</span><span class="n">grouped_data</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;--- Uji ANOVA untuk &#39;Petal Length&#39; antar 3 Spesies ---&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - F-statistic: </span><span class="si">{</span><span class="n">f_stat</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - P-value: </span><span class="si">{</span><span class="n">p_value_anova</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Uji ANOVA untuk &#39;Petal Length&#39; antar 3 Spesies ---
+  - F-statistic: 1179.03
+  - P-value: 3.0519758018278374e-91
+</pre></div>
+</div>
+</div>
+</div>
+<p>Nilai F-statistic yang sangat besar (1179.03) dan P-value yang secara efektif nol (3.05×10
+−91
+) memberikan bukti statistik yang sangat kuat untuk menolak hipotesis nol.</p>
+<p>Ini secara definitif mengkonfirmasi bahwa perbedaan rata-rata petal_length antar ketiga spesies bukan karena kebetulan, melainkan sangat signifikan. Ini memvalidasi petal_length bukan hanya sebagai fitur yang baik, tetapi sebagai fitur pembeda utama dalam dataset ini. Wawasan yang sama kemungkinan besar berlaku untuk petal_width.</p>
+</section>
+</section>
+<section id="analisis-struktur-dimensi-data">
+<h3><strong>3. Analisis Struktur &amp; Dimensi Data</strong><a class="headerlink" href="#analisis-struktur-dimensi-data" title="Link to this heading">#</a></h3>
+<p>Memproyeksikan data 4-dimensi ke dalam ruang 2-dimensi untuk memvisualisasikan struktur pemisahan kelas secara keseluruhan.</p>
+<section id="a-visualisasi-dengan-reduksi-dimensi-principal-component-analysis-pca">
+<h4><strong>A. Visualisasi dengan Reduksi Dimensi (Principal Component Analysis - PCA)</strong><a class="headerlink" href="#a-visualisasi-dengan-reduksi-dimensi-principal-component-analysis-pca" title="Link to this heading">#</a></h4>
+<p>PCA menemukan kombinasi fitur terbaik yang menangkap varians data paling maksimal, memungkinkan dapat “melihat” dataset dalam 2D.</p>
+<ul class="simple">
+<li><p><strong>Implementasi</strong>:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+
+<span class="c1"># 1. Pisahkan fitur (X) dan target (y)</span>
+<span class="n">features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal_width&#39;</span><span class="p">,</span> <span class="s1">&#39;petal_length&#39;</span><span class="p">,</span> <span class="s1">&#39;petal_width&#39;</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">iris_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">features</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">iris_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;species&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># 2. Standarisasi fitur (wajib untuk PCA)</span>
+<span class="n">X_scaled</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c1"># 3. Terapkan PCA</span>
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">principal_components</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">)</span>
+<span class="n">pca_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">principal_components</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;PC 1&#39;</span><span class="p">,</span> <span class="s1">&#39;PC 2&#39;</span><span class="p">])</span>
+<span class="n">pca_df</span><span class="p">[</span><span class="s1">&#39;species&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
+
+<span class="c1"># 4. Hitung varians yang dijelaskan</span>
+<span class="n">explained_variance</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span> <span class="o">*</span> <span class="mi">100</span>
+
+<span class="c1"># 5. Visualisasikan</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;PC 1&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;PC 2&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;species&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">pca_df</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Visualisasi 2D Dataset Iris menggunakan PCA&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Principal Component 1 (</span><span class="si">{</span><span class="n">explained_variance</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">% Varians)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Principal Component 2 (</span><span class="si">{</span><span class="n">explained_variance</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">% Varians)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Spesies&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/151ca43d58be740d99e562e7718f396c5bdc6e0116da5e7fd3506c2eee31d1b3.png" src="_images/151ca43d58be740d99e562e7718f396c5bdc6e0116da5e7fd3506c2eee31d1b3.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Plot ini menunjukkan bahwa dua Komponen Utama pertama secara kumulatif menjelaskan ~95.8% dari total varians data (PC1: 72.77% + PC2: 23.03%). Ini sangat tinggi dan berarti plot 2D ini adalah representasi yang sangat akurat dari struktur data 4D asli.</p></li>
+<li><p>Separabilitas Linear: Klaster Iris-setosa terpisah secara sempurna dan berada jauh dari dua klaster lainnya. Ini mengindikasikan bahwa sebuah model linear sederhana pun akan mampu mengklasifikasikan Setosa dengan akurasi mendekati 100%.</p></li>
+<li><p>Tumpang tindih (overlap) yang kecil namun ada antara Iris-versicolor dan Iris-virginica adalah “zona tantangan”. Di sinilah kemampuan model untuk menemukan batas keputusan yang optimal akan benar-benar diuji.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="ekplorasi-data-power-bi">
+<h2><strong>6. Ekplorasi Data (Power BI)</strong><a class="headerlink" href="#ekplorasi-data-power-bi" title="Link to this heading">#</a></h2>
+<section id="distribusi-tipe-numerik">
+<h3><strong>1. Distribusi tipe numerik</strong><a class="headerlink" href="#distribusi-tipe-numerik" title="Link to this heading">#</a></h3>
+<p><img alt="image.png" src="_images/avg_n.png" /></p>
+</section>
+<section id="distribusi-tipe-kategorikal">
+<h3><strong>2. Distribusi tipe kategorikal</strong><a class="headerlink" href="#distribusi-tipe-kategorikal" title="Link to this heading">#</a></h3>
+<p><img alt="image.png" src="_images/avg_k.png" /></p>
+</section>
+<section id="rata-rata">
+<h3><strong>3. Rata-rata</strong><a class="headerlink" href="#rata-rata" title="Link to this heading">#</a></h3>
+<section id="a-fitur">
+<h4><strong>A. Fitur</strong><a class="headerlink" href="#a-fitur" title="Link to this heading">#</a></h4>
+<p><img alt="image.png" src="_images/avg_f.png" /></p>
+</section>
+<section id="b-fitur-per-spesies">
+<h4><strong>B. Fitur per spesies</strong><a class="headerlink" href="#b-fitur-per-spesies" title="Link to this heading">#</a></h4>
+<p><img alt="image.png" src="_images/avg_p.png" /></p>
+</section>
+</section>
+<section id="minimum">
+<h3><strong>4. Minimum</strong><a class="headerlink" href="#minimum" title="Link to this heading">#</a></h3>
+<section id="id1">
+<h4><strong>A. Fitur</strong><a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<p><img alt="image.png" src="_images/min_f.png" /></p>
+</section>
+<section id="id2">
+<h4><strong>B. Fitur per spesies</strong><a class="headerlink" href="#id2" title="Link to this heading">#</a></h4>
+<p><img alt="image.png" src="_images/min_p.png" /></p>
+</section>
+</section>
+<section id="maximum">
+<h3><strong>5. Maximum</strong><a class="headerlink" href="#maximum" title="Link to this heading">#</a></h3>
+<section id="id3">
+<h4><strong>A. Fitur</strong><a class="headerlink" href="#id3" title="Link to this heading">#</a></h4>
+<p><img alt="image.png" src="_images/max_f.png" /></p>
+</section>
+<section id="id4">
+<h4><strong>B. Fitur per spesies</strong><a class="headerlink" href="#id4" title="Link to this heading">#</a></h4>
+<p><img alt="image.png" src="_images/max_p.png" /></p>
+</section>
+</section>
+<section id="standar-devisiasi">
+<h3><strong>6. Standar Devisiasi</strong><a class="headerlink" href="#standar-devisiasi" title="Link to this heading">#</a></h3>
+<section id="id5">
+<h4><strong>A. Fitur</strong><a class="headerlink" href="#id5" title="Link to this heading">#</a></h4>
+<p><img alt="image.png" src="_images/stan_f.png" /></p>
+</section>
+<section id="id6">
+<h4><strong>B. Fitur per spesies</strong><a class="headerlink" href="#id6" title="Link to this heading">#</a></h4>
+<p><img alt="image.png" src="_images/stan_p.png" /></p>
+</section>
+</section>
+<section id="median">
+<h3><strong>6. Median</strong><a class="headerlink" href="#median" title="Link to this heading">#</a></h3>
+<section id="id7">
+<h4><strong>A. Fitur</strong><a class="headerlink" href="#id7" title="Link to this heading">#</a></h4>
+<p><img alt="image.png" src="_images/med_f.png" /></p>
+</section>
+<section id="id8">
+<h4><strong>B. Fitur per spesies</strong><a class="headerlink" href="#id8" title="Link to this heading">#</a></h4>
+<p><img alt="image.png" src="_images/med_p.png" /></p>
+</section>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="bisnis-understanding.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><strong>Bisnis Understanding</strong></p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="data-preprocessing.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><strong>Data Preprocessing</strong></p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konfigurasi"><strong>1. Konfigurasi</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#koneksi-database"><strong>2. Koneksi Database</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ekstraksi-data"><strong>3. Ekstraksi data</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#verifikasi-data"><strong>4. Verifikasi data</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eksplorasi-data-python"><strong>5. Eksplorasi Data (Python)</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-sebaran-data"><strong>1. Analisis Sebaran Data</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-uji-normalitas-shapiro-wilk-test"><strong>A. Uji Normalitas (Shapiro-Wilk Test)</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-perbandingan-antar-kelas-spesies"><strong>2. Analisis Perbandingan Antar Kelas (Spesies)</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-visualisasi-perbandingan-distribusi-violin-plots"><strong>A. Visualisasi Perbandingan Distribusi (Violin Plots)</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b-validasi-statistik-perbedaan-rata-rata-anova"><strong>B. Validasi Statistik Perbedaan Rata-rata (ANOVA)</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-struktur-dimensi-data"><strong>3. Analisis Struktur &amp; Dimensi Data</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-visualisasi-dengan-reduksi-dimensi-principal-component-analysis-pca"><strong>A. Visualisasi dengan Reduksi Dimensi (Principal Component Analysis - PCA)</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ekplorasi-data-power-bi"><strong>6. Ekplorasi Data (Power BI)</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-tipe-numerik"><strong>1. Distribusi tipe numerik</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-tipe-kategorikal"><strong>2. Distribusi tipe kategorikal</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rata-rata"><strong>3. Rata-rata</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-fitur"><strong>A. Fitur</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b-fitur-per-spesies"><strong>B. Fitur per spesies</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#minimum"><strong>4. Minimum</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><strong>A. Fitur</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><strong>B. Fitur per spesies</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum"><strong>5. Maximum</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3"><strong>A. Fitur</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4"><strong>B. Fitur per spesies</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#standar-devisiasi"><strong>6. Standar Devisiasi</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5"><strong>A. Fitur</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6"><strong>B. Fitur per spesies</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#median"><strong>6. Median</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7"><strong>A. Fitur</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8"><strong>B. Fitur per spesies</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Abdulloh Sahl - 2025
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

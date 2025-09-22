@@ -1,0 +1,965 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Data Preprocessing &#8212; Proyek Sains Data</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'data-preprocessing';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Imbalance Data" href="Imbalanced.html" />
+    <link rel="prev" title="Data Understanding" href="data-understanding.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Proyek Sains Data - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Proyek Sains Data - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Proyek Sains Data
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bisnis-understanding.html"><strong>Bisnis Understanding</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-understanding.html"><strong>Data Understanding</strong></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Data Preprocessing</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Imbalanced.html"><strong>Imbalance Data</strong></a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://abdulsahl.github.io/PSD/intro.html" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://abdulsahl.github.io/PSD/intro.html/issues/new?title=Issue%20on%20page%20%2Fdata-preprocessing.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/data-preprocessing.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Data Preprocessing</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konfigurasi-lingkungan-di-power-bi"><strong>1. Konfigurasi Lingkungan di Power BI</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-di-power-query"><strong>2. Implementasi di Power Query</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-memuat-data"><strong>A. Memuat Data</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-menjalankan-skrip-python"><strong>B. Menjalankan Skrip Python</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metode-1-k-nearest-neighbors-knn-untuk-deteksi-outlier"><strong>3. Metode 1: K-Nearest Neighbors (KNN) untuk Deteksi Outlier</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metode-2-angle-based-outlier-detection-abod"><strong>4. Metode 2: Angle-Based Outlier Detection (ABOD)</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil"><strong>5. Hasil</strong></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="data-preprocessing">
+<h1><strong>Data Preprocessing</strong><a class="headerlink" href="#data-preprocessing" title="Link to this heading">#</a></h1>
+<p>Setelah data dari berbagai sumber berhasil diintegrasikan, langkah selanjutnya adalah prapemrosesan. Tujuan utama dari tahap ini adalah untuk membersihkan data dari anomali atau <em>outlier</em> yang dapat mengganggu performa model <em>machine learning</em>. <em>Outlier</em> adalah titik data yang secara signifikan berbeda dari observasi lainnya.</p>
+<p>Proses ini akan dilakukan di dalam <strong>Power BI</strong> dengan memanfaatkan integrasi skrip Python, menggunakan pustaka <strong>PyCaret</strong> yang sangat efisien untuk tugas-tugas AutoML, termasuk deteksi anomali. Dua metode akan digunakan untuk perbandingan: <strong>K-Nearest Neighbors (KNN)</strong> dan <strong>Angle-Based Outlier Detection (ABOD)</strong>.</p>
+<section id="konfigurasi-lingkungan-di-power-bi">
+<h2><strong>1. Konfigurasi Lingkungan di Power BI</strong><a class="headerlink" href="#konfigurasi-lingkungan-di-power-bi" title="Link to this heading">#</a></h2>
+<p>Sebelum menjalankan skrip PyCaret, Power BI harus dikonfigurasi untuk menggunakan lingkungan Python yang benar di mana PyCaret dan dependensinya telah terpasang.</p>
+<ul class="simple">
+<li><p><strong>Implementasi</strong>:</p>
+<ol class="arabic simple">
+<li><p>Buka Power BI Desktop.</p></li>
+<li><p>Navigasi ke <code class="docutils literal notranslate"><span class="pre">File</span> <span class="pre">&gt;</span> <span class="pre">Options</span> <span class="pre">and</span> <span class="pre">settings</span> <span class="pre">&gt;</span> <span class="pre">Options</span></code>.</p></li>
+<li><p>Di jendela <em>Options</em>, pilih <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">scripting</span></code>.</p></li>
+<li><p>Pada bagian <em>Detected Python home directories</em>, pilih direktori instalasi Python yang berisi pustaka <code class="docutils literal notranslate"><span class="pre">pycaret</span></code> dan <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p></li>
+<li><p>Klik <strong>OK</strong> untuk menyimpan konfigurasi.</p></li>
+</ol>
+</li>
+</ul>
+</section>
+<section id="implementasi-di-power-query">
+<h2><strong>2. Implementasi di Power Query</strong><a class="headerlink" href="#implementasi-di-power-query" title="Link to this heading">#</a></h2>
+<p>Deteksi dan penghapusan <em>outlier</em> dilakukan di dalam Power Query Editor. Ini memungkinkan proses pembersihan data dilakukan sebelum data dimuat ke dalam model data Power BI.</p>
+<section id="a-memuat-data">
+<h3><strong>A. Memuat Data</strong><a class="headerlink" href="#a-memuat-data" title="Link to this heading">#</a></h3>
+<p>Data iris yang telah digabungkan dari MySQL dan PostgreSQL terlebih dahulu ke dalam Power Query sebagai sebuah tabel.</p>
+</section>
+<section id="b-menjalankan-skrip-python">
+<h3><strong>B. Menjalankan Skrip Python</strong><a class="headerlink" href="#b-menjalankan-skrip-python" title="Link to this heading">#</a></h3>
+<p>Dengan tabel data terpilih, navigasi ke <code class="docutils literal notranslate"><span class="pre">Transform</span> <span class="pre">&gt;</span> <span class="pre">Run</span> <span class="pre">Python</span> <span class="pre">script</span></code>. Di sinilah logika deteksi anomali menggunakan PyCaret akan dieksekusi. Power Query secara otomatis akan meneruskan data dalam tabel sebagai sebuah DataFrame pandas bernama <code class="docutils literal notranslate"><span class="pre">dataset</span></code>.</p>
+</section>
+</section>
+<section id="metode-1-k-nearest-neighbors-knn-untuk-deteksi-outlier">
+<h2><strong>3. Metode 1: K-Nearest Neighbors (KNN) untuk Deteksi Outlier</strong><a class="headerlink" href="#metode-1-k-nearest-neighbors-knn-untuk-deteksi-outlier" title="Link to this heading">#</a></h2>
+<p>KNN bekerja dengan mengasumsikan bahwa <em>outlier</em> adalah titik data yang memiliki jarak yang jauh ke tetangga terdekatnya. PyCaret menyederhanakan implementasi ini menjadi beberapa baris kode.</p>
+<ul class="simple">
+<li><p><strong>Implementasi (Kode Python di Power Query)</strong>:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pycaret.anomaly</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># Inisialisasi lingkungan, abaikan kolom non-fitur</span>
+<span class="n">anomaly</span> <span class="o">=</span> <span class="n">setup</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">dataset</span><span class="p">,</span> <span class="n">ignore_features</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;species&#39;</span><span class="p">],</span> <span class="n">silent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Latih model KNN</span>
+<span class="n">knn</span> <span class="o">=</span> <span class="n">create_model</span><span class="p">(</span><span class="s1">&#39;knn&#39;</span><span class="p">)</span>
+
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">assign_model</span><span class="p">(</span><span class="n">knn</span><span class="p">)</span>
+<span class="n">outliers</span> <span class="o">=</span> <span class="n">predictions</span><span class="p">[</span><span class="n">predictions</span><span class="p">[</span><span class="s1">&#39;Anomaly&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Hapus outliers</span>
+<span class="n">outliers_removed</span> <span class="o">=</span> <span class="n">predictions</span><span class="p">[</span><span class="n">predictions</span><span class="p">[</span><span class="s1">&#39;Anomaly&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">pycaret.anomaly</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># Inisialisasi lingkungan, abaikan kolom non-fitur</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">anomaly</span> <span class="o">=</span> <span class="n">setup</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">dataset</span><span class="p">,</span> <span class="n">ignore_features</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;species&#39;</span><span class="p">],</span> <span class="n">silent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;pycaret&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="metode-2-angle-based-outlier-detection-abod">
+<h2><strong>4. Metode 2: Angle-Based Outlier Detection (ABOD)</strong><a class="headerlink" href="#metode-2-angle-based-outlier-detection-abod" title="Link to this heading">#</a></h2>
+<p>ABOD efektif untuk data multidimensi. Metode ini mengidentifikasi <em>outlier</em> dengan melihat varians sudut antara vektor perbedaan sebuah titik dengan titik-titik lainnya.</p>
+<ul class="simple">
+<li><p><strong>Implementasi (Kode Python di Power Query)</strong>:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pycaret.anomaly</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># Inisialisasi lingkungan</span>
+<span class="n">anomaly</span> <span class="o">=</span> <span class="n">setup</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">dataset</span><span class="p">,</span> <span class="n">ignore_features</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;species&#39;</span><span class="p">],</span> <span class="n">silent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Latih model ABOD dengan asumsi 1% data adalah outlier</span>
+<span class="n">abod</span> <span class="o">=</span> <span class="n">create_model</span><span class="p">(</span><span class="s1">&#39;abod&#39;</span><span class="p">,</span> <span class="n">fraction</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">assign_model</span><span class="p">(</span><span class="n">abod</span><span class="p">)</span> 
+
+<span class="c1">#Hapus outliers</span>
+<span class="n">outliers_removed</span> <span class="o">=</span> <span class="n">predictions</span><span class="p">[</span><span class="n">predictions</span><span class="p">[</span><span class="s1">&#39;Anomaly&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="hasil">
+<h2><strong>5. Hasil</strong><a class="headerlink" href="#hasil" title="Link to this heading">#</a></h2>
+<p>Setelah menjalankan skrip Python untuk masing-masing metode, Power Query akan menampilkan tabel hasil (<code class="docutils literal notranslate"><span class="pre">outliers_removed</span></code>) yang sudah bersih dari <em>outlier</em>. Tabel ini kemudian dapat dimuat ke dalam model data Power BI dengan mengklik <code class="docutils literal notranslate"><span class="pre">Close</span> <span class="pre">&amp;</span> <span class="pre">Apply</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Impor pustaka pandas</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># 2. Tentukan nama file CSV Anda</span>
+<span class="n">file_knn</span> <span class="o">=</span> <span class="s1">&#39;knn.csv&#39;</span>
+
+<span class="c1"># 3. Baca file CSV ke dalam DataFrame baru</span>
+<span class="n">df_knn</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_knn</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data Bersih Hasil KNN:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_knn</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data Bersih Hasil KNN:
+      id  petal_length  petal_width  sepal_length  sepal_width          species  Anomaly  Anomaly_Score
+0      1           1.4          0.2           5.1          3.5      Iris-setosa        0       0.141421
+1      2           1.4          0.2           4.9          3.0      Iris-setosa        0       0.173205
+2      3           1.3          0.2           4.7          3.2      Iris-setosa        0       0.264575
+3      4           1.5          0.2           4.6          3.1      Iris-setosa        0       0.264575
+4      5           1.4          0.2           5.0          3.6      Iris-setosa        0       0.244949
+5      6           1.7          0.4           5.4          3.9      Iris-setosa        0       0.387299
+6      7           1.4          0.3           4.6          3.4      Iris-setosa        0       0.316228
+7      8           1.5          0.2           5.0          3.4      Iris-setosa        0       0.223607
+8      9           1.4          0.2           4.4          2.9      Iris-setosa        0       0.360555
+9     10           1.5          0.1           4.9          3.1      Iris-setosa        0       0.173205
+10    11           1.5          0.2           5.4          3.7      Iris-setosa        0       0.331663
+11    12           1.6          0.2           4.8          3.4      Iris-setosa        0       0.300000
+12    13           1.4          0.1           4.8          3.0      Iris-setosa        0       0.200000
+13    14           1.1          0.1           4.3          3.0      Iris-setosa        0       0.500000
+14    15           1.2          0.2           5.8          4.0      Iris-setosa        0       0.583095
+15    16           1.5          0.4           5.7          4.4      Iris-setosa        0       0.640313
+16    17           1.3          0.4           5.4          3.9      Iris-setosa        0       0.400000
+17    18           1.4          0.3           5.1          3.5      Iris-setosa        0       0.173205
+18    19           1.7          0.3           5.7          3.8      Iris-setosa        0       0.519615
+19    20           1.5          0.3           5.1          3.8      Iris-setosa        0       0.316228
+20    21           1.7          0.2           5.4          3.4      Iris-setosa        0       0.360555
+21    22           1.5          0.4           5.1          3.7      Iris-setosa        0       0.282843
+22    23           1.0          0.2           4.6          3.6      Iris-setosa        0       0.565685
+23    24           1.7          0.5           5.1          3.3      Iris-setosa        0       0.387299
+24    25           1.9          0.2           4.8          3.4      Iris-setosa        0       0.447213
+25    26           1.6          0.2           5.0          3.0      Iris-setosa        0       0.223607
+26    27           1.6          0.4           5.0          3.4      Iris-setosa        0       0.264575
+27    28           1.5          0.2           5.2          3.5      Iris-setosa        0       0.223607
+28    29           1.4          0.2           5.2          3.4      Iris-setosa        0       0.223607
+29    30           1.6          0.2           4.7          3.2      Iris-setosa        0       0.264575
+30    31           1.6          0.2           4.8          3.1      Iris-setosa        0       0.223607
+31    32           1.5          0.4           5.4          3.4      Iris-setosa        0       0.346410
+32    33           1.5          0.1           5.2          4.1      Iris-setosa        0       0.458258
+33    34           1.4          0.2           5.5          4.2      Iris-setosa        0       0.479583
+34    35           1.5          0.1           4.9          3.1      Iris-setosa        0       0.173205
+35    36           1.2          0.2           5.0          3.2      Iris-setosa        0       0.346410
+36    37           1.3          0.2           5.5          3.5      Iris-setosa        0       0.360555
+37    38           1.5          0.1           4.9          3.1      Iris-setosa        0       0.173205
+38    39           1.3          0.2           4.4          3.0      Iris-setosa        0       0.300000
+39    40           1.5          0.2           5.1          3.4      Iris-setosa        0       0.173205
+40    41           1.3          0.3           5.0          3.5      Iris-setosa        0       0.244949
+41    43           1.3          0.2           4.4          3.2      Iris-setosa        0       0.316228
+42    44           1.6          0.6           5.0          3.5      Iris-setosa        0       0.424264
+43    45           1.9          0.4           5.1          3.8      Iris-setosa        0       0.479583
+44    46           1.4          0.3           4.8          3.0      Iris-setosa        0       0.264575
+45    47           1.6          0.2           5.1          3.8      Iris-setosa        0       0.331662
+46    48           1.4          0.2           4.6          3.2      Iris-setosa        0       0.223607
+47    49           1.5          0.2           5.3          3.7      Iris-setosa        0       0.282843
+48    50           1.4          0.2           5.0          3.3      Iris-setosa        0       0.223607
+49    51           4.7          1.4           7.0          3.2  Iris-versicolor        0       0.519615
+50    52           4.5          1.5           6.4          3.2  Iris-versicolor        0       0.387298
+51    53           4.9          1.5           6.9          3.1  Iris-versicolor        0       0.509902
+52    54           4.0          1.3           5.5          2.3  Iris-versicolor        0       0.435890
+53    55           4.6          1.5           6.5          2.8  Iris-versicolor        0       0.387298
+54    56           4.5          1.3           5.7          2.8  Iris-versicolor        0       0.374166
+55    57           4.7          1.6           6.3          3.3  Iris-versicolor        0       0.458258
+56    59           4.6          1.3           6.6          2.9  Iris-versicolor        0       0.316228
+57    60           3.9          1.4           5.2          2.7  Iris-versicolor        0       0.538517
+58    61           3.5          1.0           5.0          2.0  Iris-versicolor        0       0.721110
+59    62           4.2          1.5           5.9          3.0  Iris-versicolor        0       0.374166
+60    63           4.0          1.0           6.0          2.2  Iris-versicolor        0       0.583095
+61    64           4.7          1.4           6.1          2.9  Iris-versicolor        0       0.435890
+62    65           3.6          1.3           5.6          2.9  Iris-versicolor        0       0.538517
+63    66           4.4          1.4           6.7          3.1  Iris-versicolor        0       0.387298
+64    67           4.5          1.5           5.6          3.0  Iris-versicolor        0       0.424264
+65    68           4.1          1.0           5.8          2.7  Iris-versicolor        0       0.374166
+66    69           4.5          1.5           6.2          2.2  Iris-versicolor        0       0.707107
+67    70           3.9          1.1           5.6          2.5  Iris-versicolor        0       0.300000
+68    71           4.8          1.8           5.9          3.2  Iris-versicolor        0       0.469042
+69    72           4.0          1.3           6.1          2.8  Iris-versicolor        0       0.412311
+70    73           4.9          1.5           6.3          2.5  Iris-versicolor        0       0.435890
+71    74           4.7          1.2           6.1          2.8  Iris-versicolor        0       0.458258
+72    75           4.3          1.3           6.4          2.9  Iris-versicolor        0       0.387298
+73    76           4.4          1.4           6.6          3.0  Iris-versicolor        0       0.316228
+74    77           4.8          1.4           6.8          2.8  Iris-versicolor        0       0.424264
+75    78           5.0          1.7           6.7          3.0  Iris-versicolor        0       0.424264
+76    79           4.5          1.5           6.0          2.9  Iris-versicolor        0       0.374166
+77    80           3.5          1.0           5.7          2.6  Iris-versicolor        0       0.469042
+78    81           3.8          1.1           5.5          2.4  Iris-versicolor        0       0.424264
+79    82           3.7          1.0           5.5          2.4  Iris-versicolor        0       0.435890
+80    83           3.9          1.2           5.8          2.7  Iris-versicolor        0       0.346410
+81    84           5.1          1.6           6.0          2.7  Iris-versicolor        0       0.412311
+82    85           4.5          1.5           5.4          3.0  Iris-versicolor        0       0.509902
+83    86           4.5          1.6           6.0          3.4  Iris-versicolor        0       0.509902
+84    87           4.7          1.5           6.7          3.1  Iris-versicolor        0       0.346410
+85    88           4.4          1.3           6.3          2.3  Iris-versicolor        0       0.616442
+86    89           4.1          1.3           5.6          3.0  Iris-versicolor        0       0.374166
+87    90           4.0          1.3           5.5          2.5  Iris-versicolor        0       0.331663
+88    91           4.4          1.2           5.5          2.6  Iris-versicolor        0       0.424264
+89    92           4.6          1.4           6.1          3.0  Iris-versicolor        0       0.387298
+90    93           4.0          1.2           5.8          2.6  Iris-versicolor        0       0.316228
+91    94           3.3          1.0           5.0          2.3  Iris-versicolor        0       0.721110
+92    95           4.2          1.3           5.6          2.7  Iris-versicolor        0       0.316228
+93    96           4.2          1.2           5.7          3.0  Iris-versicolor        0       0.360555
+94    97           4.2          1.3           5.7          2.9  Iris-versicolor        0       0.300000
+95    98           4.3          1.3           6.2          2.9  Iris-versicolor        0       0.387298
+96   100           4.1          1.3           5.7          2.8  Iris-versicolor        0       0.264575
+97   101           6.0          2.5           6.3          3.3   Iris-virginica        0       0.608276
+98   102           5.1          1.9           5.8          2.7   Iris-virginica        0       0.360555
+99   103           5.9          2.1           7.1          3.0   Iris-virginica        0       0.500000
+100  104           5.6          1.8           6.3          2.9   Iris-virginica        0       0.424264
+101  105           5.8          2.2           6.5          3.0   Iris-virginica        0       0.387298
+102  106           6.6          2.1           7.6          3.0   Iris-virginica        0       0.608276
+103  108           6.3          1.8           7.3          2.9   Iris-virginica        0       0.556776
+104  109           5.8          1.8           6.7          2.5   Iris-virginica        0       0.624500
+105  111           5.1          2.0           6.5          3.2   Iris-virginica        0       0.469042
+106  112           5.3          1.9           6.4          2.7   Iris-virginica        0       0.387298
+107  113           5.5          2.1           6.8          3.0   Iris-virginica        0       0.374166
+108  114           5.0          2.0           5.7          2.5   Iris-virginica        0       0.547723
+109  115           5.1          2.4           5.8          2.8   Iris-virginica        0       0.640313
+110  116           5.3          2.3           6.4          3.2   Iris-virginica        0       0.387298
+111  117           5.5          1.8           6.5          3.0   Iris-virginica        0       0.387298
+112  120           5.0          1.5           6.0          2.2   Iris-virginica        0       0.655744
+113  121           5.7          2.3           6.9          3.2   Iris-virginica        0       0.360555
+114  122           4.9          2.0           5.6          2.8   Iris-virginica        0       0.489898
+115  123           6.7          2.0           7.7          2.8   Iris-virginica        0       0.700000
+116  124           4.9          1.8           6.3          2.7   Iris-virginica        0       0.374166
+117  125           5.7          2.1           6.7          3.3   Iris-virginica        0       0.387298
+118  126           6.0          1.8           7.2          3.2   Iris-virginica        0       0.648074
+119  127           4.8          1.8           6.2          2.8   Iris-virginica        0       0.424264
+120  128           4.9          1.8           6.1          3.0   Iris-virginica        0       0.360555
+121  129           5.6          2.1           6.4          2.8   Iris-virginica        0       0.387298
+122  130           5.8          1.6           7.2          3.0   Iris-virginica        0       0.707107
+123  131           6.1          1.9           7.4          2.8   Iris-virginica        0       0.538516
+124  133           5.6          2.2           6.4          2.8   Iris-virginica        0       0.469041
+125  134           5.1          1.5           6.3          2.8   Iris-virginica        0       0.458258
+126  135           5.6          1.4           6.1          2.6   Iris-virginica        0       0.700000
+127  136           6.1          2.3           7.7          3.0   Iris-virginica        0       0.700000
+128  137           5.6          2.4           6.3          3.4   Iris-virginica        0       0.500000
+129  138           5.5          1.8           6.4          3.1   Iris-virginica        0       0.458257
+130  139           4.8          1.8           6.0          3.0   Iris-virginica        0       0.435890
+131  140           5.4          2.1           6.9          3.1   Iris-virginica        0       0.412311
+132  141           5.6          2.4           6.7          3.1   Iris-virginica        0       0.360555
+133  142           5.1          2.3           6.9          3.1   Iris-virginica        0       0.519615
+134  143           5.1          1.9           5.8          2.7   Iris-virginica        0       0.360555
+135  144           5.9          2.3           6.8          3.2   Iris-virginica        0       0.387298
+136  145           5.7          2.5           6.7          3.3   Iris-virginica        0       0.435890
+137  146           5.2          2.3           6.7          3.0   Iris-virginica        0       0.374166
+138  147           5.0          1.9           6.3          2.5   Iris-virginica        0       0.479583
+139  148           5.2          2.0           6.5          3.0   Iris-virginica        0       0.387298
+140  149           5.4          2.3           6.2          3.4   Iris-virginica        0       0.624500
+141  150           5.1          1.8           5.9          3.0   Iris-virginica        0       0.360555
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Impor pustaka pandas</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># 2. Tentukan nama file CSV Anda</span>
+<span class="n">file_abod</span> <span class="o">=</span> <span class="s1">&#39;abod.csv&#39;</span>
+
+<span class="c1"># 3. Baca file CSV ke dalam DataFrame baru</span>
+<span class="n">df_knn</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_abod</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data Bersih Hasil ABOD:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_knn</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data Bersih Hasil ABOD:
+      id  petal_length  petal_width  sepal_length  sepal_width          species  Anomaly          Anomaly_Score
+0      1           1.4          0.2           5.1          3.5      Iris-setosa        0    &#39;-556.2514212711023
+1      2           1.4          0.2           4.9          3.0      Iris-setosa        0    &#39;-400.0009279294773
+2      3           1.3          0.2           4.7          3.2      Iris-setosa        0    &#39;-93.42199195851083
+3      4           1.5          0.2           4.6          3.1      Iris-setosa        0    &#39;-99.22922079684693
+4      5           1.4          0.2           5.0          3.6      Iris-setosa        0    &#39;-82.17620090369948
+5      6           1.7          0.4           5.4          3.9      Iris-setosa        0   &#39;-15.175275265123414
+6      7           1.4          0.3           4.6          3.4      Iris-setosa        0   &#39;-29.098910332137837
+7      8           1.5          0.2           5.0          3.4      Iris-setosa        0   &#39;-248.58398362477186
+8      9           1.4          0.2           4.4          2.9      Iris-setosa        0    &#39;-42.38045170508801
+9     10           1.5          0.1           4.9          3.1      Iris-setosa        0   &#39;-109.73970439925178
+10    11           1.5          0.2           5.4          3.7      Iris-setosa        0   &#39;-184.45004474281592
+11    12           1.6          0.2           4.8          3.4      Iris-setosa        0   &#39;-49.662777110140105
+12    13           1.4          0.1           4.8          3.0      Iris-setosa        0   &#39;-172.91701306052667
+13    14           1.1          0.1           4.3          3.0      Iris-setosa        0    &#39;-6.211703437518446
+14    15           1.2          0.2           5.8          4.0      Iris-setosa        0   &#39;-0.9712668139134977
+15    16           1.5          0.4           5.7          4.4      Iris-setosa        0   &#39;-0.5923105999302594
+16    17           1.3          0.4           5.4          3.9      Iris-setosa        0    &#39;-7.147108756344508
+17    18           1.4          0.3           5.1          3.5      Iris-setosa        0    &#39;-501.2351113993348
+18    19           1.7          0.3           5.7          3.8      Iris-setosa        0   &#39;-1.7878293685768785
+19    20           1.5          0.3           5.1          3.8      Iris-setosa        0    &#39;-109.4246791638606
+20    21           1.7          0.2           5.4          3.4      Iris-setosa        0     &#39;-4.05261271853729
+21    22           1.5          0.4           5.1          3.7      Iris-setosa        0    &#39;-73.42216920767603
+22    23           1.0          0.2           4.6          3.6      Iris-setosa        0   &#39;-0.7717451378162977
+23    24           1.7          0.5           5.1          3.3      Iris-setosa        0   &#39;-18.317537227598315
+24    25           1.9          0.2           4.8          3.4      Iris-setosa        0    &#39;-2.257558157151056
+25    26           1.6          0.2           5.0          3.0      Iris-setosa        0   &#39;-29.610081092825055
+26    27           1.6          0.4           5.0          3.4      Iris-setosa        0   &#39;-138.11898817446973
+27    28           1.5          0.2           5.2          3.5      Iris-setosa        0    &#39;-49.69456239020815
+28    29           1.4          0.2           5.2          3.4      Iris-setosa        0   &#39;-49.694560712898905
+29    30           1.6          0.2           4.7          3.2      Iris-setosa        0   &#39;-147.45163449423367
+30    31           1.6          0.2           4.8          3.1      Iris-setosa        0    &#39;-523.9997272548428
+31    32           1.5          0.4           5.4          3.4      Iris-setosa        0   &#39;-11.222208552612058
+32    33           1.5          0.1           5.2          4.1      Iris-setosa        0   &#39;-12.646258238212056
+33    34           1.4          0.2           5.5          4.2      Iris-setosa        0    &#39;-8.122338078012687
+34    35           1.5          0.1           4.9          3.1      Iris-setosa        0   &#39;-109.73970439925178
+35    36           1.2          0.2           5.0          3.2      Iris-setosa        0    &#39;-22.26050664712477
+36    37           1.3          0.2           5.5          3.5      Iris-setosa        0   &#39;-3.6381889868570645
+37    38           1.5          0.1           4.9          3.1      Iris-setosa        0   &#39;-109.73970439925178
+38    39           1.3          0.2           4.4          3.0      Iris-setosa        0   &#39;-128.15225585057823
+39    40           1.5          0.2           5.1          3.4      Iris-setosa        0    &#39;-836.8074546953692
+40    41           1.3          0.3           5.0          3.5      Iris-setosa        0    &#39;-69.75312643306549
+41    42           1.3          0.3           4.5          2.3      Iris-setosa        0  &#39;-0.08899827571256991
+42    43           1.3          0.2           4.4          3.2      Iris-setosa        0   &#39;-44.802545668932936
+43    44           1.6          0.6           5.0          3.5      Iris-setosa        0   &#39;-15.430668322514146
+44    45           1.9          0.4           5.1          3.8      Iris-setosa        0    &#39;-3.287214822585664
+45    46           1.4          0.3           4.8          3.0      Iris-setosa        0    &#39;-29.20925450716651
+46    47           1.6          0.2           5.1          3.8      Iris-setosa        0    &#39;-33.51162077281016
+47    48           1.4          0.2           4.6          3.2      Iris-setosa        0   &#39;-147.68986492732432
+48    49           1.5          0.2           5.3          3.7      Iris-setosa        0     &#39;-317.322238089429
+49    50           1.4          0.2           5.0          3.3      Iris-setosa        0     &#39;-371.839946670176
+50    51           4.7          1.4           7.0          3.2  Iris-versicolor        0    &#39;-4.656539540767322
+51    52           4.5          1.5           6.4          3.2  Iris-versicolor        0    &#39;-30.17076640633287
+52    53           4.9          1.5           6.9          3.1  Iris-versicolor        0   &#39;-17.993486413236578
+53    54           4.0          1.3           5.5          2.3  Iris-versicolor        0   &#39;-7.0256105015520065
+54    55           4.6          1.5           6.5          2.8  Iris-versicolor        0   &#39;-12.224968358382528
+55    56           4.5          1.3           5.7          2.8  Iris-versicolor        0   &#39;-14.053023048013461
+56    57           4.7          1.6           6.3          3.3  Iris-versicolor        0    &#39;-7.997658950218522
+57    58           3.3          1.0           4.9          2.4  Iris-versicolor        0   &#39;-14.745548316208556
+58    59           4.6          1.3           6.6          2.9  Iris-versicolor        0    &#39;-22.24558930509588
+59    60           3.9          1.4           5.2          2.7  Iris-versicolor        0   &#39;-0.8856010068450964
+60    61           3.5          1.0           5.0          2.0  Iris-versicolor        0   &#39;-2.7972749484980506
+61    62           4.2          1.5           5.9          3.0  Iris-versicolor        0   &#39;-22.288315178638808
+62    63           4.0          1.0           6.0          2.2  Iris-versicolor        0  &#39;-0.28939133687898055
+63    64           4.7          1.4           6.1          2.9  Iris-versicolor        0    &#39;-67.62198035573293
+64    65           3.6          1.3           5.6          2.9  Iris-versicolor        0   &#39;-2.7065296139986947
+65    66           4.4          1.4           6.7          3.1  Iris-versicolor        0    &#39;-34.91382417943451
+66    67           4.5          1.5           5.6          3.0  Iris-versicolor        0    &#39;-32.85673818516192
+67    68           4.1          1.0           5.8          2.7  Iris-versicolor        0    &#39;-8.098384133145268
+68    69           4.5          1.5           6.2          2.2  Iris-versicolor        0   &#39;-3.0875008747706376
+69    70           3.9          1.1           5.6          2.5  Iris-versicolor        0   &#39;-125.61077182444214
+70    71           4.8          1.8           5.9          3.2  Iris-versicolor        0    &#39;-28.89301090072617
+71    72           4.0          1.3           6.1          2.8  Iris-versicolor        0   &#39;-14.533814845607173
+72    73           4.9          1.5           6.3          2.5  Iris-versicolor        0    &#39;-6.573269897925654
+73    74           4.7          1.2           6.1          2.8  Iris-versicolor        0   &#39;-13.299496939366875
+74    75           4.3          1.3           6.4          2.9  Iris-versicolor        0    &#39;-61.70968130171629
+75    76           4.4          1.4           6.6          3.0  Iris-versicolor        0    &#39;-70.16819311935481
+76    77           4.8          1.4           6.8          2.8  Iris-versicolor        0    &#39;-9.950308105173209
+77    78           5.0          1.7           6.7          3.0  Iris-versicolor        0   &#39;-23.960981596048143
+78    79           4.5          1.5           6.0          2.9  Iris-versicolor        0    &#39;-48.02560432213293
+79    80           3.5          1.0           5.7          2.6  Iris-versicolor        0   &#39;-4.7549986582160555
+80    81           3.8          1.1           5.5          2.4  Iris-versicolor        0    &#39;-153.6505543577817
+81    82           3.7          1.0           5.5          2.4  Iris-versicolor        0    &#39;-82.51243533062609
+82    83           3.9          1.2           5.8          2.7  Iris-versicolor        0   &#39;-34.407606354097766
+83    84           5.1          1.6           6.0          2.7  Iris-versicolor        0   &#39;-18.834044981013818
+84    85           4.5          1.5           5.4          3.0  Iris-versicolor        0    &#39;-3.127325942919117
+85    86           4.5          1.6           6.0          3.4  Iris-versicolor        0   &#39;-1.9366028312208534
+86    87           4.7          1.5           6.7          3.1  Iris-versicolor        0    &#39;-34.91419840884436
+87    88           4.4          1.3           6.3          2.3  Iris-versicolor        0    &#39;-4.201485492345929
+88    89           4.1          1.3           5.6          3.0  Iris-versicolor        0    &#39;-46.55952045133655
+89    90           4.0          1.3           5.5          2.5  Iris-versicolor        0    &#39;-43.77560765719777
+90    91           4.4          1.2           5.5          2.6  Iris-versicolor        0    &#39;-9.626586162820479
+91    92           4.6          1.4           6.1          3.0  Iris-versicolor        0    &#39;-52.16271769743109
+92    93           4.0          1.2           5.8          2.6  Iris-versicolor        0   &#39;-18.646373121997446
+93    94           3.3          1.0           5.0          2.3  Iris-versicolor        0   &#39;-18.492962891587396
+94    95           4.2          1.3           5.6          2.7  Iris-versicolor        0    &#39;-135.7970023089982
+95    96           4.2          1.2           5.7          3.0  Iris-versicolor        0   &#39;-53.160453046228824
+96    97           4.2          1.3           5.7          2.9  Iris-versicolor        0   &#39;-175.18873308447422
+97    98           4.3          1.3           6.2          2.9  Iris-versicolor        0    &#39;-29.97780224062525
+98    99           3.0          1.1           5.1          2.5  Iris-versicolor        0   &#39;-2.8899118698161055
+99   100           4.1          1.3           5.7          2.8  Iris-versicolor        0   &#39;-195.24335303073835
+100  101           6.0          2.5           6.3          3.3   Iris-virginica        0  &#39;-0.36447516039116434
+101  102           5.1          1.9           5.8          2.7   Iris-virginica        0   &#39;-27.901057305276392
+102  103           5.9          2.1           7.1          3.0   Iris-virginica        0   &#39;-11.911807584953687
+103  104           5.6          1.8           6.3          2.9   Iris-virginica        0   &#39;-18.710014445681118
+104  105           5.8          2.2           6.5          3.0   Iris-virginica        0   &#39;-27.156297938652006
+105  106           6.6          2.1           7.6          3.0   Iris-virginica        0    &#39;-4.738620791786759
+106  108           6.3          1.8           7.3          2.9   Iris-virginica        0    &#39;-4.748132948099586
+107  110           6.1          2.5           7.2          3.6   Iris-virginica        0   &#39;-0.6123830530033352
+108  111           5.1          2.0           6.5          3.2   Iris-virginica        0    &#39;-9.559401222145471
+109  112           5.3          1.9           6.4          2.7   Iris-virginica        0    &#39;-18.27417813768665
+110  113           5.5          2.1           6.8          3.0   Iris-virginica        0    &#39;-9.339990327060665
+111  114           5.0          2.0           5.7          2.5   Iris-virginica        0   &#39;-15.766256768536987
+112  115           5.1          2.4           5.8          2.8   Iris-virginica        0   &#39;-0.3850820905300566
+113  116           5.3          2.3           6.4          3.2   Iris-virginica        0    &#39;-26.42657014011754
+114  117           5.5          1.8           6.5          3.0   Iris-virginica        0    &#39;-19.78015110974036
+115  118           6.7          2.2           7.7          3.8   Iris-virginica        0   &#39;-0.1292857555570738
+116  119           6.9          2.3           7.7          2.6   Iris-virginica        0   &#39;-0.6929923357323674
+117  120           5.0          1.5           6.0          2.2   Iris-virginica        0   &#39;-1.4540447199656392
+118  121           5.7          2.3           6.9          3.2   Iris-virginica        0   &#39;-13.279454581092201
+119  122           4.9          2.0           5.6          2.8   Iris-virginica        0    &#39;-9.716906522605115
+120  123           6.7          2.0           7.7          2.8   Iris-virginica        0    &#39;-5.161528615859317
+121  124           4.9          1.8           6.3          2.7   Iris-virginica        0   &#39;-54.018609963550055
+122  125           5.7          2.1           6.7          3.3   Iris-virginica        0    &#39;-4.853317138700151
+123  126           6.0          1.8           7.2          3.2   Iris-virginica        0   &#39;-3.0686329845606197
+124  127           4.8          1.8           6.2          2.8   Iris-virginica        0     &#39;-83.5387733805482
+125  128           4.9          1.8           6.1          3.0   Iris-virginica        0    &#39;-68.65192647215358
+126  129           5.6          2.1           6.4          2.8   Iris-virginica        0    &#39;-133.1352301822002
+127  130           5.8          1.6           7.2          3.0   Iris-virginica        0   &#39;-1.8950110407707452
+128  131           6.1          1.9           7.4          2.8   Iris-virginica        0   &#39;-3.8723485728036797
+129  132           6.4          2.0           7.9          3.8   Iris-virginica        0  &#39;-0.13741722669040182
+130  133           5.6          2.2           6.4          2.8   Iris-virginica        0    &#39;-80.68388682461114
+131  134           5.1          1.5           6.3          2.8   Iris-virginica        0    &#39;-2.506675272117833
+132  135           5.6          1.4           6.1          2.6   Iris-virginica        0   &#39;-0.3099690648624822
+133  136           6.1          2.3           7.7          3.0   Iris-virginica        0   &#39;-0.7819388586709204
+134  137           5.6          2.4           6.3          3.4   Iris-virginica        0   &#39;-20.016370847182756
+135  138           5.5          1.8           6.4          3.1   Iris-virginica        0   &#39;-10.907454759474097
+136  139           4.8          1.8           6.0          3.0   Iris-virginica        0    &#39;-60.96589387106095
+137  140           5.4          2.1           6.9          3.1   Iris-virginica        0   &#39;-20.618554984088874
+138  141           5.6          2.4           6.7          3.1   Iris-virginica        0   &#39;-20.336170314782777
+139  142           5.1          2.3           6.9          3.1   Iris-virginica        0   &#39;-2.3884351533714976
+140  143           5.1          1.9           5.8          2.7   Iris-virginica        0   &#39;-27.901057305276392
+141  144           5.9          2.3           6.8          3.2   Iris-virginica        0     &#39;-7.82218492516845
+142  145           5.7          2.5           6.7          3.3   Iris-virginica        0   &#39;-14.765496244833262
+143  146           5.2          2.3           6.7          3.0   Iris-virginica        0   &#39;-13.831460922073523
+144  147           5.0          1.9           6.3          2.5   Iris-virginica        0     &#39;-9.11020082229002
+145  148           5.2          2.0           6.5          3.0   Iris-virginica        0   &#39;-20.571706520351565
+146  149           5.4          2.3           6.2          3.4   Iris-virginica        0    &#39;-6.345400130044643
+147  150           5.1          1.8           5.9          3.0   Iris-virginica        0   &#39;-28.205615262813847
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="data-understanding.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><strong>Data Understanding</strong></p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Imbalanced.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><strong>Imbalance Data</strong></p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konfigurasi-lingkungan-di-power-bi"><strong>1. Konfigurasi Lingkungan di Power BI</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-di-power-query"><strong>2. Implementasi di Power Query</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-memuat-data"><strong>A. Memuat Data</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-menjalankan-skrip-python"><strong>B. Menjalankan Skrip Python</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metode-1-k-nearest-neighbors-knn-untuk-deteksi-outlier"><strong>3. Metode 1: K-Nearest Neighbors (KNN) untuk Deteksi Outlier</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metode-2-angle-based-outlier-detection-abod"><strong>4. Metode 2: Angle-Based Outlier Detection (ABOD)</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil"><strong>5. Hasil</strong></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Abdulloh Sahl - 2025
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
